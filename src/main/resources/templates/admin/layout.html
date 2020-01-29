@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Webtap </title>
+    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/admin/css/styles.min.css" rel="stylesheet">
+    <style>
+        .dirty {
+            border-color: #5A5;
+            background: #EFE !important;
+        }
+        .dirty:focus {
+            outline-color: #8E8;
+        }
+        .error {
+            border-color: red;
+            background: #FDD !important;
+        }
+        .error:focus {
+            outline-color: #F99;
+        }
+        .val-error {
+            color: red;
+            padding-top: 5px;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="bf">
+    <ul class="bf-taskbar d-flex flex-lg-column">
+        <li class="taskbar-item">
+            <a class="taskbar-item-link" href="/admin/app/edit" title="添加应用">
+                <i class="taskbar-item-icon fas fa-plus"></i>
+            </a>
+        </li>
+        <li class="taskbar-item">
+            <a href="/admin/app/list" class="taskbar-item-link" title="应用列表">
+                <i class="taskbar-item-icon fas fa-align-left"></i>
+            </a>
+        </li>
+        <li class="taskbar-item active">
+            <a href="/admin/setting/group" class="taskbar-item-link" title="设置">
+                <i class="taskbar-item-icon fas fa-cog"></i>
+            </a>
+        </li>
+
+
+        <li class="taskbar-item ml-auto ml-lg-0 mt-lg-auto">
+            <a class="taskbar-item-link" href="/utry" return false; title="访问首页" target="_blank"><i class="taskbar-item-icon fas fa-globe"></i></a>
+        </li>
+        <li class="taskbar-item">
+            <a class="taskbar-item-link" href="/utry"  title="退出"><i class="taskbar-item-icon fas fa-sign-out-alt"></i></a>
+        </li>
+    </ul>
+
+    <!-- Modal Notifications -->
+    <div class="modal fade" id="notifications" tabindex="-1" role="dialog" aria-labelledby="notificationsLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="settingsLabel">通知</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary" role="alert">
+                        The new Blogifier <a href='https://github.com/blogifierdotnet/Blogifier/releases/tag/v2.5' class='alert-link' target='_blank'>Version 2.5</a> is available for download
+                        <button type="button" class="close" onclick="notificationsController.remove('2')" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        Upgrade to <a href="upgrade">version 2.5</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div layout:fragment="content"></div>
+
+</div>
+
+<script src="/js/vue.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/validators.min.js"></script>
+<script src="/js/vuelidate.min.js"></script>
+
+
+<script src="/admin/js/lib/jquery.min.js"></script>
+<script src="/admin/js/lib/toastr.min.js"></script>
+<script src="/admin/js/lib/popper.min.js"></script>
+<script src="/admin/js/lib/bootstrap.min.js"></script>
+<script src="/admin/js/app/app.js"></script>
+<script src="/admin/js/app/dataService.js"></script>
+<script src="/admin/js/app/notificationsController.js"></script>
+<script>
+    var webRoot = '/';
+    function isAdmin(){
+        return 'True' === 'True' ? true : false;
+    }
+    function getUrl(str) {
+        return webRoot + str;
+    }
+</script>
+
+
+<th:block layout:fragment = "bodyAssets">
+</th:block>
+</body>
+</html>

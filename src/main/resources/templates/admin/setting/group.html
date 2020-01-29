@@ -1,0 +1,109 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="admin/layout">
+
+
+    <div layout:fragment="content" >
+        <!-- content-->
+
+
+        <div class="bf-main">
+            <div class="bf-sidebar d-lg-block">
+                <div class="bf-settings-sidebar">
+                    <ul class="bf-settings-sidebar-nav">
+                        <li>
+                            <a href="/admin/settings">常规</a>
+                        </li>
+                        <li>
+                            <a href="/admin/settings/profile">个人资料</a>
+                        </li>
+                        <li>
+                            <a href="/admin/settings/users">用户</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="app"   class="bf-body">
+                <form>
+                    <div class="bf-content bf-content-boxed bf-settings">
+
+                        <div class="form-group">
+                            <label class="form-group-label">组织名称</label>
+                            <input v-model="group.groupName" :class="['form-control']" type="text" />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>
+                                自定义url
+                            </label>
+                            <div class="input-group m-input-group m-input-group--square">
+                                <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-user"> http://webtap.cn/ </i>
+                            </span>
+                                </div>
+                                <input type="text" v-model="group.shortUrl" class="form-control m-input" placeholder="">
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="form-group-label">首页Logo</label>
+                            <div class="input-group">
+                                <input v-model="group.groupLogo" type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
+                                <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
+                        </span>
+                            </div>
+                        </div>
+
+                        <button type="button"  v-on:click="save()"  class="btn btn-primary btn-main">保存</button>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- fragment begin-->
+        <div th:replace="admin/fragment/files :: filesFragment"></div>
+        <!-- fragment end-->
+    </div>
+
+
+
+</div>
+
+
+<th:block layout:fragment = "bodyAssets">
+    <!--尾部-->
+    <script src="/admin/js/app/fileManagerController.js"></script>
+    <script>
+        Vue.use(window.vuelidate.default)
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                group: {}
+            },
+            methods: {
+                load: function () {
+                    axios.get(webRoot + 'api/group/1')
+                        .then(response => {
+                        this.group = response.data;
+                    $('#app').css('display', '');
+                }).catch(function (error) { toastr.error(error); });
+                },
+                save: function () {
+
+                    console.log(this.group);
+                }
+            },
+            beforeMount() {
+                this.load()
+            }
+        })
+    </script>
+</th:block>

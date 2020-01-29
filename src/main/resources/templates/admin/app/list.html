@@ -1,0 +1,246 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="admin/layout">
+<head>
+    <link href="/vendor/vendors.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/vendor/style.bundle.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .kt-user-card-v2__pic img{
+            border-radius:50%;
+            max-width: 30px;
+            max-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="bf">
+    <div layout:fragment="content" >
+        <div id="app"   class="bf-body">
+            <form>
+                <div class="m-portlet m-portlet--mobile">
+
+                    <div class="m-portlet__body">
+                        <!--begin: Search Form -->
+                        <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+                            <div class="row align-items-center">
+                                <div class="col-xl-8 order-2 order-xl-1">
+                                    <div class="form-group m-form__group row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="m-input-icon m-input-icon--left">
+                                                <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
+                                                <span class="m-input-icon__icon m-input-icon__icon--left">
+															<span>
+																<i class="la la-search"></i>
+															</span>
+														</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                    <button type="button" class="btn btn-primary" onclick="openAddModel()">
+                                        新增
+                                    </button>
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: Search Form -->
+                        <!--begin: Datatable -->
+                        <table class="m-datatable" id="html_table" width="100%">
+                            <thead>
+                            <tr>
+                                <th title="Field #1">
+                                    logo
+                                </th>
+                                <th title="Field #2">
+                                    名称
+                                </th>
+                                <th title="Field #3">
+                                    地址
+                                </th>
+                                <th title="Field #4">
+                                    描述
+                                </th>
+                                <th title="Field #5">
+                                    创建时间
+                                </th>
+                                <th title="Field #6">
+                                    排序
+                                </th>
+                                <th title="Field #7">
+                                    操作
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr  v-for="app in appList" :key="app.id" >
+                                <td>
+
+												<span style="width: 110px;"><div class="kt-user-card-v2">
+														<div class="kt-user-card-v2__pic">
+																<img alt="photo" :src="app.logoUrl">
+																</div>
+												</div></span>
+                                </td>
+                                <td>
+                                    {{app.title}}
+                                </td>
+                                <td>
+                                    {{app.url}}
+                                </td>
+                                <td>
+                                    {{app.description}}
+                                </td>
+                                <td>
+                                    {{app.createTime}}
+                                </td>
+                                <td>
+                                    {{app.sortNum}}
+                                </td>
+                                <td>
+                                    编辑 删除
+                                </td>
+
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </form>
+
+            <!--begin::Modal-->
+            <div class="modal fade" id="m_add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                新增网址
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">
+												&times;
+											</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <div class="form-group">
+                                    <label class="form-group-label">App Logo</label>
+                                    <div class="input-group">
+                                        <input   type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
+                                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
+                           </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">
+                                        名称:
+                                    </label>
+                                    <input type="text" class="form-control" id="recipient-name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">
+                                        地址:
+                                    </label>
+                                    <input type="text" class="form-control" id="recipient-name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">
+                                        描述:
+                                    </label>
+                                    <textarea class="form-control" id="message-text"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">
+                                        排序:
+                                    </label>
+                                    <input type="text" class="form-control" id="recipient-name">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                取消
+                            </button>
+                            <button type="button" class="btn btn-primary" v-on:click="save()">
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Modal-->
+        </div>
+    </div>
+
+</div>
+
+<th:block layout:fragment = "bodyAssets">
+<script>
+    Vue.use(window.vuelidate.default)
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            appList: {},
+            apps:{
+                id:1,
+                categoryId:4,
+                groupId:5,
+                logoUrl:"test",
+                url:"",
+                title:"",
+                description:"",
+                createTime:0,
+                lastModifyTime:0,
+                isDelete:0,
+                secContent:"",
+                sortNum:0
+            }
+        },
+        methods: {
+            load: function () {
+                axios.get(webRoot + 'api/apps/utry')
+                    .then(response => {
+                    this.appList = response.data;
+                $('#app').css('display', '');
+            }).catch(function (error) { toastr.error(error); });
+            },
+            save: function () {
+
+                console.log(this.apps)
+                axios.post(webRoot + 'api/apps/save', this.apps)
+                    .then(function (response) {
+                        toastr.success('新增成功');
+                    })
+                    .catch(function (error) {
+                        toastr.error(error);
+                    });
+            }
+        },
+        beforeMount() {
+            this.load()
+        }
+    })
+</script>
+
+<script src="/vendor/vendors.bundle.js" type="text/javascript"></script>
+<script src="/vendor/scripts.bundle.js" type="text/javascript"></script>
+<script src="/vendor/datatables/base/html-table.js" type="text/javascript"></script>
+</th:block>
+</body>
+</html>

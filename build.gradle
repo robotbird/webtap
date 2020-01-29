@@ -1,0 +1,69 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        //mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+jar {
+    baseName = 'webtap'
+    version =  '0.0.1'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+   // mavenCentral()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.8.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE")
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile("org.springframework.boot:spring-boot-devtools:1.5.8.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-mail:1.5.8.RELEASE")
+    compile 'org.webjars.bower:bootstrap:3.3.6'
+    compile("org.webjars:vue:1.0.24")
+    compile 'org.webjars.bower:vue-resource:0.7.0'
+    compile group: 'org.webjars', name: 'webjars-locator', version: '0.14'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
+    compile 'org.springframework.boot:spring-boot-starter-tomcat'
+    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
+}
+
+bootRun {
+    addResources = true
+}
+
+springBoot {
+  mainClass = "com.webtap.WebtapApplication"
+}
+
+
+
+allprojects {
+
+    gradle.projectsEvaluated {
+
+        tasks.withType(JavaCompile) {
+
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+
+        }
+
+    }
+
+}
