@@ -66,5 +66,54 @@
 
 
 <th:block layout:fragment = "bodyAssets">
-<script src="/admin/js/app/fileManagerController.js"></script>
+
+    <script>
+        Vue.use(window.vuelidate.default)
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                apps:{
+                    id:1,
+                    categoryId:4,
+                    groupId:5,
+                    logoUrl:"test",
+                    url:"",
+                    title:"",
+                    description:"",
+                    createTime:0,
+                    lastModifyTime:0,
+                    isDelete:0,
+                    secContent:"",
+                    sortNum:0
+                }
+            },
+            methods: {
+                load: function () {
+                    axios.get(webRoot + 'api/apps/utry')
+                        .then(response => {
+                        this.appList = response.data;
+                    $('#app').css('display', '');
+                }).catch(function (error) { toastr.error(error); });
+                },
+                save: function () {
+
+                    console.log(this.apps)
+                    axios.post(webRoot + 'api/apps/save', this.apps)
+                        .then(function (response) {
+                            toastr.success('新增成功');
+                        })
+                        .catch(function (error) {
+                            toastr.error(error);
+                        });
+                }
+            },
+            beforeMount() {
+                this.load()
+            }
+        })
+    </script>
+
+
+    <script src="/admin/js/app/fileManagerController.js"></script>
 </th:block>

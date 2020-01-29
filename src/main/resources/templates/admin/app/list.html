@@ -40,10 +40,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                                    <button type="button" class="btn btn-primary" onclick="openAddModel()">
+                                    <a class="btn m-btn--pill    btn-primary" href="/admin/app/edit" role="button">
                                         新增
-                                    </button>
-                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -115,75 +114,6 @@
                 </div>
             </form>
 
-            <!--begin::Modal-->
-            <div class="modal fade" id="m_add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
-                                新增网址
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">
-												&times;
-											</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-
-                                <div class="form-group">
-                                    <label class="form-group-label">App Logo</label>
-                                    <div class="input-group">
-                                        <input   type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
-                                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
-                           </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message-text" class="form-control-label">
-                                        名称:
-                                    </label>
-                                    <input type="text" class="form-control" id="recipient-name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message-text" class="form-control-label">
-                                        地址:
-                                    </label>
-                                    <input type="text" class="form-control" id="recipient-name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message-text" class="form-control-label">
-                                        描述:
-                                    </label>
-                                    <textarea class="form-control" id="message-text"></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message-text" class="form-control-label">
-                                        排序:
-                                    </label>
-                                    <input type="text" class="form-control" id="recipient-name">
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                取消
-                            </button>
-                            <button type="button" class="btn btn-primary" v-on:click="save()">
-                                保存
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end::Modal-->
         </div>
     </div>
 
@@ -196,21 +126,7 @@
     const app = new Vue({
         el: '#app',
         data: {
-            appList: {},
-            apps:{
-                id:1,
-                categoryId:4,
-                groupId:5,
-                logoUrl:"test",
-                url:"",
-                title:"",
-                description:"",
-                createTime:0,
-                lastModifyTime:0,
-                isDelete:0,
-                secContent:"",
-                sortNum:0
-            }
+            appList: {}
         },
         methods: {
             load: function () {
@@ -219,17 +135,6 @@
                     this.appList = response.data;
                 $('#app').css('display', '');
             }).catch(function (error) { toastr.error(error); });
-            },
-            save: function () {
-
-                console.log(this.apps)
-                axios.post(webRoot + 'api/apps/save', this.apps)
-                    .then(function (response) {
-                        toastr.success('新增成功');
-                    })
-                    .catch(function (error) {
-                        toastr.error(error);
-                    });
             }
         },
         beforeMount() {
