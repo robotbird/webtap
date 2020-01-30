@@ -7,6 +7,6 @@ import java.util.List;
 public interface AppsService {
 
 	public  List<Apps> getAppsByShortUrl(String shortUrl);
-	public List<Apps> getAppsByGroupId(Long groupId);
+	public List<Apps> getAppsByOrgId(Long groupId);
 
 }

@@ -26,12 +26,12 @@ public class AppsServiceImpl  implements AppsService{
         if(organization ==null){
             return null;
         }
-        return  this.getAppsByGroupId(organization.getId());
+        return  this.getAppsByOrgId(organization.getId());
     }
 
-    public List<Apps> getAppsByGroupId(Long orgId)
+    public List<Apps> getAppsByOrgId(Long orgId)
    {
-   	    return appsRepository.findAllByGroupId(orgId);
+   	    return appsRepository.findAllByOrgId(orgId);
    }
 
 }

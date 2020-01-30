@@ -17,7 +17,7 @@ public class AppsServiceTest {
 
 	@Test
 	public void testApps() throws Exception {
-		long cnt = appsService.getAppsByGroupId(1l).size();
+		long cnt = appsService.getAppsByOrgId(1l).size();
 		Assert.assertEquals(cnt,1);
 	}
 

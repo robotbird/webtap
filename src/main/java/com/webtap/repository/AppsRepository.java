@@ -11,7 +11,7 @@ public interface AppsRepository extends JpaRepository<Apps, Long> {
 
 	Apps findById(Long id);
 
-	List<Apps> findAllByGroupId(Long groupId);
+	List<Apps> findAllByOrgId(Long groupId);
 
 	@Transactional
     void deleteById(Long Id);

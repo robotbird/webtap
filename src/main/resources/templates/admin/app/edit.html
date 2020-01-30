@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label class="form-group-label">App Logo</label>
                             <div class="input-group">
-                                <input   type="text" v-model="app." class="form-control" readonly />
+                                <input   type="text" v-model="appdata.logoUrl" class="form-control" readonly />
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
                                </span>
@@ -22,31 +22,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">
+                            <label class="form-group-label">
                                 名称:
                             </label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" v-model="appdata.title">
                         </div>
 
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">
+                            <label class="form-group-label">
                                 地址:
                             </label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" v-model="appdata.url">
                         </div>
 
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">
+                            <label class="form-group-label">
                                 描述:
                             </label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <textarea class="form-control" v-model="appdata.description"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">
+                            <label class="form-group-label">
                                 排序:
                             </label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" v-model="appdata.sortNum">
                         </div>
 
                         <button type="button"  v-on:click="save()"  class="btn btn-primary btn-main">保存</button>
@@ -73,19 +73,14 @@
         const app = new Vue({
             el: '#app',
             data: {
-                apps:{
+                appdata:{
                     id:1,
                     categoryId:4,
-                    groupId:5,
-                    logoUrl:"test",
-                    url:"",
-                    title:"",
-                    description:"",
+                    orgId:5,
                     createTime:0,
                     lastModifyTime:0,
                     isDelete:0,
-                    secContent:"",
-                    sortNum:0
+                    secContent:""
                 }
             },
             methods: {
@@ -98,8 +93,8 @@
                 },
                 save: function () {
 
-                    console.log(this.apps)
-                    axios.post(webRoot + 'api/apps/save', this.apps)
+                    console.log(this.appdata);
+                    axios.post(webRoot + 'api/apps/save', this.appdata)
                         .then(function (response) {
                             toastr.success('新增成功');
                         })

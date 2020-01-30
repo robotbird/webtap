@@ -18,7 +18,7 @@ public class AppsRepositoryTest {
 
 	@Test
 	public void testApps() throws Exception {
-		long cnt = appsRepository.findAllByGroupId(1l).size();
+		long cnt = appsRepository.findAllByOrgId(1l).size();
 		Assert.assertEquals(cnt,1);
 	}
 
