@@ -11,7 +11,7 @@
  Target Server Version : 50716
  File Encoding         : 65001
 
- Date: 30/01/2020 22:03:42
+ Date: 30/01/2020 23:00:10
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ CREATE TABLE `wt_apps`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `category_id` bigint(255) NULL DEFAULT NULL,
   `user_id` bigint(20) NOT NULL,
-  `group_id` bigint(20) NOT NULL,
+  `org_id` bigint(20) NOT NULL,
   `logo_url` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `url` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,

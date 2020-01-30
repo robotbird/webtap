@@ -14,8 +14,8 @@ public class AppCategory  implements Serializable {
 
 	private String name;
 
-	@Column(name = "group_id")
-	private Long groupId;
+	@Column(name = "org_id")
+	private Long orgId;
 
 
 
@@ -37,12 +37,12 @@ public class AppCategory  implements Serializable {
   }
 
 
-  public Long getGroupId() {
-    return groupId;
+  public Long getOrgId() {
+    return orgId;
   }
 
-  public void setGroupId(Long groupId) {
-    this.groupId = groupId;
+  public void setOrgId(Long orgId) {
+    this.orgId = orgId;
   }
 
 }

@@ -18,8 +18,8 @@ public class Apps  implements Serializable {
 	@Column(name = "user_id")
 	private Long userId;
 
-	@Column(name = "group_id")
-	private Long groupId;
+	@Column(name = "org_id")
+	private Long orgId;
 
 	@Column(name = "logo_url")
 	private String logoUrl;
@@ -74,12 +74,12 @@ public class Apps  implements Serializable {
   }
 
 
-  public Long getGroupId() {
-    return groupId;
+  public Long getOrgId() {
+    return orgId;
   }
 
-  public void setGroupId(Long groupId) {
-    this.groupId = groupId;
+  public void setOrgId(Long orgId) {
+    this.orgId = orgId;
   }
 
 

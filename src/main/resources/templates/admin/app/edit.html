@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label class="form-group-label">App Logo</label>
                             <div class="input-group">
-                                <input   type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
+                                <input   type="text" v-model="app." class="form-control" readonly />
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
                                </span>
