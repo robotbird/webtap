@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @Description: JPA使用原生SQL基类
- * @Auth: yuyang
- * @Date: 2017/1/18 19:30
+ * @Auth: robotbird@qq.com
+ * @Date: 2020/1/18 19:30
  * @Version: 1.0
  **/
 @Service

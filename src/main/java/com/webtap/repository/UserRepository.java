@@ -21,27 +21,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying(clearAutomatically=true)
     @Transactional
-    @Query("update User set outDate=:outDate, validataCode=:validataCode where email=:email") 
+    @Query("update User set outDate=:outDate, validataCode=:validataCode where email=:email")
     int setOutDateAndValidataCode(@Param("outDate") String outDate, @Param("validataCode") String validataCode, @Param("email") String email);
     
     @Modifying(clearAutomatically=true)
     @Transactional
-    @Query("update User set passWord=:passWord where email=:email") 
+    @Query("update User set passWord=:passWord where email=:email")
     int setNewPassword(@Param("passWord") String passWord, @Param("email") String email);
     
     @Modifying(clearAutomatically=true)
     @Transactional
-    @Query("update User set introduction=:introduction where email=:email") 
+    @Query("update User set introduction=:introduction where email=:email")
     int setIntroduction(@Param("introduction") String introduction, @Param("email") String email);
     
     @Modifying(clearAutomatically=true)
     @Transactional
-    @Query("update User set userName=:userName where email=:email") 
+    @Query("update User set userName=:userName where email=:email")
     int setUserName(@Param("userName") String userName, @Param("email") String email);
     
     @Modifying(clearAutomatically=true)
     @Transactional
-    @Query("update User set profilePicture=:profilePicture where id=:id") 
+    @Query("update User set profilePicture=:profilePicture where id=:id")
     int setProfilePicture(@Param("profilePicture") String profilePicture, @Param("id") Long id);
 
 //    @Query("from User u where u.name=:name")

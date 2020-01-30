@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "app_category")
+@Table(name = "wt_app_category")
 public class AppCategory  implements Serializable {
 
 	@Id

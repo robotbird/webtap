@@ -29,7 +29,7 @@
 
                         <div class="form-group">
                             <label class="form-group-label">组织名称</label>
-                            <input v-model="group.groupName" :class="['form-control']" type="text" />
+                            <input v-model="organization.orgName" :class="['form-control']" type="text" />
                         </div>
 
 
@@ -43,7 +43,7 @@
                                 <i class="la la-user"> http://webtap.cn/ </i>
                             </span>
                                 </div>
-                                <input type="text" v-model="group.shortUrl" class="form-control m-input" placeholder="">
+                                <input type="text" v-model="organization.shortUrl" class="form-control m-input" placeholder="">
                             </div>
 
                         </div>
@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label class="form-group-label">首页Logo</label>
                             <div class="input-group">
-                                <input v-model="group.groupLogo" type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
+                                <input v-model="organization.orgLogo" type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
                                 <span class="input-group-btn">
                             <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
                         </span>
@@ -86,13 +86,13 @@
         const app = new Vue({
             el: '#app',
             data: {
-                group: {}
+                organization: {}
             },
             methods: {
                 load: function () {
-                    axios.get(webRoot + 'api/group/1')
+                    axios.get(webRoot + 'api/organization/1')
                         .then(response => {
-                        this.group = response.data;
+                        this.organization = response.data;
                     $('#app').css('display', '');
                 }).catch(function (error) { toastr.error(error); });
                 },

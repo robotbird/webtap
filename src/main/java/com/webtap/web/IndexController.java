@@ -42,10 +42,10 @@ public class IndexController extends BaseController{
 		return "user/reset-password";
 	}
 
-	@RequestMapping(value = "/admin/setting/group",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/setting/organization",method = RequestMethod.GET)
 	@LoggerManage(description = "管理后台")
 	public String admin(){
-		return  "/admin/setting/group";
+		return  "/admin/setting/organization";
 	}
 
 	@RequestMapping(value = "/admin/app/list",method = RequestMethod.GET)

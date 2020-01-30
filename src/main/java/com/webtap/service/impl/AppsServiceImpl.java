@@ -18,15 +18,15 @@ public class AppsServiceImpl  implements AppsService{
    private AppsRepository appsRepository;
 
 	@Autowired
-	private  GroupRepository groupRepository;
+	private OrganizationRepository organizationRepository;
 
 
     public List<Apps> getAppsByShortUrl(String shortUrl) {
-        Group group = groupRepository.findByShortUrl(shortUrl);
-        if(group==null){
+        Organization organization = organizationRepository.findByShortUrl(shortUrl);
+        if(organization ==null){
             return null;
         }
-        return  this.getAppsByGroupId(group.getId());
+        return  this.getAppsByGroupId(organization.getId());
     }
 
     public List<Apps> getAppsByGroupId(Long orgId)

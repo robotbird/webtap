@@ -5,18 +5,18 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "groups")
-public class Group  implements Serializable {
+@Table(name = "wt_organizations")
+public class Organization implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "group_name")
-	private String groupName;
+	@Column(name = "org_name")
+	private String orgName;
 
-	@Column(name = "group_logo")
-	private String groupLogo;
+	@Column(name = "org_logo")
+	private String orgLogo;
 
 	@Column(name = "short_url")
 	private String shortUrl;
@@ -32,21 +32,21 @@ public class Group  implements Serializable {
   }
 
 
-  public String getGroupName() {
-    return groupName;
+  public String getOrgName() {
+    return orgName;
   }
 
-  public void setGroupName(String groupName) {
-    this.groupName = groupName;
+  public void setOrgName(String orgName) {
+    this.orgName = orgName;
   }
 
 
-  public String getGroupLogo() {
-    return groupLogo;
+  public String getOrgLogo() {
+    return orgLogo;
   }
 
-  public void setGroupLogo(String groupLogo) {
-    this.groupLogo = groupLogo;
+  public void setOrgLogo(String orgLogo) {
+    this.orgLogo = orgLogo;
   }
 
 
