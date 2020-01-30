@@ -9,19 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-@Service("groupService")
+@Service("organizationService")
 public class OrganizationServiceImpl implements OrganizationService {
 	protected Logger logger =  LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
    private OrganizationRepository organizationRepository;
 
-    public Organization getGroupByShortUrl(String shortUrl) {
+    public Organization getOrganizationByShortUrl(String shortUrl) {
         Organization organization = organizationRepository.findByShortUrl(shortUrl);
         return organization;
     }
 
-    public Organization getGroupById(Long Id){
+    public Organization getOrganizationById(Long Id){
         return organizationRepository.findById(Id);
     }
 

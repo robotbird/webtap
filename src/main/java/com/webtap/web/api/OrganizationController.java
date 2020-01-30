@@ -22,8 +22,8 @@ public class OrganizationController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/organization/{id}",method = RequestMethod.GET)
-	public ResponseEntity<Organization> getGroupById(@PathVariable(value = "id") Long id){
-		Organization organization = organizationService.getGroupById(id);
+	public ResponseEntity<Organization> getOrganizationById(@PathVariable(value = "id") Long id){
+		Organization organization = organizationService.getOrganizationById(id);
 		if(organization ==null){
 			return  new ResponseEntity(HttpStatus.MULTI_STATUS);
 		}
