@@ -30,6 +30,30 @@
         [v-cloak] {
             display: none;
         }
+
+        #fileManager .item-img img {
+            width: auto;
+            min-height: 60px;
+            min-width: 60px;
+            max-width: 60px;
+            max-height: 60px;
+            position: absolute;
+            display: block;
+            transform: translate(-50%, -50%);
+        }
+
+        #fileManager .item-img {
+            position: relative;
+            height: 90px;
+            /* width: 90px; */
+            overflow: hidden;
+            display: block;
+            border: 1px solid #eee;
+            border-bottom: 0;
+            border-top-right-radius: .25rem;
+            border-top-left-radius: .25rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -114,5 +138,8 @@
 
 <th:block layout:fragment = "bodyAssets">
 </th:block>
+<style>
+
+</style>
 </body>
 </html>

@@ -2,7 +2,6 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="admin/layout">
 
-
     <div layout:fragment="content" >
         <!-- content-->
 
@@ -14,9 +13,9 @@
                         <div class="form-group">
                             <label class="form-group-label">App Logo</label>
                             <div class="input-group">
-                                <input   type="text" v-model="appdata.logoUrl" class="form-control" readonly />
+                                <input   type="text" id="app-logoUrl" v-model="appdata.logoUrl" class="form-control" readonly />
                                 <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
+                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(insertAppLogoCallback);"> 选择</button>
                                </span>
                             </div>
                         </div>

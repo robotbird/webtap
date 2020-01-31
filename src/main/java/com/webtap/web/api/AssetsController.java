@@ -32,7 +32,7 @@ public class AssetsController extends BaseController{
 										   @RequestParam(value = "filter",defaultValue = "") String  filter,
 										   @RequestParam(value = "search",defaultValue = "") String search){
 		Pager pager = new Pager(page,10);
-		List<Asset> assetList = storageService.Find(pager,"",search);
+		List<Asset> assetList = storageService.Find(pager,"upload/logo",search);
 
   			Map<String,Object> maps = new HashMap<>();
   			maps.put("assets",assetList);

@@ -13,7 +13,7 @@
 
     function pick(id) {
         var items = $('.bf-filemanager .item-check:checked');
-        if (callBack.name === 'insertImageCallback') {
+        if (callBack.name === 'insertAppLogoCallback') {
             if (items.length === 0) {
                 callBack(id);
             }
@@ -247,4 +247,14 @@ var updatePostCoverCallback = function (data) {
     $('.bf-editor-header').css('background-image', 'url(' + webRoot + data.url + ')');
     $('#hdnPostImg').val(data.url);
     toastr.success('Updated');
+};
+
+/**
+ * insert app logo url
+ * @param data
+ */
+var insertAppLogoCallback = function (data) {
+    debugger;
+    $('#app-logoUrl').val(data);
+    toastr.success("选择成功");
 };
