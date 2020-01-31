@@ -27,3 +27,6 @@ hs_err_pid*
 /out
 /target
 /node_modules
+
+# IDE
+*.iml

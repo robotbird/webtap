@@ -8,18 +8,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
-
-
-	Group findById(Long id);
-
-	/**
-	 * 跟进短链接获取组织信息
-	 * @param shortUrl
-	 * @return
-	 */
-	Group findByShortUrl(String shortUrl);
-
-	@Transactional
-    void deleteById(Long Id);
+    /**
+     * 跟进短链接获取组织信息
+     *
+     * @param shortUrl
+     * @return
+     */
+    Group findByShortUrl(String shortUrl);
 
 }

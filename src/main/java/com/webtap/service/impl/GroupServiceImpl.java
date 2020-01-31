@@ -16,18 +16,20 @@ import java.util.List;
 
 @Service("groupService")
 public class GroupServiceImpl implements GroupService {
-	protected Logger logger =  LoggerFactory.getLogger(this.getClass());
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-   private GroupRepository groupRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
+    @Override
     public Group getGroupByShortUrl(String shortUrl) {
         Group group = groupRepository.findByShortUrl(shortUrl);
         return group;
     }
 
-    public Group getGroupById(Long Id){
-        return groupRepository.findById(Id);
+    @Override
+    public Group getGroupById(Long Id) {
+        return groupRepository.findById(Id).get();
     }
 
 

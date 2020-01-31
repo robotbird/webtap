@@ -21,6 +21,7 @@ public class AppsServiceImpl  implements AppsService{
 	private  GroupRepository groupRepository;
 
 
+	@Override
     public List<Apps> getAppsByShortUrl(String shortUrl) {
         Group group = groupRepository.findByShortUrl(shortUrl);
         if(group==null){
@@ -29,6 +30,7 @@ public class AppsServiceImpl  implements AppsService{
         return  this.getAppsByGroupId(group.getId());
     }
 
+    @Override
     public List<Apps> getAppsByGroupId(Long orgId)
    {
    	    return appsRepository.findAllByGroupId(orgId);
