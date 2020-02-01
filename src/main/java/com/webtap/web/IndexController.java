@@ -45,15 +45,15 @@ public class IndexController extends BaseController{
 	@RequestMapping(value = "/admin/setting/organization",method = RequestMethod.GET)
 	@LoggerManage(description = "管理后台")
 	public String admin(){
-		return  "/admin/setting/organization";
+		return  "admin/setting/organization";
 	}
 
 	@RequestMapping(value = "/admin/app/list",method = RequestMethod.GET)
 	@LoggerManage(description = "应用管理")
-	public String apps(){return  "/admin/app/list";}
+	public String apps(){return  "admin/app/list";}
 
 	@RequestMapping(value = "/admin/app/edit",method = RequestMethod.GET)
 	@LoggerManage(description = "编辑应用")
-	public String appEdit(){return  "/admin/app/edit";}
+	public String appEdit(){return  "admin/app/edit";}
 
 }

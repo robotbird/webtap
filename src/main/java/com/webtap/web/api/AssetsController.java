@@ -1,12 +1,20 @@
 package com.webtap.web.api;
 
 import com.webtap.domain.Asset;
+import com.webtap.domain.result.ExceptionMsg;
+import com.webtap.domain.result.ResponseData;
 import com.webtap.service.StorageService;
 import com.webtap.utils.Pager;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,5 +48,27 @@ public class AssetsController extends BaseController{
   			return maps;
 		}
 
+    /**
+     * 文件上传
+     * @param request
+     * @return
+     */
+	@RequestMapping(value = "/assets/upload", method = RequestMethod.POST)
+	public ResponseData fileUpload(HttpServletRequest request) {
+		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
+		MultipartFile file = null;
+		for (int i = 0; i < files.size(); ++i) {
+			file = files.get(i);
+			if (!file.isEmpty()) {
+                storageService.UploadFormFile(file,"upload/logo");
+			}
+		}
+		return new ResponseData(ExceptionMsg.SUCCESS);
+	}
+
+	public ResponseData removeFile(@RequestParam(value = "url") String url){
+
+        return new ResponseData(ExceptionMsg.SUCCESS);
+	}
 
 }

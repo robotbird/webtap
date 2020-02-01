@@ -2,6 +2,7 @@ package com.webtap.service;
 
 import com.webtap.domain.Asset;
 import com.webtap.utils.Pager;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
@@ -26,4 +27,13 @@ public interface StorageService {
      * @return
      */
      public List<Asset> Find(Pager pager,String path,String search);
+
+    /**
+     * upload file
+     * @author robotbird@qq.com
+     * @param file
+     * @param path
+     * @return
+     */
+     public Asset UploadFormFile(MultipartFile file,String path);
 }
