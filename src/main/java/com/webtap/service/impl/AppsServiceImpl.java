@@ -34,4 +34,8 @@ public class AppsServiceImpl  implements AppsService{
    	    return appsRepository.findAllByOrgId(orgId);
    }
 
+   public Apps saveApp(Apps apps){
+        return appsRepository.save(apps);
+   }
+
 }

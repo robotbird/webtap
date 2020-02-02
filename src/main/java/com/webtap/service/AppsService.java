@@ -6,7 +6,25 @@ import java.util.List;
 
 public interface AppsService {
 
+	/**
+	 * get app info by short url
+	 * @param shortUrl
+	 * @return
+	 */
 	public  List<Apps> getAppsByShortUrl(String shortUrl);
+
+	/**
+	 * get app info by orgId
+	 * @param groupId
+	 * @return
+	 */
 	public List<Apps> getAppsByOrgId(Long groupId);
+
+	/**
+	 * save app
+	 * @param apps
+	 * @return
+	 */
+	public Apps saveApp(Apps apps);
 
 }

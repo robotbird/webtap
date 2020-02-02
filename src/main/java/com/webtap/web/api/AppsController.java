@@ -42,9 +42,10 @@ public class AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "/apps/save", method = RequestMethod.POST)
 	@LoggerManage(description = "添加应用")
-		public Response saveApp(@RequestBody Apps apps) {
-		  logger.debug("保存app成功");
-          return result();
+	public Response saveApp(@RequestBody Apps apps) {
+        Apps app = appsService.saveApp(apps);
+		logger.debug("保存app成功");
+		return result();
 	}
 
 

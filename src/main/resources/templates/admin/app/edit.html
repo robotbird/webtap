@@ -67,7 +67,7 @@
 <th:block layout:fragment = "bodyAssets">
 
     <script>
-        Vue.use(window.vuelidate.default)
+        //Vue.use(window.vuelidate.default)
 
         const app = new Vue({
             el: '#app',
@@ -75,6 +75,7 @@
                 appdata:{
                     id:1,
                     categoryId:4,
+                    userId:1,
                     orgId:5,
                     createTime:0,
                     lastModifyTime:0,
@@ -92,7 +93,6 @@
                 },
                 save: function () {
 
-                    console.log(this.appdata);
                     axios.post(webRoot + 'api/apps/save', this.appdata)
                         .then(function (response) {
                             toastr.success('新增成功');
