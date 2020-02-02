@@ -66,8 +66,15 @@ public class AssetsController extends BaseController{
 		return new ResponseData(ExceptionMsg.SUCCESS);
 	}
 
+	/**
+	 * delete file
+	 * @param url
+	 * @return
+	 */
+	@RequestMapping(value = "/assets/remove",method = RequestMethod.DELETE)
 	public ResponseData removeFile(@RequestParam(value = "url") String url){
 
+		storageService.DeleteFile(url);
         return new ResponseData(ExceptionMsg.SUCCESS);
 	}
 

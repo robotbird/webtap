@@ -105,9 +105,7 @@ public class StorageServiceImpl implements StorageService {
             String fileName = file.getOriginalFilename();
             logger.info("上传的文件名为：" + fileName);
             // 设置文件存储路径
-            String localPath = "";
-
-            localPath = GetStaticPath() +path;
+            String localPath = GetStaticPath() +path;
             String filePath = localPath +_separator+ fileName;
             File uploadFile = new File(filePath);
             // 检测是否存在目录
@@ -126,5 +124,16 @@ public class StorageServiceImpl implements StorageService {
             logger.error(e.getMessage());
         }
         return null;
+    }
+
+    public void DeleteFile(String url){
+           String filePath = GetStaticPath()+url;
+           filePath = filePath.replace("/",_separator);
+           File file = new File(filePath);
+           try{
+               file.delete();
+           } catch (IllegalStateException e){
+               logger.error(e.getMessage());
+           }
     }
 }

@@ -36,4 +36,11 @@ public interface StorageService {
      * @return
      */
      public Asset UploadFormFile(MultipartFile file,String path);
+
+    /**
+     * delete file by file url
+     * @author robotbird@qq.com
+     * @param url
+     */
+     public void DeleteFile(String url);
 }
