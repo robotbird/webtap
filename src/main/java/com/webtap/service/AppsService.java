@@ -27,4 +27,10 @@ public interface AppsService {
 	 */
 	public Apps saveApp(Apps apps);
 
+	/**
+	 * delete app by id
+	 * @param id
+	 */
+	public void removeApp(Long id);
+
 }

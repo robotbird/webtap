@@ -53,7 +53,11 @@ public class IndexController extends BaseController{
 	public String apps(){return  "admin/app/list";}
 
 	@RequestMapping(value = "/admin/app/edit",method = RequestMethod.GET)
+	@LoggerManage(description = "新增应用")
+	public String appAdd(){return  "admin/app/edit";}
+
+	@RequestMapping(value = "/admin/app/edit/{id}",method = RequestMethod.GET)
 	@LoggerManage(description = "编辑应用")
-	public String appEdit(){return  "admin/app/edit";}
+	public String appEdit(@PathVariable(value = "id",required = true) Long id){return  "admin/app/edit";}
 
 }

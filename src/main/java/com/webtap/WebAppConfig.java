@@ -1,4 +1,4 @@
-package com.webtap.web;
+package com.webtap;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +32,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+webUpload);
-        super.addResourceHandlers(registry);
+       // registry.addResourceHandler("/upload/**").addResourceLocations("file:"+webUpload);
+      //  super.addResourceHandlers(registry);
     }
 
 }

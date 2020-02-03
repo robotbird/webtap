@@ -3,6 +3,7 @@ package com.webtap.web.api;
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.Apps;
 import com.webtap.domain.result.Response;
+import com.webtap.domain.result.ResponseData;
 import com.webtap.service.AppsService;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,20 @@ public class AppsController extends BaseController{
 	@LoggerManage(description = "添加应用")
 	public Response saveApp(@RequestBody Apps apps) {
         Apps app = appsService.saveApp(apps);
-		logger.debug("保存app成功");
+		logger.info("保存app成功");
 		return result();
 	}
 
+	/**
+	 * 删除 app
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "apps/remove",method = RequestMethod.DELETE)
+	public Response deleteApp(@PathVariable(value = "id") Long id){
+		appsService.removeApp(id);
+		logger.info("删除成功");
+		return result();
+	}
 
 }

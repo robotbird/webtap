@@ -38,4 +38,8 @@ public class AppsServiceImpl  implements AppsService{
         return appsRepository.save(apps);
    }
 
+   public void removeApp(Long id){
+        appsRepository.deleteById(id);
+   }
+
 }
