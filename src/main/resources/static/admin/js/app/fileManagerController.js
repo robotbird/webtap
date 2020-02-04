@@ -254,7 +254,6 @@ var updatePostCoverCallback = function (data) {
  * @param data
  */
 var insertAppLogoCallback = function (data) {
-    debugger;
     $('#app-logoUrl').val(data);
     toastr.success("选择成功");
 };

@@ -7,11 +7,18 @@ import java.util.List;
 public interface AppsService {
 
 	/**
-	 * get app info by short url
+	 * get app list info by short url
 	 * @param shortUrl
 	 * @return
 	 */
 	public  List<Apps> getAppsByShortUrl(String shortUrl);
+
+	/**
+	 * get app by id
+	 * @param Id
+	 * @return
+	 */
+	public Apps getAppById(Long Id);
 
 	/**
 	 * get app info by orgId

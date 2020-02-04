@@ -10,15 +10,7 @@
                 <form>
                     <div class="bf-content bf-content-boxed">
 
-                        <div class="form-group">
-                            <label class="form-group-label">App Logo</label>
-                            <div class="input-group">
-                                <input   type="text" id="app-logoUrl" v-model="appdata.logoUrl" class="form-control" readonly />
-                                <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(insertAppLogoCallback);"> 选择</button>
-                               </span>
-                            </div>
-                        </div>
+
 
                         <div class="form-group">
                             <label class="form-group-label">
@@ -48,6 +40,16 @@
                             <input type="text" class="form-control" v-model="appdata.sortNum">
                         </div>
 
+                        <div class="form-group">
+                            <label class="form-group-label">App Logo</label>
+                            <div class="input-group">
+                                <input   type="text" id="app-logoUrl" v-model="appdata.logoUrl" class="form-control" readonly />
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(insertAppLogoCallback);"> 选择</button>
+                               </span>
+                            </div>
+                        </div>
+
                         <button type="button"  v-on:click="save()"  class="btn btn-primary btn-main">保存</button>
 
 
@@ -71,6 +73,7 @@
 
         const app = new Vue({
             el: '#app',
+            id:'0',
             data: {
                 appdata:{
                     id:1,
@@ -85,9 +88,10 @@
             },
             methods: {
                 load: function () {
-                    axios.get(webRoot + 'api/apps/utry')
+                    alert(this.appdata);
+                    axios.get(webRoot + 'api/app/'+this.id)
                         .then(response => {
-                        this.appList = response.data;
+                        this.appdata = response.data;
                     $('#app').css('display', '');
                 }).catch(function (error) { toastr.error(error); });
                 },
@@ -103,6 +107,9 @@
                 }
             },
             beforeMount() {
+                if (fromQueryString('id')) {
+                    this.id = fromQueryString('id');
+                }
                 this.load()
             }
         })

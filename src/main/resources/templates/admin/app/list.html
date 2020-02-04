@@ -17,7 +17,7 @@
 <body>
 <div class="bf">
     <div layout:fragment="content" >
-        <div id="app"   class="bf-body">
+        <div id="appBody"   class="bf-body">
             <form>
                 <div class="m-portlet m-portlet--mobile">
 
@@ -51,62 +51,30 @@
                         <table class="m-datatable" id="html_table" width="100%">
                             <thead>
                             <tr>
-                                <th title="Field #1">
-                                    logo
-                                </th>
-                                <th title="Field #2">
-                                    名称
-                                </th>
-                                <th title="Field #3">
-                                    地址
-                                </th>
-                                <th title="Field #4">
-                                    描述
-                                </th>
-                                <th title="Field #5">
-                                    创建时间
-                                </th>
-                                <th title="Field #6">
-                                    排序
-                                </th>
-                                <th title="Field #7">
-                                    操作
-                                </th>
+                                <th title="Field #1"> logo </th>
+                                <th title="Field #2"> 名称 </th>
+                                <th title="Field #3">地址 </th>
+                                <th title="Field #4"> 描述 </th>
+                                <th title="Field #5"> 创建时间 </th>
+                                <th title="Field #6"> 排序 </th>
+                                <th title="Field #7"> 操作  </th>
 
                             </tr>
                             </thead>
                             <tbody>
                             <tr  v-for="app in appList" :key="app.id" >
                                 <td>
-
-												<span style="width: 110px;"><div class="kt-user-card-v2">
-														<div class="kt-user-card-v2__pic">
-																<img alt="photo" :src="app.logoUrl">
-																</div>
-												</div></span>
+                                    <span style="width: 110px;"><div class="kt-user-card-v2">
+                                            <div class="kt-user-card-v2__pic">  <img alt="photo" :src="app.logoUrl">  </div>
+                                    </div></span>
                                 </td>
-                                <td>
-                                    {{app.title}}
-                                </td>
-                                <td>
-                                    {{app.url}}
-                                </td>
-                                <td>
-                                    {{app.description}}
-                                </td>
-                                <td>
-                                    {{app.createTime}}
-                                </td>
-                                <td>
-                                    {{app.sortNum}}
-                                </td>
-                                <td>
-                                    编辑 删除
-                                </td>
-
+                                <td> {{app.title}} </td>
+                                <td> {{app.url}} </td>
+                                <td>{{app.description}}</td>
+                                <td> {{app.createTime}}</td>
+                                <td>{{app.sortNum}} </td>
+                                <td> <a :href="webRoot + 'admin/app/edit?id=' + app.id">编辑</a>  <button @click="remove()">删除</button> </td>
                             </tr>
-
-
                             </tbody>
                         </table>
                         <!--end: Datatable -->
@@ -124,7 +92,7 @@
     Vue.use(window.vuelidate.default)
 
     const app = new Vue({
-        el: '#app',
+        el: '#appBody',
         data: {
             appList: {}
         },
@@ -135,6 +103,19 @@
                     this.appList = response.data;
                 $('#app').css('display', '');
             }).catch(function (error) { toastr.error(error); });
+            },
+            remove: function(id){
+                alert(id);
+                var result = confirm("Please confirm removing this app");
+                if (result) {
+                    axios.delete(webRoot + 'api/apps/remove/' + id)
+                        .then(response => {
+                        toastr.success(response.data);
+                    setTimeout(function(){ location.load(); }, 1000);
+                })
+                .catch(function (error) { toastr.error(error); });
+                }
+                return false;
             }
         },
         beforeMount() {

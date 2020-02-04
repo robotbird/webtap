@@ -37,6 +37,21 @@ public class AppsController extends BaseController{
 	}
 
 	/**
+	 * 根据id接获取app
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/app/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Apps> getAppsById(@PathVariable(value = "id") Long id) {
+		Apps apps = appsService.getAppById(id);
+		if (apps ==null) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return  new ResponseEntity<Apps>(apps,HttpStatus.OK);
+	}
+
+
+	/**
 	 * 添加应用
 	 * @param apps
 	 * @return

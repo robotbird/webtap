@@ -29,6 +29,11 @@ public class AppsServiceImpl  implements AppsService{
         return  this.getAppsByOrgId(organization.getId());
     }
 
+    public Apps getAppById(Long Id) {
+        Apps apps = appsRepository.findById(Id);
+        return apps;
+    }
+
     public List<Apps> getAppsByOrgId(Long orgId)
    {
    	    return appsRepository.findAllByOrgId(orgId);
