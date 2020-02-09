@@ -2,6 +2,7 @@ package com.webtap.web.api;
 
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.Apps;
+import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.domain.result.ResponseData;
 import com.webtap.service.AppsService;
@@ -69,11 +70,11 @@ public class AppsController extends BaseController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "apps/remove",method = RequestMethod.DELETE)
+	@RequestMapping(value = "apps/remove/{id}",method = RequestMethod.DELETE)
 	public Response deleteApp(@PathVariable(value = "id") Long id){
 		appsService.removeApp(id);
 		logger.info("删除成功");
-		return result();
+		return result(ExceptionMsg.SUCCESS);
 	}
 
 }
