@@ -10,6 +10,15 @@
                 <form>
                     <div class="bf-content bf-content-boxed">
 
+                        <div class="form-group">
+                            <label class="form-group-label">App Logo</label>
+                            <div class="input-group">
+                                <input   type="text" id="app-logoUrl" v-model="appdata.logoUrl" class="form-control" readonly />
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(insertAppLogoCallback);"> 选择</button>
+                               </span>
+                            </div>
+                        </div>
 
 
                         <div class="form-group">
@@ -40,15 +49,7 @@
                             <input type="text" class="form-control" v-model="appdata.sortNum">
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-group-label">App Logo</label>
-                            <div class="input-group">
-                                <input   type="text" id="app-logoUrl" v-model="appdata.logoUrl" class="form-control" readonly />
-                                <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(insertAppLogoCallback);"> 选择</button>
-                               </span>
-                            </div>
-                        </div>
+
 
                         <button type="button"  v-on:click="save()"  class="btn btn-primary btn-main">保存</button>
 
@@ -69,7 +70,7 @@
 <th:block layout:fragment = "bodyAssets">
 
     <script>
-        //Vue.use(window.vuelidate.default)
+        Vue.use(window.vuelidate.default)
 
         const app = new Vue({
             el: '#app',

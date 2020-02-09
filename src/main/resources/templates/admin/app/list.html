@@ -15,8 +15,28 @@
 
 <body>
 <div class="bf">
-    <div layout:fragment="content" >
-        <div id="appBody"   class="bf-body">
+    <div id="app" class="bf-main" layout:fragment="content" >
+        <div class="bf-sidebar d-lg-block">
+            <div class="bf-posts-form-search">
+                <input id="txtSearch" name="txtSearch"   class="form-control form-control-sm form-control-rounded" placeholder="search...">
+            </div>
+            <form id="frmPostFilter" class="bf-posts-filters">
+                <div class="filter-group">
+                    <div class="filter-group-title"><span>分类</span> <i class="fa fa-chevron-down d-block d-lg-none"></i></div>
+                    <ul class="filter-group-list">
+                        <li>
+                            <label class="custom-control custom-radio filters-label">
+                                <input class="custom-control-input" type="radio" name="status-filter" id="status-filter" value="A" v-model="status" >
+                                <span class="custom-control-label">所有</span>
+                            </label>
+
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div    class="bf-body">
 
             <!-- Grid -->
             <div class="bf-posts-grid d-flex" aria-label="posts">
@@ -44,7 +64,7 @@
     Vue.use(window.vuelidate.default)
 
     const app = new Vue({
-        el: '#appBody',
+        el: '#app',
         data: {
             appList: {}
         },
