@@ -1,8 +1,7 @@
 package com.webtap.web;
 
 import com.webtap.WebtapApplication;
-import com.webtap.service.AppsService;
-import javafx.application.Application;
+import com.webtap.service.AppService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class WebApiControllerTest {
 
 	@Autowired
-  private AppsService appsService;
+  private AppService appService;
 
 
 	@Autowired

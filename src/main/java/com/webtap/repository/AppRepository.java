@@ -1,17 +1,17 @@
 package com.webtap.repository;
 
-import com.webtap.domain.Apps;
+import com.webtap.domain.App;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface AppsRepository extends JpaRepository<Apps, Long> {
+public interface AppRepository extends JpaRepository<App, Long> {
 
 
-	Apps findById(Long id);
+	App findById(Long id);
 
-	List<Apps> findAllByOrgId(Long groupId);
+	List<App> findAllByOrgId(Long groupId);
 
 	@Transactional
     void deleteById(Long Id);

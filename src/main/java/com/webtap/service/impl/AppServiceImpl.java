@@ -2,7 +2,7 @@ package com.webtap.service.impl;
 
 import com.webtap.domain.*;
 import com.webtap.repository.*;
-import com.webtap.service.AppsService;
+import com.webtap.service.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,21 @@ import java.util.List;
 
 
 @Service("appsService")
-public class AppsServiceImpl  implements AppsService{
+public class AppServiceImpl implements AppService {
 	protected Logger logger =  LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-   private AppsRepository appsRepository;
+   private AppRepository appRepository;
 
 	@Autowired
 	private OrganizationRepository organizationRepository;
 
 
-    public List<Apps> getAppsByShortUrl(String shortUrl) {
+	public List<App> getAllApps(){
+	    return appRepository.findAll();
+    }
+
+    public List<App> getAppsByShortUrl(String shortUrl) {
         Organization organization = organizationRepository.findByShortUrl(shortUrl);
         if(organization ==null){
             return null;
@@ -29,22 +33,22 @@ public class AppsServiceImpl  implements AppsService{
         return  this.getAppsByOrgId(organization.getId());
     }
 
-    public Apps getAppById(Long Id) {
-        Apps apps = appsRepository.findById(Id);
-        return apps;
+    public App getAppById(Long Id) {
+        App app = appRepository.findById(Id);
+        return app;
     }
 
-    public List<Apps> getAppsByOrgId(Long orgId)
+    public List<App> getAppsByOrgId(Long orgId)
    {
-   	    return appsRepository.findAllByOrgId(orgId);
+   	    return appRepository.findAllByOrgId(orgId);
    }
 
-   public Apps saveApp(Apps apps){
-        return appsRepository.save(apps);
+   public App saveApp(App app){
+        return appRepository.save(app);
    }
 
    public void removeApp(Long id){
-        appsRepository.deleteById(id);
+        appRepository.deleteById(id);
    }
 
 }

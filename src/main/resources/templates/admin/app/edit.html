@@ -74,7 +74,7 @@
 
         const app = new Vue({
             el: '#app',
-            id:'1',
+            id:0,
             data: {
                 appdata:{
                     id:1,
@@ -89,7 +89,6 @@
             },
             methods: {
                 load: function () {
-                    alert(this.appdata);
                     axios.get(webRoot + 'api/app/'+this.id)
                         .then(response => {
                         this.appdata = response.data;

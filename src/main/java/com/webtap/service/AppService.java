@@ -1,38 +1,45 @@
 package com.webtap.service;
 
-import com.webtap.domain.Apps;
+import com.webtap.domain.App;
 
 import java.util.List;
 
-public interface AppsService {
+public interface AppService {
+
+
+	/**
+	 * get all apps
+	 * @return
+	 */
+	public List<App> getAllApps();
 
 	/**
 	 * get app list info by short url
 	 * @param shortUrl
 	 * @return
 	 */
-	public  List<Apps> getAppsByShortUrl(String shortUrl);
+	public  List<App> getAppsByShortUrl(String shortUrl);
 
 	/**
 	 * get app by id
 	 * @param Id
 	 * @return
 	 */
-	public Apps getAppById(Long Id);
+	public App getAppById(Long Id);
 
 	/**
 	 * get app info by orgId
 	 * @param groupId
 	 * @return
 	 */
-	public List<Apps> getAppsByOrgId(Long groupId);
+	public List<App> getAppsByOrgId(Long groupId);
 
 	/**
 	 * save app
-	 * @param apps
+	 * @param app
 	 * @return
 	 */
-	public Apps saveApp(Apps apps);
+	public App saveApp(App app);
 
 	/**
 	 * delete app by id

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "wt_apps")
-public class Apps  implements Serializable {
+public class App implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

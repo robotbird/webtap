@@ -3,7 +3,7 @@ package com.webtap.web;
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.*;
 
-import com.webtap.service.AppsService;
+import com.webtap.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +18,26 @@ public class IndexController extends BaseController{
 
 
     @Autowired
-    private AppsService appsService;
+    private AppService appService;
+
+
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	@LoggerManage(description="首页")
+	public String index(Model model){
+		List<App>  appList = appService.getAllApps();
+		if(appList !=null){
+			model.addAttribute("appList", appList);
+		}
+		return "index";
+	}
 
 	@RequestMapping(value="/{url}",method=RequestMethod.GET)
-	@LoggerManage(description="首页")
+	@LoggerManage(description="短地址首页")
 	public String index(@PathVariable String url,Model model){
-		List<Apps> appsList = appsService.getAppsByShortUrl(url);
-		if(appsList!=null){
-			model.addAttribute("appList",appsList);
+
+		List<App>   appList = appService.getAppsByShortUrl(url);
+		if(appList !=null){
+			model.addAttribute("appList", appList);
 		}
 		return "index";
 	}
@@ -42,10 +54,10 @@ public class IndexController extends BaseController{
 		return "user/reset-password";
 	}
 
-	@RequestMapping(value = "/admin/setting/organization",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/settings/organization",method = RequestMethod.GET)
 	@LoggerManage(description = "管理后台")
 	public String admin(){
-		return  "admin/setting/organization";
+		return  "admin/settings/organization";
 	}
 
 	@RequestMapping(value = "/admin/app/list",method = RequestMethod.GET)

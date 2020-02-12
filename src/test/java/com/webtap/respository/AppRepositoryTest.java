@@ -1,5 +1,6 @@
-package com.webtap.service;
+package com.webtap.respository;
 
+import com.webtap.repository.AppRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,14 +11,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AppsServiceTest {
+public class AppRepositoryTest {
 
 	@Autowired
-  private AppsService appsService;
+  private AppRepository appRepository;
 
 	@Test
 	public void testApps() throws Exception {
-		long cnt = appsService.getAppsByOrgId(1l).size();
+		long cnt = appRepository.findAllByOrgId(1l).size();
 		Assert.assertEquals(cnt,1);
 	}
 

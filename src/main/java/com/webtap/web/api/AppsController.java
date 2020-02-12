@@ -1,11 +1,10 @@
 package com.webtap.web.api;
 
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.Apps;
+import com.webtap.domain.App;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
-import com.webtap.domain.result.ResponseData;
-import com.webtap.service.AppsService;
+import com.webtap.service.AppService;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ import java.util.List;
 public class AppsController extends BaseController{
 
     @Autowired
-    private AppsService appsService;
+    private AppService appService;
 
 	/**
 	 * 根据短链接获取app
@@ -28,13 +27,13 @@ public class AppsController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/apps/{url}", method = RequestMethod.GET)
-	public ResponseEntity<List<Apps>> getAppsByShortUrl(@PathVariable(value = "url") String url) {
-		List<Apps> apps = appsService.getAppsByShortUrl(url);
+	public ResponseEntity<List<App>> getAppsByShortUrl(@PathVariable(value = "url") String url) {
+		List<App> apps = appService.getAppsByShortUrl(url);
 
 		if (apps.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Apps>>(apps, HttpStatus.OK);
+		return new ResponseEntity<List<App>>(apps, HttpStatus.OK);
 	}
 
 	/**
@@ -43,12 +42,12 @@ public class AppsController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/app/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Apps> getAppsById(@PathVariable(value = "id") Long id) {
-		Apps apps = appsService.getAppById(id);
-		if (apps ==null) {
+	public ResponseEntity<App> getAppsById(@PathVariable(value = "id") Long id) {
+		App app = appService.getAppById(id);
+		if (app ==null) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
-		return  new ResponseEntity<Apps>(apps,HttpStatus.OK);
+		return  new ResponseEntity<App>(app,HttpStatus.OK);
 	}
 
 
@@ -59,8 +58,8 @@ public class AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "/apps/save", method = RequestMethod.POST)
 	@LoggerManage(description = "添加应用")
-	public Response saveApp(@RequestBody Apps apps) {
-        Apps app = appsService.saveApp(apps);
+	public Response saveApp(@RequestBody App apps) {
+        App app = appService.saveApp(apps);
 		logger.info("保存app成功");
 		return result();
 	}
@@ -72,7 +71,7 @@ public class AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "apps/remove/{id}",method = RequestMethod.DELETE)
 	public Response deleteApp(@PathVariable(value = "id") Long id){
-		appsService.removeApp(id);
+		appService.removeApp(id);
 		logger.info("删除成功");
 		return result(ExceptionMsg.SUCCESS);
 	}
