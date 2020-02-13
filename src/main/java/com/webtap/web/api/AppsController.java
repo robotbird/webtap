@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +21,21 @@ public class AppsController extends BaseController{
 
     @Autowired
     private AppService appService;
+
+
+	/**
+	 * 列出所有app
+	 * @return
+	 */
+	@RequestMapping(value = "/apps", method = RequestMethod.GET)
+	public ResponseEntity<List<App>> getAllApps() {
+		List<App> apps = appService.getAllApps();
+
+		if (apps.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<App>>(apps, HttpStatus.OK);
+	}
 
 	/**
 	 * 根据短链接获取app
@@ -53,15 +69,20 @@ public class AppsController extends BaseController{
 
 	/**
 	 * 添加应用
-	 * @param apps
+	 * @param app
 	 * @return
 	 */
 	@RequestMapping(value = "/apps/save", method = RequestMethod.POST)
 	@LoggerManage(description = "添加应用")
-	public Response saveApp(@RequestBody App apps) {
-        App app = appService.saveApp(apps);
-		logger.info("保存app成功");
-		return result();
+	public Response saveApp(@RequestBody App app) {
+		try{
+			 appService.saveApp(app);
+			 logger.info("保存app成功");
+
+		} catch (Exception ex){
+			return result(ex.getMessage());
+		}
+		return result(ExceptionMsg.SUCCESS);
 	}
 
 	/**

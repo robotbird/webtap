@@ -24,6 +24,9 @@ public class BaseController {
     protected Response result(ExceptionMsg msg){
     	return new Response(msg);
     }
+    protected Response result(String msg){
+        return new Response(msg);
+    }
     protected Response result(){
     	return new Response();
     }

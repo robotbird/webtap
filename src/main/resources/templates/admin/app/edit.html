@@ -6,19 +6,9 @@
         <!-- content-->
 
         <div class="">
-            <div id="app"   class="bf-body">
+            <div id="app-body"   class="bf-body">
                 <form>
                     <div class="bf-content bf-content-boxed">
-
-                        <div class="form-group">
-                            <label class="form-group-label">App Logo</label>
-                            <div class="input-group">
-                                <input   type="text" id="app-logoUrl" v-model="appdata.logoUrl" class="form-control" readonly />
-                                <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(insertAppLogoCallback);"> 选择</button>
-                               </span>
-                            </div>
-                        </div>
 
 
                         <div class="form-group">
@@ -49,6 +39,15 @@
                             <input type="text" class="form-control" v-model="appdata.sortNum">
                         </div>
 
+                        <div class="form-group">
+                            <label class="form-group-label">App Logo</label>
+                            <div class="input-group">
+                                <input   type="text" id="app-logoUrl" name="app-logoUrl" value="" v-model="appdata.logoUrl" class="form-control"  />
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-secondary btn-upload" onclick="fileManagerController.open(insertAppLogoCallback);"> 选择</button>
+                               </span>
+                            </div>
+                        </div>
 
 
                         <button type="button"  v-on:click="save()"  class="btn btn-primary btn-main">保存</button>
@@ -73,11 +72,10 @@
         Vue.use(window.vuelidate.default)
 
         const app = new Vue({
-            el: '#app',
+            el: '#app-body',
             id:0,
             data: {
                 appdata:{
-                    id:1,
                     categoryId:4,
                     userId:1,
                     orgId:5,
@@ -89,17 +87,36 @@
             },
             methods: {
                 load: function () {
-                    axios.get(webRoot + 'api/app/'+this.id)
-                        .then(response => {
-                        this.appdata = response.data;
-                    $('#app').css('display', '');
-                }).catch(function (error) { toastr.error(error); });
+                    if(this.id>0){
+                        axios.get(webRoot + 'api/app/'+this.id)
+                            .then(response => {
+                            this.appdata = response.data;
+                            }).catch(function (error) { toastr.error(error); });
+                    }
                 },
                 save: function () {
+                    debugger;
+                   var posturl =webRoot + 'api/apps/save' ;
 
-                    axios.post(webRoot + 'api/apps/save', this.appdata)
+                   var logoUrl = "";
+                   if(this.id>0){
+                       logoUrl =  $("#app-logoUrl").val();
+                   }else {
+                       logoUrl =  webRoot + $("#app-logoUrl").val();
+                   }
+
+                   this.appdata.logoUrl = logoUrl;
+                   console.log(this.appdata);
+                   var app = this.appdata;
+                    axios.post(posturl, app)
                         .then(function (response) {
-                            toastr.success('新增成功');
+                            console.log(response.data)
+                            if(response.data.rspCode!="000000"){
+                                toastr.error(response.data.rspCode+" "+response.data.rspMsg);
+                            }else {
+                                toastr.success(response.data.rspMsg);
+                                setTimeout(function () { location.href = webRoot +"admin/app/list"; }, 1000);
+                            }
                         })
                         .catch(function (error) {
                             toastr.error(error);
@@ -110,7 +127,9 @@
                 if (fromQueryString('id')) {
                     this.id = fromQueryString('id');
                 }
-                this.load()
+                if(this.id>0){
+                    this.load();
+                }
             }
         })
     </script>
