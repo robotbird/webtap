@@ -135,7 +135,7 @@
     </style>
 </head>
 <body>
-<div class="box_wrapper full-background-wall">
+<div id="app" class="box_wrapper full-background-wall">
 
     <div class="top-bar">
        <ul class="nav">
@@ -157,20 +157,41 @@
     </div>
     <ul class="icon_list">
 
-        <li th:each="apps:${appList}">
+        <li v-for="app in appList" :key="app.id">
             <div class="title">
-                <a th:href="${apps.url}">  <img class="icon goole_icon"  th:src="${apps.logoUrl}" /></a>
+                <a :href="app.url">  <img class="icon goole_icon"  v-bind:src="app.logoUrl" /></a>
             </div>
             <div class="desc">
-                <a th:href="${apps.url}" th:text="${apps.title}"></a>
+                <a :href="app.url" >{{app.title}}</a>
             </div>
         </li>
 
     </ul>
 </div>
 </body>
-<script>
 
+<script src="/js/vue.min.js"></script>
+<script src="/js/axios.min.js"></script>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            appList: {}
+        },
+        methods: {
+            load: function () {
+                axios.get('api/apps')
+                    .then(response => {
+                    this.appList = response.data;
+            }).catch(function (error) { console.log(error) });
+            }
+        },
+        beforeMount() {
+            this.load()
+        }
+    })
 </script>
+
 </html>
 
