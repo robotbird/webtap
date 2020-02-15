@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8"></meta>
     <title>WebTap</title>
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_926032_jplb4eto8s.css"/>
-    <script src="http://at.alicdn.com/t/font_926032_nx02upyp0a.js"></script>
+
     <style>
         *{
             margin: 0;
@@ -94,17 +93,69 @@
             fill: currentColor;
             overflow: hidden;
         }
+        .full-background-wall{
+            position:fixed;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+            min-width: 1000px;
+            z-index:-10;
+            zoom: 1;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background: #666 no-repeat center 0;
+            background-blend-mode:overlay;
+
+        }
+        .full-background-wall{background-image:url(upload/background/9.jpg)}
+
+        .top-bar{
+            height: 40px;
+            line-height: 40px;
+        }
+        .top-bar .nav{float: left; color: #ffffff; padding-left: 80px;}
+        .top-bar a,.top-bar a:link,.top-bar a:hover,.top-bar a:visited{ text-decoration: none;  color: #fff !important}
+
+        .top-bar .profile{float:right; padding-right: 80px; }
+
+        .top-bar .profile li{list-style: none; display: inline-block}
+        .top-bar .profile li img{vertical-align: middle;}
+        .user-pic{
+            height: 32px;
+            width: 32px;
+            border-radius: 16px;
+            background-color: #ececec;
+            background-position: -11px -149px;
+        }
+        .settings-quick{
+
+        }
     </style>
 </head>
 <body>
-<div class="box_wrapper">
+<div class="box_wrapper full-background-wall">
+
+    <div class="top-bar">
+       <ul class="nav">
+           <a href="http://webtap.cn/marketplace">应用</a>  |  <a href="http://webtap.cn/news">新闻</a>
+       </ul>
+
+        <ul class="profile">
+            <li><a href="login">Sign in</a> </li>
+            <li><img src="img/msg.png" alt="Message" /> </li>
+            <li><span class="user-pic"></span> <img src="img/userpic.png" alt="User profile pic" /> </li>
+            <li><span class="settings-quick"></span> <img src="img/nav-link.png" alt="Settings and quick links" /> </li>
+        </ul>
+    </div>
+
     <div class="goole"><img src="img/3.png" alt="Utry"></div>
     <div class="search">
         <input type="text" class="search_btn">
         <span class="iconfont icon-sousuo"></span>
     </div>
     <ul class="icon_list">
-
 
         <li th:each="apps:${appList}">
             <div class="title">

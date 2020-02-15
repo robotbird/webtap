@@ -12,6 +12,7 @@
     }
 
     function pick(id) {
+        debugger;
         var items = $('.bf-filemanager .item-check:checked');
         if (callBack.name === 'insertAppLogoCallback') {
             if (items.length === 0) {
@@ -254,6 +255,7 @@ var updatePostCoverCallback = function (data) {
  * @param data
  */
 var insertAppLogoCallback = function (data) {
+    //document.getElementById("#app-logoUrl").value = data;
     $('#app-logoUrl').val(data);
     toastr.success("选择成功");
 };
