@@ -132,7 +132,27 @@
         .settings-quick{
 
         }
+
+
+
+
+        .autocomplete-suggestions { -webkit-box-sizing: border-box; -moz-box-sizing: border-box;
+            box-sizing: border-box; border: 1px solid #999; background: #FFF; cursor: default;
+            overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+            -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+         margin-left: -16px;margin-top: -10px; border-bottom-left-radius: 25px; border-bottom-right-radius:25px;}
+
+        .autocomplete-suggestion {
+            white-space: nowrap; overflow: hidden;
+            padding: 2px 5px 2px 23px;
+        }
+        .autocomplete-no-suggestion { padding: 2px 5px 2px 23px;}
+        .autocomplete-selected { background: #F0F0F0; }
+        .autocomplete-suggestions strong { font-weight: bold; color: #000; }
+        .autocomplete-group { padding: 2px 5px; font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
     </style>
+
+
 </head>
 <body>
 <div id="app" class="box_wrapper full-background-wall">
@@ -152,9 +172,10 @@
 
     <div class="goole"><img src="img/3.png" alt="Utry"></div>
     <div class="search">
-        <input type="text" class="search_btn">
+        <input type="text" class="search_btn" id="autocomplete">
         <span class="iconfont icon-sousuo"></span>
     </div>
+    <div id="selection"></div>
     <ul class="icon_list">
 
         <li v-for="app in appList" :key="app.id">
@@ -172,6 +193,9 @@
 
 <script src="/js/vue.min.js"></script>
 <script src="/js/axios.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+
 
 <script>
     const app = new Vue({
@@ -184,7 +208,23 @@
                 axios.get('api/apps')
                     .then(response => {
                     this.appList = response.data;
+
+
+                var appArr = this.appList;
+                var appsRes = $.map(appArr,function (a) {
+                    return {value:a.title,data:{category:'APP'}};
+                });
+
+                console.log(appsRes);
+
+
             }).catch(function (error) { console.log(error) });
+
+
+
+
+
+
             }
         },
         beforeMount() {
@@ -193,5 +233,31 @@
     })
 </script>
 
+<script type="text/javascript">
+    var nbaTeams = ['Atlanta Hawks', 'Boston Celtics', 'Charlotte Bobcats', 'Chicago Bulls', 'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detroit Pistons', 'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'LA Clippers', 'LA Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Jersey Nets', 'New Orleans Hornets', 'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia Sixers', 'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards'];
+    var nba = $.map(nbaTeams, function (team) {
+        return { value: team, data: { category: 'NBA' } };
+    });
+
+
+    // Initialize autocomplete with local lookup:
+    $('#autocomplete').autocomplete({
+        onSearchComplete:function(){
+            $(".search").css("border-radius","0px");
+            $(".search").css({"border-top-left-radius":"25px","border-top-right-radius":"25px"});
+        },
+        onHide:function(){
+            $(".search").css("border-radius","50px")
+        },
+        width:562,
+        lookup: nba,
+        minChars: 1,
+        onSelect: function (suggestion) {
+            $('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data.category);
+        },
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: 'Sorry, no matching results'
+    });
+</script>
 </html>
 
