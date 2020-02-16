@@ -215,12 +215,24 @@
                 });
 
                 $('#autocomplete').autocomplete({
-                    onSearchComplete:function(){
+                    onSearchComplete:function(query,suggestions){
+
                         $(".search").css("border-radius","0px");
                         $(".search").css({"border-top-left-radius":"25px","border-top-right-radius":"25px"});
+
+                        var sg_hidden = $(".autocomplete-suggestions").is(":hidden");
+                        if(sg_hidden){
+                            $(".search").css("border-radius","50px");
+                        }
+
                     },
                     onHide:function(){
-                        $(".search").css("border-radius","50px")
+                        var wd= $("#autocomplete").val();
+                        if(wd ==""){
+                            app.load();
+                        }
+                        $(".search").css("border-radius","50px");
+
                     },
                     width:562,
                     lookup: appsRes,
@@ -233,6 +245,7 @@
                             }
                         }
                         app.$data.appList = sugArr;
+                        //$(".search").css("border-radius","50px");
                     },
                     showNoSuggestionNotice: true,
                     noSuggestionNotice: 'Sorry, no matching results'
