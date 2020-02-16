@@ -208,30 +208,32 @@
                 axios.get('api/apps')
                     .then(response => {
                     this.appList = response.data;
+                    this.search();
 
+            }).catch(function (error) { console.log(error) });
+            },
+            search:function(){
                 var appArr = this.appList;
                 var appsRes = $.map(appArr,function (a) {
                     return {value:a.title,data:{category:'APP'}};
                 });
-
+                function reset_border_radius(){$(".search").css("border-radius","50px");}
                 $('#autocomplete').autocomplete({
                     onSearchComplete:function(query,suggestions){
-
                         $(".search").css("border-radius","0px");
                         $(".search").css({"border-top-left-radius":"25px","border-top-right-radius":"25px"});
 
                         var sg_hidden = $(".autocomplete-suggestions").is(":hidden");
                         if(sg_hidden){
-                            $(".search").css("border-radius","50px");
+                            reset_border_radius();
                         }
-
                     },
                     onHide:function(){
                         var wd= $("#autocomplete").val();
                         if(wd ==""){
                             app.load();
                         }
-                        $(".search").css("border-radius","50px");
+                        reset_border_radius();
 
                     },
                     width:562,
@@ -245,15 +247,12 @@
                             }
                         }
                         app.$data.appList = sugArr;
-                        //$(".search").css("border-radius","50px");
                     },
                     showNoSuggestionNotice: true,
                     noSuggestionNotice: 'Sorry, no matching results'
                 });
 
-
-            }).catch(function (error) { console.log(error) });
-            },
+            }
 
         },
         beforeMount() {
