@@ -209,23 +209,39 @@
                     .then(response => {
                     this.appList = response.data;
 
-
                 var appArr = this.appList;
                 var appsRes = $.map(appArr,function (a) {
                     return {value:a.title,data:{category:'APP'}};
                 });
 
-                console.log(appsRes);
+                $('#autocomplete').autocomplete({
+                    onSearchComplete:function(){
+                        $(".search").css("border-radius","0px");
+                        $(".search").css({"border-top-left-radius":"25px","border-top-right-radius":"25px"});
+                    },
+                    onHide:function(){
+                        $(".search").css("border-radius","50px")
+                    },
+                    width:562,
+                    lookup: appsRes,
+                    minChars: 1,
+                    onSelect: function (suggestion) {
+                        var  sugArr = [];
+                        for(var i=0;i<appArr.length;i++){
+                            if(appArr[i].title == suggestion.value){
+                                sugArr.push(appArr[i]);
+                            }
+                        }
+                        app.$data.appList = sugArr;
+                    },
+                    showNoSuggestionNotice: true,
+                    noSuggestionNotice: 'Sorry, no matching results'
+                });
 
 
             }).catch(function (error) { console.log(error) });
+            },
 
-
-
-
-
-
-            }
         },
         beforeMount() {
             this.load()
@@ -233,31 +249,5 @@
     })
 </script>
 
-<script type="text/javascript">
-    var nbaTeams = ['Atlanta Hawks', 'Boston Celtics', 'Charlotte Bobcats', 'Chicago Bulls', 'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detroit Pistons', 'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'LA Clippers', 'LA Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Jersey Nets', 'New Orleans Hornets', 'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia Sixers', 'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards'];
-    var nba = $.map(nbaTeams, function (team) {
-        return { value: team, data: { category: 'NBA' } };
-    });
-
-
-    // Initialize autocomplete with local lookup:
-    $('#autocomplete').autocomplete({
-        onSearchComplete:function(){
-            $(".search").css("border-radius","0px");
-            $(".search").css({"border-top-left-radius":"25px","border-top-right-radius":"25px"});
-        },
-        onHide:function(){
-            $(".search").css("border-radius","50px")
-        },
-        width:562,
-        lookup: nba,
-        minChars: 1,
-        onSelect: function (suggestion) {
-            $('#selection').html('You selected: ' + suggestion.value + ', ' + suggestion.data.category);
-        },
-        showNoSuggestionNotice: true,
-        noSuggestionNotice: 'Sorry, no matching results'
-    });
-</script>
 </html>
 
