@@ -2,8 +2,10 @@ package com.webtap.web.api;
 
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.App;
+import com.webtap.domain.AppCategory;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
+import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class AppsController extends BaseController{
     @Autowired
     private AppService appService;
 
+    @Autowired
+    private AppCategoryService appCategoryService;
 
 	/**
 	 * 列出所有app
@@ -95,6 +99,20 @@ public class AppsController extends BaseController{
 		appService.removeApp(id);
 		logger.info("删除成功");
 		return result(ExceptionMsg.SUCCESS);
+	}
+
+	/**
+	 * 列出所有app category
+	 * @return
+	 */
+	@RequestMapping(value = "/app/categories", method = RequestMethod.GET)
+	public ResponseEntity<List<AppCategory>> getAllAppCategories() {
+		List<AppCategory> categoryList = appCategoryService.getAppCategories();
+
+		if (categoryList.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<AppCategory>>(categoryList, HttpStatus.OK);
 	}
 
 }
