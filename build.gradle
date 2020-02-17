@@ -35,16 +35,17 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools:1.5.8.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-mail:1.5.8.RELEASE")
-    compile 'org.webjars.bower:bootstrap:3.3.6'
-    compile("org.webjars:vue:1.0.24")
-    compile 'org.webjars.bower:vue-resource:0.7.0'
-    compile group: 'org.webjars', name: 'webjars-locator', version: '0.14'
+//    compile 'org.webjars.bower:bootstrap:3.3.6'
+//    compile("org.webjars:vue:1.0.24")
+//    compile 'org.webjars.bower:vue-resource:0.7.0'
+//    compile group: 'org.webjars', name: 'webjars-locator', version: '0.14'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
     compile 'org.springframework.boot:spring-boot-starter-tomcat'
     compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
 }
 
 bootRun {
+    
     addResources = true
 }
 
