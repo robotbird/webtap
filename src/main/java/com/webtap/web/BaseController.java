@@ -53,7 +53,7 @@ public class BaseController {
     }
     
     protected String getUserName() {
-    	String userName="云收藏";
+    	String userName="";
     	User user=getUser();
     	if(user!=null){
     		userName=user.getUserName();
