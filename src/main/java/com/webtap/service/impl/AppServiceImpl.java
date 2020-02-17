@@ -6,6 +6,7 @@ import com.webtap.service.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class AppServiceImpl implements AppService {
 
 
 	public List<App> getAllApps(){
-	    return appRepository.findAll();
+	    Sort sort = new Sort("sortNum");
+	    return appRepository.findAll(sort);
     }
 
     public List<App> getAppsByShortUrl(String shortUrl) {
