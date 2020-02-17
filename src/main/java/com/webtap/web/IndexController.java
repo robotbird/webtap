@@ -24,21 +24,12 @@ public class IndexController extends BaseController{
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	@LoggerManage(description="首页")
 	public String index(Model model){
-		List<App>  appList = appService.getAllApps();
-		if(appList !=null){
-			model.addAttribute("appList", appList);
-		}
 		return "index";
 	}
 
 	@RequestMapping(value="/{url}",method=RequestMethod.GET)
 	@LoggerManage(description="短地址首页")
 	public String index(@PathVariable String url,Model model){
-
-		List<App>   appList = appService.getAppsByShortUrl(url);
-		if(appList !=null){
-			model.addAttribute("appList", appList);
-		}
 		return "index";
 	}
 
