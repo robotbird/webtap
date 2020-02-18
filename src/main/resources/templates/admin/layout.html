@@ -98,28 +98,6 @@
         </li>
     </ul>
 
-    <!-- Modal Notifications -->
-    <div class="modal fade" id="notifications" tabindex="-1" role="dialog" aria-labelledby="notificationsLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="settingsLabel">通知</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-primary" role="alert">
-                        The new Blogifier <a href='https://github.com/blogifierdotnet/Blogifier/releases/tag/v2.5' class='alert-link' target='_blank'>Version 2.5</a> is available for download
-                        <button type="button" class="close" onclick="notificationsController.remove('2')" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="alert alert-warning" role="alert">
-                        Upgrade to <a href="upgrade">version 2.5</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div layout:fragment="content"></div>
 

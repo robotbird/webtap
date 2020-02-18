@@ -36,7 +36,7 @@
                                <select class="form-control" style="float:left;width: 90%" v-model="appdata.categoryId">
                                    <option  v-for="cate  in categories" name="cate.name" :value="cate.id" >{{cate.name}}</option>
                                </select>
-                               <a style="float: left;width: 10%" href="#" class="btn btn-sm btn-link">新增 <strong>+</strong></a>
+                               <a id="btn-category" style="float: left;width: 10%" href="#" class="btn btn-sm btn-link">新增 <strong>+</strong></a>
                            </div>
                         </div>
 
@@ -70,6 +70,10 @@
 
                     </div>
                 </form>
+
+
+                <div id="modal-category"></div>
+
             </div>
         </div>
 
@@ -128,7 +132,6 @@
                    }
 
                    this.appdata.logoUrl = logoUrl;
-                   console.log(this.appdata);
                    var app = this.appdata;
                     axios.post(posturl, app)
                         .then(function (response) {
@@ -152,6 +155,15 @@
                 this.load();
             }
         })
+
+
+        /**
+         * add new category
+         */
+       $("#btn-category").click(function () {
+
+       });
+
     </script>
 
 
