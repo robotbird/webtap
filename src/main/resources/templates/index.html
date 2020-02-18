@@ -178,6 +178,16 @@
     <div id="selection"></div>
     <ul class="icon_list">
 
+
+        <li v-for="cat in categories" :key="cat.id">
+            <div class="title">
+                <a href="#">  <img class="icon goole_icon"  src="img/fold.png" /></a>
+            </div>
+            <div class="desc">
+                <a href="#" >{{cat.name}}</a>
+            </div>
+        </li>
+
         <li v-for="app in appList" :key="app.id">
             <div class="title">
                 <a :href="app.url">  <img class="icon goole_icon"  v-bind:src="app.logoUrl" /></a>
@@ -201,16 +211,23 @@
     const app = new Vue({
         el: '#app',
         data: {
+            categories:{},
             appList: {}
         },
         methods: {
             load: function () {
+                this.loadCat();
                 axios.get('api/apps')
                     .then(response => {
                     this.appList = response.data;
                     this.search();
-
-            }).catch(function (error) { console.log(error) });
+                    }).catch(function (error) { console.log(error) });
+            },
+            loadCat:function(){
+                axios.get('api/app/categories')
+                    .then(response => {
+                    this.categories = response.data;
+                    }).catch(function (error) { console.log(error) });
             },
             search:function(){
                 var appArr = this.appList;
