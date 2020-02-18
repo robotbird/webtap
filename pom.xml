@@ -41,11 +41,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>webjars-locator</artifactId>
-			<version>0.33</version>
-		</dependency>
+
 		<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -56,29 +52,9 @@
 		    <version>3.4</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>bootstrap</artifactId>
-		    <version>3.3.6</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>vue</artifactId>
-		    <version>1.0.24</version>
-		</dependency>
-        <dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>vue-resource</artifactId>
-		    <version>0.7.0</version>
-		</dependency>
-		<dependency>
 		    <groupId>org.jsoup</groupId>
 		    <artifactId>jsoup</artifactId>
 		    <version>1.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
