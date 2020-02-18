@@ -10,4 +10,11 @@ public interface AppCategoryService {
      * @return
      */
       public List<AppCategory> getAppCategories();
+
+    /**
+     * add app category
+     * @param appCategory
+     * @return
+     */
+    public AppCategory save(AppCategory appCategory);
 }

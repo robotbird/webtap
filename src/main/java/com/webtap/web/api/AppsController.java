@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 @RestController
@@ -102,7 +103,7 @@ public class AppsController extends BaseController{
 	}
 
 	/**
-	 * 列出所有app category
+	 * return all app category
 	 * @return
 	 */
 	@RequestMapping(value = "/app/categories", method = RequestMethod.GET)
@@ -115,4 +116,21 @@ public class AppsController extends BaseController{
 		return new ResponseEntity<List<AppCategory>>(categoryList, HttpStatus.OK);
 	}
 
+    /**
+     * add category
+     * @param category
+     * @return
+     */
+    @RequestMapping(value = "/category/save", method = RequestMethod.POST)
+    @LoggerManage(description = "add category")
+    public ResponseEntity saveAppCategory(@RequestBody AppCategory category) {
+        AppCategory appCategory =null;
+        try{
+           appCategory = appCategoryService.save(category);
+            logger.info("save app category success!");
+        } catch (Exception ex){
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return  new ResponseEntity<AppCategory>(appCategory,HttpStatus.OK);
+    }
 }

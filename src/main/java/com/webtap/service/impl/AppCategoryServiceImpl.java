@@ -33,4 +33,8 @@ public class AppCategoryServiceImpl implements AppCategoryService {
 	public List<AppCategory> getAppCategories() {
 		return appCategoryRepository.findAll();
 	}
+
+	public AppCategory save(AppCategory appCategory) {
+		return appCategoryRepository.save(appCategory);
+	}
 }
