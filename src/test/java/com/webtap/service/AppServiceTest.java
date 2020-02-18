@@ -15,10 +15,20 @@ public class AppServiceTest {
 	@Autowired
   private AppService appService;
 
+	@Autowired
+	private AppCategoryService appCategoryService;
+
 	@Test
 	public void testApps() throws Exception {
 		long cnt = appService.getAppsByOrgId(1l).size();
 		Assert.assertEquals(cnt,1);
 	}
 
+	@Test
+	public void testCategories() throws Exception {
+		long cnt = appCategoryService.getAppCategories().size();
+
+		System.out.print("cnt===================================================="+cnt);
+		Assert.assertEquals(cnt,4);
+	}
 }

@@ -57,4 +57,14 @@ public class WebApiControllerTest {
 
 	}
 
+	@Test
+	public void testGetAppCategories(){
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<String> entity = new HttpEntity<String>(null,headers);
+		ResponseEntity<String> response = restTemplate.exchange(getRootUrl()+"/api/app/categories",
+				HttpMethod.GET,entity,String.class);
+		System.out.println(response.getBody());
+		Assert.assertNotNull(response.getBody());
+
+	}
 }
