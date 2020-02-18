@@ -4,6 +4,7 @@
     <meta charset="UTF-8"></meta>
     <title>WebTap</title>
 
+    <link rel="stylesheet" type="text/css" href="css/zeroModal.css" />
     <style>
         *{
             margin: 0;
@@ -181,7 +182,7 @@
 
         <li v-for="cat in categories" :key="cat.id">
             <div class="title">
-                <a href="#">  <img class="icon goole_icon"  src="img/fold.png" /></a>
+                <a href="javascript:_setOpacity()">  <img class="icon goole_icon"  src="img/fold.png" /></a>
             </div>
             <div class="desc">
                 <a href="#" >{{cat.name}}</a>
@@ -205,6 +206,7 @@
 <script src="/js/axios.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.autocomplete.min.js"></script>
+<script src="/js/zeroModal.min.js"></script>
 
 
 <script>
@@ -275,7 +277,22 @@
         beforeMount() {
             this.load()
         }
-    })
+    });
+
+    function _setOpacity() {
+
+        var html='<ul class="icon_list"><li><div class="title"><a href="kk"><img src="/upload/logo/chandao.png" class="icon goole_icon"></a></div> <div class="desc"><a href="kk">lllll</a></div></li>\n' +
+            '\n' +
+            '<li><div class="title"><a href="来来来"><img src="/upload/logo/kod.png" class="icon goole_icon"></a></div> <div class="desc"><a href="来来来">000</a></div></li>\n' +
+            '\n' +
+            '<li><div class="title"><a href="http://www.italent.cn"><img src="/upload/logo/iconfont.png" class="icon goole_icon"></a></div> <div class="desc"><a href="http://www.italent.cn">图标</a></div></li></ul>';
+        zeroModal.show({
+            content: html,
+            width: '40%',
+            height: '60%',
+            opacity: 0.8
+        });
+    }
 </script>
 
 </html>
