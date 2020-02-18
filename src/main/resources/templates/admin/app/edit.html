@@ -33,7 +33,9 @@
                                 分类:
                             </label>
                            <div style="height: 40px">
-                               <input type="text" class="form-control" style="float:left;width: 90%">
+                               <select class="form-control" style="float:left;width: 90%" v-model="appdata.categoryId">
+                                   <option  v-for="cate  in categories" name="cate.name" :value="cate.id" >{{cate.name}}</option>
+                               </select>
                                <a style="float: left;width: 10%" href="#" class="btn btn-sm btn-link">新增 <strong>+</strong></a>
                            </div>
                         </div>
@@ -88,6 +90,7 @@
             el: '#app-body',
             id:0,
             data: {
+                categories:{},
                 appdata:{
                     categoryId:4,
                     userId:1,
@@ -98,8 +101,15 @@
                     secContent:""
                 }
             },
+
             methods: {
                 load: function () {
+
+                    axios.get(webRoot + 'api/app/categories')
+                        .then(response => {
+                        this.categories = response.data;
+                    }).catch(function (error) { toastr.error(error); });
+
                     if(this.id>0){
                         axios.get(webRoot + 'api/app/'+this.id)
                             .then(response => {
@@ -108,7 +118,6 @@
                     }
                 },
                 save: function () {
-                    debugger;
                    var posturl =webRoot + 'api/apps/save' ;
 
                    var logoUrl = "";
@@ -140,9 +149,7 @@
                 if (fromQueryString('id')) {
                     this.id = fromQueryString('id');
                 }
-                if(this.id>0){
-                    this.load();
-                }
+                this.load();
             }
         })
     </script>
