@@ -180,11 +180,11 @@
     <ul class="icon_list">
 
 
-        <li v-for="cat in categories" :key="cat.id">
-            <div class="title">
+        <li v-for="cat in categories" :key="cat.id" v-if="cat.appAmount>0">
+            <div class="title" >
                 <a href="javascript:_setOpacity()">  <img class="icon goole_icon"  src="img/fold.png" /></a>
             </div>
-            <div class="desc">
+            <div class="desc" >
                 <a href="#" >{{cat.name}}</a>
             </div>
         </li>

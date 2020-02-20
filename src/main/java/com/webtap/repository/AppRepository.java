@@ -8,12 +8,6 @@ import java.util.List;
 
 public interface AppRepository extends JpaRepository<App, Long> {
 
-
-	App findById(Long id);
-
 	List<App> findAllByOrgId(Long groupId);
-
-	@Transactional
-    void deleteById(Long Id);
 
 }

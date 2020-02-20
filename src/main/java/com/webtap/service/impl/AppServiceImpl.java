@@ -19,6 +19,9 @@ public class AppServiceImpl implements AppService {
    private AppRepository appRepository;
 
 	@Autowired
+	private AppCategoryRepository appCategoryRepository;
+
+	@Autowired
 	private OrganizationRepository organizationRepository;
 
 
@@ -36,7 +39,7 @@ public class AppServiceImpl implements AppService {
     }
 
     public App getAppById(Long Id) {
-        App app = appRepository.findById(Id);
+        App app = appRepository.findOne(Id);
         return app;
     }
 
@@ -46,11 +49,18 @@ public class AppServiceImpl implements AppService {
    }
 
    public App saveApp(App app){
+	    if(app.getCategoryId()>0){
+            appCategoryRepository.updateAppAmount(app.getCategoryId(),1L);
+        }
         return appRepository.save(app);
    }
 
    public void removeApp(Long id){
-        appRepository.deleteById(id);
+	    App app = appRepository.findOne(id);
+       if(app.getCategoryId()>0){
+           appCategoryRepository.updateAppAmount(app.getCategoryId(),-1L);
+       }
+        appRepository.delete(id);
    }
 
 }
