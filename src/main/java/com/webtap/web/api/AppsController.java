@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,11 +37,19 @@ public class AppsController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/apps",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public String getAppsAndCat() {
+	public String getAppsAndCats() {
 		List<App> apps = appService.getAllApps();
 		List<AppCategory> categoryList = appCategoryService.getAppCategories();
 
-
+        Iterator<App> iteratorApp = apps.iterator();
+        while(iteratorApp.hasNext()){
+            App app = iteratorApp.next();
+            for(AppCategory category:categoryList){
+                if (app.getCategoryId()==category.getId()){
+                    iteratorApp.remove();
+                }
+            }
+        }
 		JSONObject result = new JSONObject();
 		result.put("apps", apps);
 		result.put("categories", categoryList);

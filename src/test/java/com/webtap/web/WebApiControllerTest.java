@@ -36,6 +36,20 @@ public class WebApiControllerTest {
 	@Test
 	public void contextLoads() {
 	}
+
+
+
+	@Test
+	public void testGetAppsAndCats() {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/api/apps",
+				HttpMethod.GET, entity, String.class);
+		System.out.println(response.getBody());
+		Assert.assertNotNull(response.getBody());
+	}
+
+
 	@Test
 	public void testGetAppsByShortUrl() {
 		HttpHeaders headers = new HttpHeaders();
