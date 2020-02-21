@@ -7,6 +7,7 @@ import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
+import com.webtap.utils.StringUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -39,6 +41,14 @@ public class AppsController extends BaseController{
 	@RequestMapping(value = "/apps",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public String getAppsAndCats() {
 		List<App> apps = appService.getAllApps();
+		List<App> appsAll = null;
+		try {
+			appsAll = StringUtil.deepCopy(apps);
+		} catch (IOException e) {
+			logger.error(e.getLocalizedMessage());
+		} catch (ClassNotFoundException e) {
+			logger.error(e.getLocalizedMessage());
+		}
 		List<AppCategory> categoryList = appCategoryService.getAppCategories();
 
         Iterator<App> iteratorApp = apps.iterator();
@@ -51,6 +61,7 @@ public class AppsController extends BaseController{
             }
         }
 		JSONObject result = new JSONObject();
+        result.put("appsAll",appsAll);
 		result.put("apps", apps);
 		result.put("categories", categoryList);
 		return result.toJSONString();
