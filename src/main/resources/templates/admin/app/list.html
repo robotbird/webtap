@@ -70,7 +70,7 @@
         },
         methods: {
             load: function () {
-                axios.get(webRoot + 'api/apps')
+                axios.get(webRoot + 'api/app/list')
                     .then(response => {
                     this.appList = response.data;
                 $('#app').css('display', '');

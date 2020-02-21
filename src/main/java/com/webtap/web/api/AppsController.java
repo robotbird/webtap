@@ -8,6 +8,7 @@ import com.webtap.domain.result.Response;
 import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
 import com.webtap.web.BaseController;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +29,24 @@ public class AppsController extends BaseController{
     @Autowired
     private AppCategoryService appCategoryService;
 
+
+
 	/**
-	 * 列出所有app
+	 * 列出所有 app 和分类
 	 * @return
 	 */
-	@RequestMapping(value = "/apps", method = RequestMethod.GET)
-	public ResponseEntity<List<App>> getAllApps() {
+	@RequestMapping(value = "/apps",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String getAppsAndCat() {
 		List<App> apps = appService.getAllApps();
+		List<AppCategory> categoryList = appCategoryService.getAppCategories();
 
-		if (apps.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<App>>(apps, HttpStatus.OK);
+
+		JSONObject result = new JSONObject();
+		result.put("apps", apps);
+		result.put("categories", categoryList);
+		return result.toJSONString();
 	}
+
 
 	/**
 	 * 根据短链接获取app
@@ -57,6 +63,20 @@ public class AppsController extends BaseController{
 		return new ResponseEntity<List<App>>(apps, HttpStatus.OK);
 	}
 
+
+	/**
+	 * 列出所有app
+	 * @return
+	 */
+	@RequestMapping(value = "/app/list", method = RequestMethod.GET)
+	public ResponseEntity<List<App>> getAllApps() {
+		List<App> apps = appService.getAllApps();
+
+		if (apps.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<App>>(apps, HttpStatus.OK);
+	}
 	/**
 	 * 根据id接获取app
 	 * @param id
