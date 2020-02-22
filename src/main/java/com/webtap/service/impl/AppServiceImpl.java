@@ -48,6 +48,10 @@ public class AppServiceImpl implements AppService {
    	    return appRepository.findAllByOrgId(orgId);
    }
 
+   public List<App> getAppsByCategory(Long categoryId){
+	    return appRepository.findAllByCategoryId(categoryId);
+   }
+
    public App saveApp(App app){
 	    if(app.getCategoryId()>0){
             appCategoryRepository.updateAppAmount(app.getCategoryId(),1L);

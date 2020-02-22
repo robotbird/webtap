@@ -11,6 +11,7 @@ import com.webtap.utils.StringUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -89,8 +90,14 @@ public class AppsController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/app/list", method = RequestMethod.GET)
-	public ResponseEntity<List<App>> getAllApps() {
-		List<App> apps = appService.getAllApps();
+	public ResponseEntity<List<App>> getAllApps(@RequestParam(value = "categoryId",required = false,defaultValue = "0") Long categoryId) {
+
+        List<App> apps = null;
+        if(categoryId>0){
+            apps = appService.getAppsByCategory(categoryId);
+        } else {
+            apps =  appService.getAllApps();
+        }
 
 		if (apps.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);

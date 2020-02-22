@@ -26,9 +26,15 @@
                     <ul class="filter-group-list">
                         <li>
                             <label class="custom-control custom-radio filters-label">
-                                <input class="custom-control-input" type="radio" name="status-filter" id="status-filter" value="A" v-model="status" >
+                                <input class="custom-control-input" type="radio" name="category" checked v-on:click="filter(0)" >
                                 <span class="custom-control-label">所有</span>
                             </label>
+
+                            <label class="custom-control custom-radio filters-label" v-for="cat in categories">
+                                <input class="custom-control-input" type="radio" name="category"   v-on:click="filter(cat.id)" >
+                                <span class="custom-control-label">{{cat.name}} ({{cat.appAmount}})</span>
+                            </label>
+
 
                         </li>
                     </ul>
@@ -66,7 +72,8 @@
     const app = new Vue({
         el: '#app',
         data: {
-            appList: {}
+            appList: {},
+            categories:{}
         },
         methods: {
             load: function () {
@@ -74,7 +81,20 @@
                     .then(response => {
                     this.appList = response.data;
                 $('#app').css('display', '');
-            }).catch(function (error) { toastr.error(error); });
+                }).catch(function (error) { toastr.error(error); });
+            },
+            filter: function (id) {
+                 id = (id == null)?0:id;
+                axios.get(webRoot + 'api/app/list?categoryId='+id)
+                    .then(response => {
+                    this.appList = response.data;
+                }).catch(function (error) { toastr.error(error); });
+            },
+            load_cat: function () {
+                axios.get(webRoot + 'api/app/categories')
+                    .then(response => {
+                    this.categories = response.data;
+                }).catch(function (error) { toastr.error(error); });
             },
             remove: function(id){
                 var result = confirm("Please confirm removing this app");
@@ -90,7 +110,8 @@
             }
         },
         beforeMount() {
-            this.load()
+            this.load();
+            this.load_cat();
         }
     })
 </script>

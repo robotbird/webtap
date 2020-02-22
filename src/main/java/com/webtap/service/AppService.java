@@ -1,7 +1,5 @@
 package com.webtap.service;
-
 import com.webtap.domain.App;
-
 import java.util.List;
 
 public interface AppService {
@@ -34,6 +32,12 @@ public interface AppService {
 	 */
 	public List<App> getAppsByOrgId(Long groupId);
 
+	/**
+	 * get apps by categoryId
+	 * @param categoryId
+	 * @return
+	 */
+	public List<App> getAppsByCategory(Long categoryId);
 	/**
 	 * save app
 	 * @param app
