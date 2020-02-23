@@ -18,7 +18,7 @@
     <div id="app" class="bf-main" layout:fragment="content" >
         <div class="bf-sidebar d-lg-block">
             <div class="bf-posts-form-search">
-                <input id="txtSearch" name="txtSearch"   class="form-control form-control-sm form-control-rounded" placeholder="search...">
+                <input id="txtSearch" name="txtSearch"  v-on:keyup.13="filter(0)" class="form-control form-control-sm form-control-rounded" placeholder="search...">
             </div>
             <form id="frmPostFilter" class="bf-posts-filters">
                 <div class="filter-group">
@@ -85,7 +85,8 @@
             },
             filter: function (id) {
                  id = (id == null)?0:id;
-                axios.get(webRoot + 'api/app/list?categoryId='+id)
+                 str = $("#txtSearch").val();
+                axios.get(webRoot + 'api/app/list?categoryId='+id+"&title="+str)
                     .then(response => {
                     this.appList = response.data;
                 }).catch(function (error) { toastr.error(error); });

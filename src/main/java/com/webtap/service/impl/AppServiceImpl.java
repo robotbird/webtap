@@ -52,6 +52,14 @@ public class AppServiceImpl implements AppService {
 	    return appRepository.findAllByCategoryId(categoryId);
    }
 
+    public List<App> getAppsByTitle(String title){
+        return appRepository.findAllByTitleContains(title);
+    }
+
+    public List<App> getAppsByTitleAndCategoryId(String title,Long id){
+        return appRepository.findAllByTitleContainingAndCategoryId(title,id);
+    }
+
    public App saveApp(App app){
 	    if(app.getCategoryId()>0){
             appCategoryRepository.updateAppAmount(app.getCategoryId(),1L);

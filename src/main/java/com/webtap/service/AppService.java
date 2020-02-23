@@ -38,6 +38,23 @@ public interface AppService {
 	 * @return
 	 */
 	public List<App> getAppsByCategory(Long categoryId);
+
+	/**
+	 * get apps by title query
+	 * @param title
+	 * @return
+	 */
+	public List<App> getAppsByTitle(String title);
+
+
+	/**
+	 * get apps by  title and categoryId
+	 * @param title
+	 * @param categoryId
+	 * @return
+	 */
+	public List<App> getAppsByTitleAndCategoryId(String title,Long categoryId);
+
 	/**
 	 * save app
 	 * @param app

@@ -22,4 +22,10 @@ public class AppRepositoryTest {
 		Assert.assertEquals(cnt,1);
 	}
 
+	@Test
+	public void testAppsContains() throws Exception {
+		long cnt = appRepository.findAllByTitleContains("日报").size();
+		Assert.assertEquals(cnt,1);
+	}
+
 }

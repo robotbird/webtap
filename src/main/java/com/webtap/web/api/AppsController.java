@@ -90,14 +90,31 @@ public class AppsController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/app/list", method = RequestMethod.GET)
-	public ResponseEntity<List<App>> getAllApps(@RequestParam(value = "categoryId",required = false,defaultValue = "0") Long categoryId) {
+	public ResponseEntity<List<App>> getAllApps(
+			@RequestParam(value = "categoryId",required = false,defaultValue = "0") Long categoryId,
+			@RequestParam(value = "title",required = false,defaultValue = "") String title) {
 
         List<App> apps = null;
-        if(categoryId>0){
+
+        // get all app
+        if(categoryId ==0&&title==""){
+			apps =  appService.getAllApps();
+		}
+
+		// filter by categoryId
+        if(categoryId>0&&title==""){
             apps = appService.getAppsByCategory(categoryId);
-        } else {
-            apps =  appService.getAllApps();
         }
+
+        // search by title
+        if(title!=null&&title!=""&&categoryId ==0){
+            apps = appService.getAppsByTitle(title);
+		}
+
+		// search by title and filter by categoryId
+		if(categoryId>0&&title!=""){
+			apps = appService.getAppsByTitleAndCategoryId(title,categoryId);
+		}
 
 		if (apps.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
