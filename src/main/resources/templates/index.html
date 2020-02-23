@@ -236,7 +236,8 @@
                     }).catch(function (error) { console.log(error) });
             },
             search:function(){
-                var appArr = this.appList;
+                var appArr = this.appsAll;
+                var cateArr = this.categories;
                 var appsRes = $.map(appArr,function (a) {
                     return {value:a.title,data:{category:'APP'}};
                 });
@@ -263,13 +264,31 @@
                     lookup: appsRes,
                     minChars: 1,
                     onSelect: function (suggestion) {
-                        var  sugArr = [];
+
+                        // search app without category
+                        var  sugArrAll = [];
+                        var  sugArr =[];
                         for(var i=0;i<appArr.length;i++){
                             if(appArr[i].title == suggestion.value){
-                                sugArr.push(appArr[i]);
+                                sugArrAll.push(appArr[i]);
+                                if(appArr[i].categoryId==0){
+                                    sugArr.push(appArr[i]);
+                                }
                             }
                         }
                         app.$data.appList = sugArr;
+
+                        // search app include category fold
+                        var sugCatArr =[];
+                        for(var i=0;i<cateArr.length;i++){
+                            for(var j=0;j<sugArrAll.length;j++){
+                                if(cateArr[i].id == sugArrAll[j].categoryId){
+                                    sugCatArr.push(cateArr[i]);
+                                }
+                            }
+                        }
+                        app.$data.categories = sugCatArr;
+
                     },
                     showNoSuggestionNotice: true,
                     noSuggestionNotice: 'Sorry, no matching results'
