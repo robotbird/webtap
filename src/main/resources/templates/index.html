@@ -85,6 +85,14 @@
         .desc{
             text-align: center; color: #fff;
         }
+        .fold-app-title{
+            text-align: center; color: #0b2e13;
+        }
+
+        .fold-app-title a,.fold-app-title a:link,.fold-app-title a:hover,.fold-app-title a:visited{
+            text-decoration: none; color: #0b2e13;
+        }
+
         .desc a,.desc a:link,.desc a:hover,.desc a:visited{
             text-decoration: none; color: #fff;
         }
@@ -277,7 +285,7 @@
                     if(apps[i].categoryId ==id){
                         li+='<li><div class="title"><a href="'+apps[i].url+'">' +
                             '<img src="'+apps[i].logoUrl+'" class="icon goole_icon"></a></div>' +
-                            ' <div class="desc"><a href="'+apps[i].url+'">图标</a></div>' +
+                            ' <div class="fold-app-title"><a href="'+apps[i].url+'">'+apps[i].title+'</a></div>' +
                             '</li>';
                     }
                 }
