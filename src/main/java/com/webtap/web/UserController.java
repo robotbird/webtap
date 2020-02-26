@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
@@ -51,13 +49,13 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@LoggerManage(description="登陆")
-	public ResponseData login(User user, HttpServletResponse response) {
+	public ResponseData login(@RequestParam(value = "email",defaultValue = "") String email,@RequestParam(value = "password",defaultValue = "") String password, HttpServletResponse response) {
 		try {
 			//这里不是bug，前端userName有可能是邮箱也有可能是昵称。
-			User loginUser = userRepository.findByUserNameOrEmail(user.getUserName(), user.getUserName());
+			User loginUser = userRepository.findByUserNameOrEmail(email, email);
 			if (loginUser == null ) {
 				return new ResponseData(ExceptionMsg.LoginNameNotExists);
-			}else if(!loginUser.getPassWord().equals(getPwd(user.getPassWord()))){
+			}else if(!loginUser.getPassWord().equals(getPwd(password))){
 				return new ResponseData(ExceptionMsg.LoginNameOrPassWordError);
 			}
 			Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, cookieSign(loginUser.getId().toString()));
