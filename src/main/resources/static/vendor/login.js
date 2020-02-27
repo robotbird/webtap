@@ -10,8 +10,7 @@ var SnippetLogin = function() {
         a = function() {
             e.removeClass("m-login--forget-password"),
                 e.removeClass("m-login--signin"),
-                e.addClass("m-login--signup"),
-                e.find(".m-login__signup").animateClass("flipInX animated")
+                e.addClass("m-login--signup")
         },
         t = function() {
             e.removeClass("m-login--forget-password"),
@@ -64,12 +63,18 @@ var SnippetLogin = function() {
                     type:"POST",
                    // contentType:'application/json',
                     url: "user/login",
-                    success: function(e, r, n, l) {
-                        setTimeout(function() {
-                                a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1),
-                                    i(t, "danger", "Incorrect username or password. Please try again.")
-                            },
-                            2e3)
+                    //success: function(e, r, n, l) {
+                    success: function(result) {
+                        if(result.rspCode=="000000"){
+                            setTimeout(function () { location.href =  "/"; }, 1000);
+                        }else {
+                            setTimeout(function() {
+                                    a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1),
+                                        i(t, "danger", "Incorrect username or password. Please try again.")
+                                },
+                                2e3)
+                        }
+
                     }
                 }))
             })

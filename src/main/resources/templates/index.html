@@ -172,10 +172,16 @@
        </ul>
 
         <ul class="profile">
-            <li><a href="login">Sign in</a> </li>
-            <li style="display: none"><img src="img/msg.png" alt="Message" /> </li>
+
+
+            <li v-if="user.username!=''"><a href="admin/app/list">{{user.username}}</a> </li>
+            <li v-else><a href="/signin">Sign in</a> </li>
+
+
             <li><span class="user-pic"></span> <img src="img/userpic.png" alt="User profile pic" /> </li>
-            <li><span class="settings-quick"></span> <img src="img/nav-link.png" alt="Settings and quick links" /> </li>
+
+            <!--<li><img src="img/msg.png" alt="Message" /> </li>-->
+            <!--<li><span class="settings-quick"></span> <img src="img/nav-link.png" alt="Settings and quick links" /> </li>-->
         </ul>
     </div>
 
@@ -223,7 +229,8 @@
         data: {
             categories:{},
             appList: {},
-            appsAll:{}
+            appsAll:{},
+            user:{}
         },
         methods: {
             load: function () {
@@ -317,10 +324,17 @@
                     height: '60%',
                     opacity: 0.8
                 });
+            },
+            loadUser:function(){
+                axios.get('api/user')
+                    .then(response => {
+                    this.user.username = response.data;
+                    }).catch(function (error) { console.log(error) });
             }
         },
         beforeMount() {
-            this.load()
+            this.loadUser();
+            this.load();
         }
     });
 

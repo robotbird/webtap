@@ -33,10 +33,10 @@ public class IndexController extends BaseController{
 		return "index";
 	}
 
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="/signin",method=RequestMethod.GET)
 	@LoggerManage(description="登陆页面")
-	public String login() {
-		return "login";
+	public String signin() {
+		return "user/signin";
 	}
 
 	@RequestMapping(value="/reset-password",method=RequestMethod.GET)

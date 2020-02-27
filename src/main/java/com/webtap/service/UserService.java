@@ -1,5 +1,17 @@
 package com.webtap.service;
+
+import com.webtap.domain.User;
+
 public interface UserService {
+
+
+    /**
+     * get user by username and password
+     * @param username
+     * @param password
+     * @return
+     */
+    public User getUser(String username,String password);
 
     /**
      * 新增一个用户
