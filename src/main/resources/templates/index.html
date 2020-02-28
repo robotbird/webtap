@@ -174,7 +174,7 @@
         <ul class="profile">
 
 
-            <li v-if="user!=null"><a href="admin/app/list">{{user.username}}</a> </li>
+            <li v-if="user!=null"><a href="admin/app/list">{{user.userName}}</a> </li>
             <li v-else><a href="/signin">Sign in</a> </li>
 
 
@@ -207,7 +207,7 @@
 
         <li v-for="app in appList" :key="app.id">
             <div class="title">
-                <a :href="app.url">  <img class="icon goole_icon"  v-bind:src="app.logoUrl" /></a>
+                <a :href="app.url">  <img class="icon goole_icon"  v-bind:src="app.logoUrl" :alt="app.title" /></a>
             </div>
             <div class="desc">
                 <a :href="app.url" >{{app.title}}</a>
