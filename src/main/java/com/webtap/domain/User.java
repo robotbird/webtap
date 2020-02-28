@@ -36,6 +36,11 @@ public class User extends Entitys implements Serializable {
 	@Column(nullable = true)
 	private String backgroundPicture;
 
+
+
+	@Column(name = "org_id")
+	private Long orgId;
+
 	public User() {
 		super();
 	}
@@ -110,5 +115,12 @@ public class User extends Entitys implements Serializable {
 	}
 	public void setBackgroundPicture(String backgroundPicture) {
 		this.backgroundPicture = backgroundPicture;
+	}
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 }

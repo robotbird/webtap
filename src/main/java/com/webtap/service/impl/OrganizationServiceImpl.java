@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("organizationService")
 public class OrganizationServiceImpl implements OrganizationService {
@@ -23,6 +25,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     public Organization getOrganizationById(Long Id){
         return organizationRepository.findById(Id);
+    }
+
+    public List<Organization> getOrganizations() {
+        return organizationRepository.findAll();
     }
 
 

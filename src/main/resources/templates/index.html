@@ -174,7 +174,7 @@
         <ul class="profile">
 
 
-            <li v-if="user.username!=''"><a href="admin/app/list">{{user.username}}</a> </li>
+            <li v-if="user!=null"><a href="admin/app/list">{{user.username}}</a> </li>
             <li v-else><a href="/signin">Sign in</a> </li>
 
 
@@ -185,7 +185,9 @@
         </ul>
     </div>
 
-    <div class="goole"><img src="img/3.png" alt="Utry"></div>
+    <div class="goole">
+        <img v-bind:src="org.orgLogo" :alt="org.orgName">
+    </div>
     <div class="search">
         <input type="text" class="search_btn" id="autocomplete">
         <span class="iconfont icon-sousuo"></span>
@@ -230,7 +232,8 @@
             categories:{},
             appList: {},
             appsAll:{},
-            user:{}
+            user:{},
+            org:{}
         },
         methods: {
             load: function () {
@@ -328,7 +331,8 @@
             loadUser:function(){
                 axios.get('api/user')
                     .then(response => {
-                    this.user.username = response.data;
+                    this.user = response.data.user;
+                    this.org = response.data.org;
                     }).catch(function (error) { console.log(error) });
             }
         },
