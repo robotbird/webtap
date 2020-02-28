@@ -35,12 +35,12 @@
 
                         <div class="form-group">
                             <label>
-                                自定义url
+                                访问地址
                             </label>
                             <div class="input-group m-input-group m-input-group--square">
                                 <div class="input-group-prepend">
                             <span class="input-group-text">
-                                <i class="la la-user"> http://webtap.cn/ </i>
+                                <i class="la la-user">  {{siteUrl}} </i>
                             </span>
                                 </div>
                                 <input type="text" v-model="organization.shortUrl" class="form-control m-input" placeholder="">
@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label class="form-group-label">首页Logo</label>
                             <div class="input-group">
-                                <input v-model="organization.orgLogo" type="text" id="txtLogo" name="txtLogo" class="form-control" readonly />
+                                <input v-model="organization.orgLogo" type="text" id="txtLogo" name="txtLogo" class="form-control"  />
                                 <span class="input-group-btn">
                             <button type="button" class="btn btn-secondary btn-upload" onclick="return fileManagerController.open(updateAppLogoCallback);"> 选择</button>
                         </span>
@@ -86,19 +86,45 @@
         const app = new Vue({
             el: '#app',
             data: {
-                organization: {}
+                organization: {},
+                siteUrl: {}
             },
             methods: {
                 load: function () {
-                    axios.get(webRoot + 'api/organization/1')
+                    axios.get(webRoot + 'api/organization')
                         .then(response => {
                         this.organization = response.data;
+
+                    var hostname = location.hostname;
+                    var port = location.port;
+                    if(port =="80"){
+                        this.siteUrl = hostname+"/";
+                    }else {
+                        this.siteUrl = hostname +":"+port+"/";
+                    }
+
+
                     $('#app').css('display', '');
                 }).catch(function (error) { toastr.error(error); });
                 },
                 save: function () {
+                    var posturl =webRoot + 'api/organization/save' ;
 
-                    console.log(this.group);
+                    var logoUrl =  $("#txtLogo").val();
+
+                    var org = this.organization;
+                    org.orgLogo = logoUrl;
+                    axios.post(posturl, org)
+                        .then(function (response) {
+                            if(response.data.rspCode!="000000"){
+                                toastr.error(response.data.rspCode+" "+response.data.rspMsg);
+                            }else {
+                                toastr.success(response.data.rspMsg);
+                            }
+                        })
+                        .catch(function (error) {
+                            toastr.error(error);
+                        });
                 }
             },
             beforeMount() {

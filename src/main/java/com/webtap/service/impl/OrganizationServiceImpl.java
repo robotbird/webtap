@@ -31,5 +31,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationRepository.findAll();
     }
 
+    public void saveOrg(Organization organization) {
+        organizationRepository.save(organization);
+    }
+
 
 }

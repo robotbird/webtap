@@ -159,6 +159,12 @@
         .autocomplete-selected { background: #F0F0F0; }
         .autocomplete-suggestions strong { font-weight: bold; color: #000; }
         .autocomplete-group { padding: 2px 5px; font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
+
+        .logo-font{
+            font-size: 40px;
+            color: #fff;
+            font-weight: bold;
+        }
     </style>
 
 
@@ -185,8 +191,11 @@
         </ul>
     </div>
 
-    <div class="goole">
+    <div class="goole" v-if="org.orgLogo!=null&&org.orgLogo!=''">
         <img v-bind:src="org.orgLogo" :alt="org.orgName">
+    </div>
+    <div class="goole"  v-else>
+        <span class="logo-font">{{org.orgName}}</span>
     </div>
     <div class="search">
         <input type="text" class="search_btn" id="autocomplete">

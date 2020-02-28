@@ -41,12 +41,19 @@
                 url = 'api/assets/pick?type=appCover&asset=' + id;
             }
             else if (callBack.name === 'updateAppLogoCallback') {
-                url = 'api/assets/pick?type=appLogo&asset=' + id;
+                if (items.length === 0) {
+                    callBack(id);
+                }
+                else {
+                    for (i = 0; i < items.length; i++) {
+                        callBack(items[i].id);
+                    }
+                }
             }
             else if(callBack.name === 'updateAvatarCallback'){
                 url = 'api/assets/pick?type=avatar&asset=' + id; 
             }
-            dataService.get(url, callBack, fail);
+           // dataService.get(url, callBack, fail);
         }
         close();
     }
@@ -211,8 +218,9 @@ var updateAppCoverCallback = function (data) {
     $('#BlogItem_Cover').val(data.url);
     toastr.success('Updated');
 };
+// get org logo
 var updateAppLogoCallback = function (data) {
-    $('#BlogItem_Logo').val(data.url);
+    $('#txtLogo').val(data);
     toastr.success('Updated');
 };
 
