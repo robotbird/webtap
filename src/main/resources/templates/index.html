@@ -193,7 +193,7 @@
         <span class="iconfont icon-sousuo"></span>
     </div>
     <div id="selection"></div>
-    <ul class="icon_list">
+    <ul class="icon_list" style="display: none">
 
 
         <li v-for="cat in categories" :key="cat.id" v-if="cat.appAmount>0">
@@ -242,6 +242,7 @@
                     this.categories = response.data.categories;
                     this.appList = response.data.apps;
                     this.appsAll = response.data.appsAll;
+                    $(".icon_list").css("display","");
                     this.search();
                     }).catch(function (error) { console.log(error) });
             },
