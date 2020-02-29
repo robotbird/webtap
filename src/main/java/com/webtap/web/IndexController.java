@@ -59,4 +59,8 @@ public class IndexController extends BaseController{
 	@LoggerManage(description = "新增应用")
 	public String appAdd(){return  "admin/app/edit";}
 
+	@RequestMapping(value = "/admin/app/category",method = RequestMethod.GET)
+	@LoggerManage(description = "应用分类")
+	public String categories(){return  "admin/app/category";}
+
 }

@@ -37,4 +37,12 @@ public class AppCategoryServiceImpl implements AppCategoryService {
 	public AppCategory save(AppCategory appCategory) {
 		return appCategoryRepository.save(appCategory);
 	}
+
+	public AppCategory getAppCategory(Long id) {
+		return appCategoryRepository.findOne(id);
+	}
+
+	public void removeCategory(Long id) {
+		appCategoryRepository.delete(id);
+	}
 }

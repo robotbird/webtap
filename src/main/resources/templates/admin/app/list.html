@@ -32,7 +32,7 @@
 
                             <label class="custom-control custom-radio filters-label" v-for="cat in categories">
                                 <input class="custom-control-input" type="radio" name="category"   v-on:click="filter(cat.id)" >
-                                <span class="custom-control-label">{{cat.name}} ({{cat.appAmount}})</span>
+                                <span class="custom-control-label">{{cat.name}} ({{cat.appAmount>0?cat.appAmount:0}})</span>
                             </label>
 
 

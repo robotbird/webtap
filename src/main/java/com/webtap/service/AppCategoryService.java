@@ -17,4 +17,10 @@ public interface AppCategoryService {
      * @return
      */
     public AppCategory save(AppCategory appCategory);
+
+
+    public AppCategory getAppCategory(Long id);
+
+
+    public void removeCategory(Long id);
 }

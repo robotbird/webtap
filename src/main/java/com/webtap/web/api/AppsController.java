@@ -180,6 +180,16 @@ public class AppsController extends BaseController{
 		return new ResponseEntity<List<AppCategory>>(categoryList, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
+	public ResponseEntity<AppCategory> getCatById(@PathVariable(value = "id") Long id) {
+		AppCategory category = appCategoryService.getAppCategory(id);
+		if (category ==null) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return  new ResponseEntity<AppCategory>(category,HttpStatus.OK);
+	}
+
+
     /**
      * add category
      * @param category
@@ -197,4 +207,12 @@ public class AppsController extends BaseController{
         }
         return  new ResponseEntity<AppCategory>(appCategory,HttpStatus.OK);
     }
+
+
+	@RequestMapping(value = "category/remove/{id}",method = RequestMethod.DELETE)
+	public Response deleteCat(@PathVariable(value = "id") Long id){
+		appCategoryService.removeCategory(id);
+		return result(ExceptionMsg.SUCCESS);
+	}
+
 }
