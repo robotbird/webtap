@@ -51,6 +51,12 @@ public class IndexController extends BaseController{
 		return  "admin/settings/organization";
 	}
 
+    @RequestMapping(value = "/admin/settings/profile",method = RequestMethod.GET)
+    @LoggerManage(description = "个人资料")
+    public String profile(){
+        return  "admin/settings/profile";
+    }
+
 	@RequestMapping(value = "/admin/app/list",method = RequestMethod.GET)
 	@LoggerManage(description = "应用管理")
 	public String apps(){return  "admin/app/list";}

@@ -6,12 +6,12 @@ public interface UserService {
 
 
     /**
-     * get user by username and password
+     * get user by username and email
      * @param username
-     * @param password
+     * @param email
      * @return
      */
-    public User getUser(String username,String password);
+    public User getUser(String username,String email);
 
     /**
      * 新增一个用户
@@ -19,6 +19,12 @@ public interface UserService {
      * @param age
      */
     void create(String name, Integer age);
+
+    /**
+     * 更新用户
+     * @param user
+     */
+    void update(User user);
 
     /**
      * 根据name删除一个用户高

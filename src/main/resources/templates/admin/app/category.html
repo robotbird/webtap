@@ -8,21 +8,7 @@
 
 
         <div class="bf-main">
-            <div class="bf-sidebar d-lg-block">
-                <div class="bf-settings-sidebar">
-                    <ul class="bf-settings-sidebar-nav">
-                        <li>
-                            <a href="admin/settings/organization">常规</a>
-                        </li>
-                        <li>
-                            <a href="admin/settings/profile">个人资料</a>
-                        </li>
-                        <li>
-                            <a href="admin/app/category">分类</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div th:replace="admin/fragment/sidebar::fragSidebar"></div>
             <div id="app"   class="bf-body">
                 <form>
                     <div id="about-page" class="bf-posts-grid d-flex">
