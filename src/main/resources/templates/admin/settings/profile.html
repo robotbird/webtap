@@ -38,8 +38,8 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="hdrSettings">@Localizer["change-password"]</h4>
-                                <button type="button" class="close ml-2" title="Close" data-placement="bottom" data-tooltip data-dismiss="modal" aria-label="@Localizer["close"]">
+                                <h4 class="modal-title" id="hdrSettings">更改密码</h4>
+                                <button type="button" class="close ml-2" title="Close" data-placement="bottom" data-tooltip data-dismiss="modal" aria-label="close">
                                 <i class="fa fa-times"></i>
                                 </button>
                             </div>
@@ -48,25 +48,25 @@
                                     <form>
                                         <div class="bf-content bf-content-boxed bf-settings">
                                             <div class="form-group">
-                                                <label class="form-group-label">@Localizer["password"]</label>
+                                                <label class="form-group-label">密码</label>
                                                 <input id="txtOldPwd" name="txtOldPwd" v-model.trim="$v.password.oldPassword.$model" :class="['form-control', status($v.password.oldPassword)]" type="password" />
                                                 <label v-if="!$v.password.oldPassword.required" class="val-error">Required</label>
                                                 <label v-if="!$v.password.oldPassword.minLength" class="val-error">At least 4 characters</label>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-group-label">@Localizer["new-password"]</label>
+                                                <label class="form-group-label">新密码</label>
                                                 <input v-model.trim="$v.password.newPassword.$model" :class="['form-control', status($v.password.newPassword)]" type="password" />
                                                 <label v-if="!$v.password.newPassword.required" class="val-error">Required</label>
                                                 <label v-if="!$v.password.newPassword.minLength" class="val-error">At least 4 characters</label>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-group-label">@Localizer["confirm-password"]</label>
+                                                <label class="form-group-label">确认密码</label>
                                                 <input v-model.trim="$v.password.confirmPassword.$model" :class="['form-control', status($v.password.confirmPassword)]" type="password" />
                                                 <label v-if="!$v.password.confirmPassword.required" class="val-error">Required</label>
                                                 <label v-if="!$v.password.confirmPassword.minLength" class="val-error">At least 4 characters</label>
                                                 <label v-if="!$v.password.confirmPassword.sameAsPassword" class="val-error">New and confirm passwords do not match</label>
                                             </div>
-                                            <button type="button" :disabled="$v.password.$invalid" v-on:click="change($v)" class="btn btn-primary btn-main">@Localizer["save"]</button>
+                                            <button type="button" :disabled="$v.password.$invalid" v-on:click="change($v)" class="btn btn-primary btn-main">保存</button>
                                         </div>
                                     </form>
                                 </div>
@@ -92,13 +92,32 @@
     <script src="/admin/js/app/fileManagerController.js"></script>
     <script>
         Vue.use(window.vuelidate.default)
+        const { required, minLength, email, sameAs } = window.validators
 
-        const app = new Vue({
+         new Vue({
             el: '#app',
             data: {
                 organization: {},
-                user: {}
+                user: {},
+                password: {
+                    userName: 'userName',
+                    oldPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                }
             },
+             validations: {
+                 author: {
+                     displayName: { required },
+                     email: { required, email }
+                 },
+                 password: {
+                     userName: { required },
+                     oldPassword: { required, minLength: minLength(4) },
+                     newPassword: { required, minLength: minLength(4) },
+                     confirmPassword: { required, minLength: minLength(4), sameAsPassword: sameAs('newPassword') }
+                 }
+             },
             methods: {
                 load: function () {
                     axios.get(webRoot + 'api/user')
@@ -129,6 +148,28 @@
                         function () {
                             $('#txtOldPwd').focus();
                         }, 500);
+                },
+                status(v) {
+                    return {
+                        error: v.$error,
+                        dirty: v.$dirty
+                    }
+                },
+                change: function (v) {
+                    this.password.userName = this.author.appUserName;
+                    if (v.password.$invalid) {
+                        toastr.error('Invalid');
+                    }
+                    else {
+                        axios.put(webRoot + 'api/authors/changepwd', this.password)
+                            .then(function (response) {
+                                toastr.success('Updated');
+                                $('#dlgChangePwd').modal('hide');
+                            })
+                            .catch(function (error) {
+                                toastr.error(error);
+                            });
+                    }
                 },
             },
             beforeMount() {
