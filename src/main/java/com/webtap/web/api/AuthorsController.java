@@ -12,10 +12,11 @@ import com.webtap.service.UserService;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -74,7 +75,7 @@ public class AuthorsController extends BaseController{
             String password = user.getPassWord();
             String newpwd = getPwd(changePwd.getNewPassword());
             if(password.equals(getPwd(changePwd.getOldPassword()))){
-                userService.updatePwd(changePwd.getNewPassword(),user.getUserName());
+                userService.updatePwd(newpwd,user.getUserName());
                 user.setPassWord(newpwd);
                 getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
             }else{
