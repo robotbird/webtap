@@ -1,5 +1,6 @@
 package com.webtap.web;
 
+import com.webtap.comm.Const;
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.*;
 
@@ -10,6 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -69,4 +74,21 @@ public class IndexController extends BaseController{
 	@LoggerManage(description = "应用分类")
 	public String categories(){return  "admin/app/category";}
 
+
+	@RequestMapping(value="/signout",method=RequestMethod.GET)
+	@LoggerManage(description="sign out")
+	public void logout(HttpServletResponse response, Model model){
+	    try {
+            getSession().removeAttribute(Const.LOGIN_SESSION_KEY);
+            getSession().removeAttribute(Const.LAST_REFERER);
+            Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            response.sendRedirect("/");
+        } catch (Exception ex){
+	        logger.error(ex.getStackTrace().toString());
+        }
+
+	}
 }
