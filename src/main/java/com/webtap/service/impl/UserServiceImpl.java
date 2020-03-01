@@ -32,6 +32,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    public void updatePwd(String password, String userName) {
+        userRepository.updatePassword(password,userName);
+    }
+
     @Override
     public void deleteByName(String name) {
 

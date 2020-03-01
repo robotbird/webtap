@@ -6,6 +6,7 @@ import com.webtap.domain.Organization;
 import com.webtap.domain.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
+import com.webtap.domain.view.ChangePwd;
 import com.webtap.service.OrganizationService;
 import com.webtap.service.UserService;
 import com.webtap.web.BaseController;
@@ -48,7 +49,7 @@ public class AuthorsController extends BaseController{
         return json.toJSONString();
     }
 
-    @RequestMapping(value = "/user/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/authors/update",method = RequestMethod.POST)
     @LoggerManage(description = "update user")
     public Response saveUser(@RequestBody User user){
         try {
@@ -61,6 +62,30 @@ public class AuthorsController extends BaseController{
         }catch (Exception ex){
             logger.error(ex.getMessage());
         }
+        return result(ExceptionMsg.SUCCESS);
+    }
+
+    @RequestMapping(value = "/authors/changepwd",method = RequestMethod.PUT)
+    @LoggerManage(description = "change password")
+    public Response changepwd(@RequestBody ChangePwd changePwd){
+
+        try {
+            User user = getUser();
+            String password = user.getPassWord();
+            String newpwd = getPwd(changePwd.getNewPassword());
+            if(password.equals(getPwd(changePwd.getOldPassword()))){
+                userService.updatePwd(changePwd.getNewPassword(),user.getUserName());
+                user.setPassWord(newpwd);
+                getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
+            }else{
+                return result(ExceptionMsg.PassWordError);
+            }
+        } catch (Exception e) {
+            logger.error("updatePassword failed, ", e);
+            return result(ExceptionMsg.FAILED);
+        }
+
+
         return result(ExceptionMsg.SUCCESS);
     }
 

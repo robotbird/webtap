@@ -128,7 +128,7 @@
                        }).catch(function (error) { toastr.error(error); });
                 },
                 save: function () {
-                    var posturl =webRoot + 'api/user/save' ;
+                    var posturl =webRoot + 'api/authors/update' ;
 
                     axios.post(posturl, this.user)
                         .then(function (response) {
@@ -156,14 +156,18 @@
                     }
                 },
                 change: function (v) {
-                    this.password.userName = this.author.appUserName;
+                    // this.password.userName = this.author.appUserName;
                     if (v.password.$invalid) {
                         toastr.error('Invalid');
                     }
                     else {
                         axios.put(webRoot + 'api/authors/changepwd', this.password)
                             .then(function (response) {
-                                toastr.success('Updated');
+                                if(response.data.rspCode!="000000"){
+                                    toastr.error(response.data.rspCode+" "+response.data.rspMsg);
+                                }else {
+                                    toastr.success(response.data.rspMsg);
+                                }
                                 $('#dlgChangePwd').modal('hide');
                             })
                             .catch(function (error) {

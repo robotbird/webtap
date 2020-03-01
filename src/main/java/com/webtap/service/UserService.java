@@ -27,6 +27,12 @@ public interface UserService {
     void update(User user);
 
     /**
+     * update user's password
+     * @param password
+     * @param userName
+     */
+    void updatePwd(String password,String userName);
+    /**
      * 根据name删除一个用户高
      * @param name
      */
