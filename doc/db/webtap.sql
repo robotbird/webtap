@@ -11,7 +11,7 @@
  Target Server Version : 50716
  File Encoding         : 65001
 
- Date: 30/01/2020 23:00:10
+ Date: 07/03/2020 21:48:18
 */
 
 SET NAMES utf8mb4;
@@ -22,11 +22,20 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `wt_app_category`;
 CREATE TABLE `wt_app_category`  (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `group_id` bigint(11) NULL DEFAULT NULL,
+  `org_id` bigint(20) NULL DEFAULT NULL,
+  `app_amount` bigint(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wt_app_category
+-- ----------------------------
+INSERT INTO `wt_app_category` VALUES (1, '产品', 1, 3);
+INSERT INTO `wt_app_category` VALUES (2, '开发', 1, 0);
+INSERT INTO `wt_app_category` VALUES (3, '售前', 1, 3);
+INSERT INTO `wt_app_category` VALUES (4, '运营', 1, 2);
 
 -- ----------------------------
 -- Table structure for wt_apps
@@ -47,24 +56,21 @@ CREATE TABLE `wt_apps`  (
   `sec_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `sort_num` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_apps
 -- ----------------------------
-INSERT INTO `wt_apps` VALUES (1, 1, 1, 1, '/upload/logo/italent.png', 'http://www.italent.cn', 'Italent', 'Italent', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (2, 1, 1, 1, '/upload/logo/baoleiji.png', 'http://www.italent.cn', '堡垒机', '堡垒机', 1577200841053, 1577200841053, 1, '1', 1);
+INSERT INTO `wt_apps` VALUES (1, 4, 1, 5, '/upload/logo/kod.png', '来来来', '000', 'jjo', 0, 0, 0, '', 8);
 INSERT INTO `wt_apps` VALUES (3, 1, 1, 1, '/upload/logo/chandao.png', 'http://www.italent.cn', '禅道', '禅道', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (4, 1, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日报', '日报', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (5, 1, 1, 1, '/upload/logo/gitlab.png', 'http://www.italent.cn', 'GitLab', 'GitLab', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (6, 1, 1, 1, '/upload/logo/iconfont.png', 'http://www.italent.cn', '图标', '图标', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (7, 1, 1, 1, '/upload/logo/italent.png', 'http://www.italent.cn', 'Italent', 'Italent', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (8, 1, 1, 1, '/upload/logo/jenkins.png', 'http://www.italent.cn', 'Jenkins', 'Jenkins', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (9, 1, 1, 1, '/upload/logo/kod.png', 'http://www.italent.cn', '文档管理', '文档管理', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (10, 1, 1, 1, '/upload/logo/Nexus.png', 'http://www.italent.cn', 'Nexus', 'Nexus', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (11, 1, 1, 1, '/upload/logo/on.png', 'http://www.italent.cn', '流程设计', '流程设计', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (12, 1, 1, 1, '/upload/logo/openticket.png', 'http://www.italent.cn', '工单', '工单', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (13, 1, 1, 1, '/upload/logo/ops.png', 'http://www.italent.cn', '运维工作', '运维工作', 1577200841053, 1577200841053, 1, '1', 1);
+INSERT INTO `wt_apps` VALUES (4, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日报', '日报', 1577200841053, 1577200841053, 1, '1', 1);
+INSERT INTO `wt_apps` VALUES (6, 0, 1, 1, '/upload/logo/iconfont.png', 'http://www.italent.cn', '图标', '图标', 1577200841053, 1577200841053, 1, '1', 1);
+INSERT INTO `wt_apps` VALUES (14, 3, 1, 5, '/upload/logo/gitlab.png', 'lll', 'gitlab', 'll', 0, 0, 0, '', 0);
+INSERT INTO `wt_apps` VALUES (15, 1, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9);
+INSERT INTO `wt_apps` VALUES (16, 4, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9);
+INSERT INTO `wt_apps` VALUES (17, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日程', '日报', 1577200841053, 1577200841053, 1, '1', 1);
+INSERT INTO `wt_apps` VALUES (18, 3, 1, 5, '/', 'hhh', 'hhh', 'hhh', 0, 0, 0, '', 4);
+INSERT INTO `wt_apps` VALUES (19, 3, 1, 5, '/', 'dsdsd', 'eee', 'sdsds', 0, 0, 0, '', 121);
 
 -- ----------------------------
 -- Table structure for wt_organizations
@@ -81,7 +87,7 @@ CREATE TABLE `wt_organizations`  (
 -- ----------------------------
 -- Records of wt_organizations
 -- ----------------------------
-INSERT INTO `wt_organizations` VALUES (1, '浙江远传', 'https://www.utry.cn/assets/addons/cms/images/icons/hd_logo_1.png', 'utry');
+INSERT INTO `wt_organizations` VALUES (1, 'U客', 'upload/logo/3.png', 'utrycloud');
 
 -- ----------------------------
 -- Table structure for wt_users
@@ -99,6 +105,7 @@ CREATE TABLE `wt_users`  (
   `profile_picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `validata_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `org_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_ob8kqyqqgmefl0aco34akdtpe`(`email`) USING BTREE,
   UNIQUE INDEX `UK_lqjrcobrh9jc8wpcar64q1bfh`(`user_name`) USING BTREE
@@ -107,6 +114,7 @@ CREATE TABLE `wt_users`  (
 -- ----------------------------
 -- Records of wt_users
 -- ----------------------------
-INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', 'e10adc3949ba59abbe56e057f20f883e', 'img/favicon.png', 'robotbird', '440417f0-c621-4e55-b5e3-c56610fe655b');
+INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'robotbird', '440417f0-c621-4e55-b5e3-c56610fe655b', NULL);
+INSERT INTO `wt_users` VALUES (2, NULL, 1577540632740, '330296409@qq.com', NULL, 1577540632740, '2019-12-28 22:43:21.059', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'yepeng', 'fc1dc5c9-33d7-4f17-9598-cc0490cfcb08', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
