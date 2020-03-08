@@ -1,6 +1,8 @@
 package com.webtap;
 
+import com.webtap.interceptor.UserAuthenticationInterceptor;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,23 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
      */
     @Value("${web.upload}")
     private String webUpload;
+
+
+    private UserAuthenticationInterceptor securityInterceptor;
+
+    @Autowired
+    public WebAppConfig(UserAuthenticationInterceptor securityInterceptor) {
+        super();
+        this.securityInterceptor = securityInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //后台登录拦截器拦截路径
+        registry.addInterceptor(securityInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/adminlogin/**");
+    }
 
     @Bean
     public MultipartConfigElement multipartConfigElement(){
