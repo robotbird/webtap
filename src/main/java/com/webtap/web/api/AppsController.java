@@ -155,7 +155,7 @@ public class AppsController extends BaseController{
 	}
 
 	/**
-	 * 删除 app
+	 * delete app
 	 * @param id
 	 * @return
 	 */

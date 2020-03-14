@@ -45,6 +45,9 @@ public class App implements Serializable {
 	@Column(name = "sort_num")
 	private Long sortNum;
 
+	@Column(name ="view_permission")
+	private Long viewPermission;
+
 
 
   public Long getId() {
@@ -163,4 +166,11 @@ public class App implements Serializable {
     this.sortNum = sortNum;
   }
 
+    public Long getViewPermission() {
+        return viewPermission;
+    }
+
+    public void setViewPermission(Long viewPermission) {
+        this.viewPermission = viewPermission;
+    }
 }

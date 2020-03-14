@@ -49,6 +49,28 @@
 
                         <div class="form-group">
                             <label class="form-group-label">
+                                敏感信息(账号密码等):
+                            </label>
+                            <textarea class="form-control" v-model="appdata.secContent"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-group-label">
+                                查看权限:
+                            </label>
+                            <div style="height: 40px">
+                                <select class="form-control" style="float:left;width: 90%" id="appPermission" >
+                                    <option    value="" >全部可见</option>
+                                    <option    value="" >登录可见</option>
+                                    <option    value="" >自己可见</option>
+                                    <option    value="" >指定角色可见</option>
+                                </select>
+                                <a style="float: left;width: 10%" href="#" class="btn btn-sm btn-link">选择角色 <strong>+</strong></a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-group-label">
                                 排序:
                             </label>
                             <input type="text" class="form-control" v-model="appdata.sortNum">

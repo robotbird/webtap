@@ -74,24 +74,26 @@
             height: 112px;
             position: relative;
         }
-        .title{
+        .app-logo{
             width: 48px;
             height: 48px;
             margin: 0 auto 16px;
         }
 
-        .desc{
+        .app-title{
             text-align: center; color: #fff;
         }
+        .app-title *{display:inline-block;vertical-align:middle}
         .fold-app-title{
             text-align: center; color: #0b2e13;
         }
 
+        .fold-app-title *{display:inline-block;vertical-align:middle}
         .fold-app-title a,.fold-app-title a:link,.fold-app-title a:hover,.fold-app-title a:visited{
             text-decoration: none; color: #0b2e13;
         }
 
-        .desc a,.desc a:link,.desc a:hover,.desc a:visited{
+        .app-title a,.app-title a:link,.app-title a:hover,.app-title a:visited{
             text-decoration: none; color: #fff;
         }
         .icon {
@@ -203,20 +205,20 @@
 
 
         <li v-for="cat in categories" :key="cat.id" v-if="cat.appAmount>0">
-            <div class="title" >
+            <div class="app-logo" >
                 <a href="#" v-on:click="openFold(cat.id)">  <img class="icon"  src="img/fold.png" /></a>
             </div>
-            <div class="desc" >
+            <div class="app-title" >
                 <a href="#" >{{cat.name}}</a>
             </div>
         </li>
 
         <li v-for="app in appList" :key="app.id">
-            <div class="title">
+            <div class="app-logo">
                 <a :href="app.url">  <img class="icon"  v-bind:src="app.logoUrl" :alt="app.title" /></a>
             </div>
-            <div class="desc">
-                <a :href="app.url" >{{app.title}}</a>
+            <div class="app-title">
+              <img v-if="app.secContent"  src="img/sec.png" /><a :href="app.url" >{{app.title}}</a>
             </div>
         </li>
 
@@ -319,15 +321,19 @@
                 console.log(apps);
                 for(var i=0;i<apps.length;i++){
                     if(apps[i].categoryId ==id){
-                        li+='<li><div class="title"><a href="'+apps[i].url+'">' +
+                        li+='<li><div class="app-logo"><a href="'+apps[i].url+'">' +
                             '<img src="'+apps[i].logoUrl+'" class="icon"></a></div>' +
-                            ' <div class="fold-app-title"><a href="'+apps[i].url+'">'+apps[i].title+'</a></div>' +
+                            ' <div class="fold-app-title">';
+                                if(apps[i].secContent !=""){
+                                    li+='<img   src="img/sec.png" />' ;
+                                }
+
+                            li+='<a href="'+apps[i].url+'">'+apps[i].title+'</a></div>' +
                             '</li>';
                     }
                 }
                 html+=li+'</ul>';
 
-                console.log(html);
                 zeroModal.show({
                     content: html,
                     width: '40%',
