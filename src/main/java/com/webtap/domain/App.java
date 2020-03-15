@@ -48,6 +48,8 @@ public class App implements Serializable {
 	@Column(name ="view_permission")
 	private Long viewPermission;
 
+	@Column(name = "view_password")
+	private String viewPassword;
 
 
   public Long getId() {
@@ -172,5 +174,13 @@ public class App implements Serializable {
 
     public void setViewPermission(Long viewPermission) {
         this.viewPermission = viewPermission;
+    }
+
+    public String getViewPassword() {
+        return viewPassword;
+    }
+
+    public void setViewPassword(String viewPassword) {
+        this.viewPassword = viewPassword;
     }
 }
