@@ -82,6 +82,7 @@
 
         .app-title{ text-align: center; color: #fff; }
         .app-title *{display:inline-block;vertical-align:middle}
+        .app-title img{cursor: hand;}
 
         .fold-app-title{ text-align: center; color: #0b2e13;}
         .fold-app-title *{display:inline-block;vertical-align:middle}
@@ -158,6 +159,18 @@
             color: #fff;
             font-weight: bold;
         }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
     </style>
 
 
@@ -212,7 +225,7 @@
                 <a :href="app.url">  <img class="icon"  v-bind:src="app.logoUrl" :alt="app.title" /></a>
             </div>
             <div class="app-title">
-              <img v-if="app.secContent"  src="img/sec.png" /><a :href="app.url" >{{app.title}}</a>
+                <a href="#" v-on:click="showSec(app.secContent)"><img v-if="app.secContent"  src="img/sec.png" /></a> <a :href="app.url" >{{app.title}}</a>
             </div>
         </li>
 
@@ -309,19 +322,17 @@
 
             },
             openFold:function(id){
-                var html='<ul class="icon_list">';
+                var html='<div id="secContent"></div> <ul class="icon_list">';
                 var li='';
                 var apps = this.appsAll;
-                console.log(apps);
                 for(var i=0;i<apps.length;i++){
                     if(apps[i].categoryId ==id){
                         li+='<li><div class="app-logo"><a href="'+apps[i].url+'">' +
                             '<img src="'+apps[i].logoUrl+'" class="icon"></a></div>' +
                             ' <div class="fold-app-title">';
                                 if(apps[i].secContent !=""){
-                                    li+='<img   src="img/sec.png" />' ;
+                                    li+='<a href="#"  > <img  alt="'+apps[i].title+' : '+apps[i].secContent+'" src="img/sec.png" /></a>' ;
                                 }
-
                             li+='<a href="'+apps[i].url+'">'+apps[i].title+'</a></div>' +
                             '</li>';
                     }
@@ -332,6 +343,19 @@
                     content: html,
                     width: '40%',
                     height: '60%',
+                    opacity: 0.8
+                });
+                $('.fold-app-title').on('click','a img',function(){
+                    var img = this;
+                    var html = '<div class="alert alert-warning" role="alert">'+img.alt+'</div>';
+                    $("#secContent").html(html);
+                });
+            },
+            showSec:function(secContent){
+                zeroModal.show({
+                    content: secContent,
+                    width: '30%',
+                    height: '20%',
                     opacity: 0.8
                 });
             },
@@ -349,6 +373,17 @@
         }
     });
 
+
+
+
+    var showSecFold =function(secContent){
+        //console.log(modal.content());
+        var html = '<div class="alert alert-success" role="alert">' +secContent+  '</div>';
+        //alert($("#secContent"));
+
+        console.log(document.getElementById("secContent"));
+        $("#secContent").html(html);
+    };
 </script>
 
 </html>
