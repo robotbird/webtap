@@ -11,7 +11,7 @@
  Target Server Version : 50716
  File Encoding         : 65001
 
- Date: 07/03/2020 21:48:18
+ Date: 16/03/2020 23:05:02
 */
 
 SET NAMES utf8mb4;
@@ -32,55 +32,57 @@ CREATE TABLE `wt_app_category`  (
 -- ----------------------------
 -- Records of wt_app_category
 -- ----------------------------
-INSERT INTO `wt_app_category` VALUES (1, '产品', 1, 3);
+INSERT INTO `wt_app_category` VALUES (1, '产品', 1, 4);
 INSERT INTO `wt_app_category` VALUES (2, '开发', 1, 0);
 INSERT INTO `wt_app_category` VALUES (3, '售前', 1, 3);
-INSERT INTO `wt_app_category` VALUES (4, '运营', 1, 2);
+INSERT INTO `wt_app_category` VALUES (4, '运营', 1, 3);
 
 -- ----------------------------
 -- Table structure for wt_apps
 -- ----------------------------
 DROP TABLE IF EXISTS `wt_apps`;
 CREATE TABLE `wt_apps`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `category_id` bigint(255) NULL DEFAULT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `org_id` bigint(20) NOT NULL,
-  `logo_url` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `url` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `create_time` bigint(20) NOT NULL,
-  `last_modify_time` bigint(20) NOT NULL,
-  `is_delete` int(255) NOT NULL,
-  `sec_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `sort_num` int(11) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `category_id` bigint(255) NULL DEFAULT NULL COMMENT '分类Id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `org_id` bigint(20) NOT NULL COMMENT '组织id',
+  `logo_url` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'app logo',
+  `url` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'app url',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'app 名称',
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '描述',
+  `create_time` bigint(20) NOT NULL COMMENT '创建时间',
+  `last_modify_time` bigint(20) NOT NULL COMMENT '修改时间',
+  `is_delete` int(255) NOT NULL COMMENT '删除状态',
+  `sec_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '敏感信息',
+  `sort_num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `view_permission` int(255) NULL DEFAULT NULL COMMENT '查看权限0全部,1登录,2自己,3指定角色',
+  `view_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查看密码',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_apps
 -- ----------------------------
-INSERT INTO `wt_apps` VALUES (1, 4, 1, 5, '/upload/logo/kod.png', '来来来', '000', 'jjo', 0, 0, 0, '', 8);
-INSERT INTO `wt_apps` VALUES (3, 1, 1, 1, '/upload/logo/chandao.png', 'http://www.italent.cn', '禅道', '禅道', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (4, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日报', '日报', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (6, 0, 1, 1, '/upload/logo/iconfont.png', 'http://www.italent.cn', '图标', '图标', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (14, 3, 1, 5, '/upload/logo/gitlab.png', 'lll', 'gitlab', 'll', 0, 0, 0, '', 0);
-INSERT INTO `wt_apps` VALUES (15, 1, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9);
-INSERT INTO `wt_apps` VALUES (16, 4, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9);
-INSERT INTO `wt_apps` VALUES (17, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日程', '日报', 1577200841053, 1577200841053, 1, '1', 1);
-INSERT INTO `wt_apps` VALUES (18, 3, 1, 5, '/', 'hhh', 'hhh', 'hhh', 0, 0, 0, '', 4);
-INSERT INTO `wt_apps` VALUES (19, 3, 1, 5, '/', 'dsdsd', 'eee', 'sdsds', 0, 0, 0, '', 121);
+INSERT INTO `wt_apps` VALUES (1, 4, 1, 5, '/upload/logo/kod.png', '来来来', '000', 'jjo', 0, 0, 0, '用户名：admin\n密码：123456', 8, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (3, 1, 1, 1, '/upload/logo/chandao.png', 'http://www.italent.cn', '禅道', '禅道', 1577200841053, 1577200841053, 1, '用户名：admin\n密码：123456', 1, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (4, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日报', '日报', 1577200841053, 1577200841053, 1, '', 1, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (6, 0, 1, 1, '/upload/logo/iconfont.png', 'http://www.italent.cn', '图标', '图标', 1577200841053, 1577200841053, 1, '', 1, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (14, 3, 1, 5, '/upload/logo/gitlab.png', 'lll', 'gitlab', 'll', 0, 0, 0, '', 0, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (15, 1, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (16, 4, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (17, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日程', '日报', 1577200841053, 1577200841053, 1, '密码：123', 1, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (18, 3, 1, 5, '/', 'hhh', 'hhh', 'hhh', 0, 0, 0, '', 4, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (19, 3, 1, 5, '/', 'dsdsd', 'eee', 'sdsds', 0, 0, 0, '', 121, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wt_organizations
 -- ----------------------------
 DROP TABLE IF EXISTS `wt_organizations`;
 CREATE TABLE `wt_organizations`  (
-  `id` bigint(20) NOT NULL,
-  `org_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `org_logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `short_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `org_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织名称',
+  `org_logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织logo',
+  `short_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '短地址',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
