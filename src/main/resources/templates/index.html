@@ -225,7 +225,8 @@
                 <a :href="app.url">  <img class="icon"  v-bind:src="app.logoUrl" :alt="app.title" /></a>
             </div>
             <div class="app-title">
-                <a href="#" v-on:click="showSec(app.secContent)"><img v-if="app.secContent"  src="img/sec.png" /></a> <a :href="app.url" >{{app.title}}</a>
+                <a v-if="app.secContent && user!=null" href="#" v-on:click="showSec(app.secContent)"><img   src="img/sec.png" /></a>
+                <a :href="app.url" >{{app.title}}</a>
             </div>
         </li>
 
@@ -330,7 +331,7 @@
                         li+='<li><div class="app-logo"><a href="'+apps[i].url+'">' +
                             '<img src="'+apps[i].logoUrl+'" class="icon"></a></div>' +
                             ' <div class="fold-app-title">';
-                                if(apps[i].secContent !=""){
+                                if(apps[i].secContent !="" && this.user!=null){
                                     li+='<a href="#"  > <img  alt="'+apps[i].title+' : '+apps[i].secContent+'" src="img/sec.png" /></a>' ;
                                 }
                             li+='<a href="'+apps[i].url+'">'+apps[i].title+'</a></div>' +
@@ -373,17 +374,6 @@
         }
     });
 
-
-
-
-    var showSecFold =function(secContent){
-        //console.log(modal.content());
-        var html = '<div class="alert alert-success" role="alert">' +secContent+  '</div>';
-        //alert($("#secContent"));
-
-        console.log(document.getElementById("secContent"));
-        $("#secContent").html(html);
-    };
 </script>
 
 </html>
