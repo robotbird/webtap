@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -17,6 +18,11 @@ public class UserServiceImpl implements UserService {
     @Resource
     private JavaMailSender mailSender;
 
+
+    @Override
+    public List<User> getUsers() {
+        return null;
+    }
 
     @Override
     public User getUser(String username, String email) {

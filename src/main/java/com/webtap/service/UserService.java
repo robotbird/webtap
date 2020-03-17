@@ -2,8 +2,16 @@ package com.webtap.service;
 
 import com.webtap.domain.User;
 
+import java.util.List;
+
 public interface UserService {
 
+
+    /**
+     * get all users
+     * @return
+     */
+    public List<User> getUsers();
 
     /**
      * get user by username and email

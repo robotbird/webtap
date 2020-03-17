@@ -50,6 +50,20 @@ public class AuthorsController extends BaseController{
         return json.toJSONString();
     }
 
+    /**
+     * return all app category
+     * @return
+     */
+    @RequestMapping(value = "/authors/users", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getAllAppCategories() {
+        List<User> users = userService.getUser();
+
+        if (categoryList.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<User>>(categoryList, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/authors/update",method = RequestMethod.POST)
     @LoggerManage(description = "update user")
     public Response saveUser(@RequestBody User user){
