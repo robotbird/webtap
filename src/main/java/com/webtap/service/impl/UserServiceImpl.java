@@ -20,11 +20,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> getUsers() {
-        return null;
-    }
-
-    @Override
     public User getUser(String username, String email) {
         return userRepository.findByUserNameOrEmail(username,email);
     }
@@ -48,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer getAllUsers() {
-        return null;
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override

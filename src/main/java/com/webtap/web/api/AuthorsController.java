@@ -12,11 +12,10 @@ import com.webtap.service.UserService;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -51,17 +50,17 @@ public class AuthorsController extends BaseController{
     }
 
     /**
-     * return all app category
+     * return all users
      * @return
      */
     @RequestMapping(value = "/authors/users", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getAllAppCategories() {
-        List<User> users = userService.getUser();
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userService.getAllUsers();
 
-        if (categoryList.isEmpty()) {
+        if (users.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<User>>(categoryList, HttpStatus.OK);
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/authors/update",method = RequestMethod.POST)

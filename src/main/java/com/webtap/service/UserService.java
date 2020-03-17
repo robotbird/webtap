@@ -8,12 +8,6 @@ public interface UserService {
 
 
     /**
-     * get all users
-     * @return
-     */
-    public List<User> getUsers();
-
-    /**
      * get user by username and email
      * @param username
      * @param email
@@ -47,9 +41,9 @@ public interface UserService {
     void deleteByName(String name);
 
     /**
-     * 获取用户总量
+     * return all user
      */
-    Integer getAllUsers();
+    public List<User>  getAllUsers();
 
     /**
      * 删除所有用户
