@@ -53,7 +53,7 @@ public class AuthorsController extends BaseController{
      * return all users
      * @return
      */
-    @RequestMapping(value = "/authors/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/authors", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAllUsers();
 
@@ -63,9 +63,27 @@ public class AuthorsController extends BaseController{
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/authors/update",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/authors/save",method = RequestMethod.POST)
     @LoggerManage(description = "update user")
     public Response saveUser(@RequestBody User user){
+        try {
+            User hasuser = userService.getUser(user.getUserName(),user.getEmail());
+            if(user.getId()!=hasuser.getId()){
+                return result("用户名或者邮箱重复");
+            }
+            userService.update(user);
+            getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+        }
+        return result(ExceptionMsg.SUCCESS);
+    }
+
+
+    @RequestMapping(value = "/authors/update",method = RequestMethod.POST)
+    @LoggerManage(description = "update user")
+    public Response updateUser(@RequestBody User user){
         try {
             User hasuser = userService.getUser(user.getUserName(),user.getEmail());
             if(user.getId()!=hasuser.getId()){

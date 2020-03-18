@@ -22,9 +22,6 @@ import java.util.List;
 public class IndexController extends BaseController{
 
 
-    @Autowired
-    private AppService appService;
-
 
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	@LoggerManage(description="首页")
@@ -73,6 +70,10 @@ public class IndexController extends BaseController{
 	@RequestMapping(value = "/admin/app/category",method = RequestMethod.GET)
 	@LoggerManage(description = "应用分类")
 	public String categories(){return  "admin/app/category";}
+
+	@RequestMapping(value = "/admin/settings/users",method = RequestMethod.GET)
+	@LoggerManage(description = "用户列表")
+	public String users(){return  "admin/settings/users";}
 
 
 	@RequestMapping(value="/signout",method=RequestMethod.GET)

@@ -19,17 +19,19 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>分类名称</th>
-                                <th>app数量</th>
+                                <th>用户名</th>
+                                <th>邮箱</th>
+                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="cat in categories">
-                                <td>{{cat.id}}</td>
-                                <td>{{cat.name}}</td>
-                                <td>{{cat.appAmount>0?cat.appAmount:0}}</td>
-                                <td><a href="#" v-on:click="edit(cat.id)">编辑</a>  <a href="#" v-on:click="remove(cat.id)">删除</a> </td>
+                            <tr v-for="user in users">
+                                <td>{{user.id}}</td>
+                                <td>{{user.userName}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.createTime}}</td>
+                                <td><a href="#" v-on:click="edit(user.id)">编辑</a>  <a href="#" v-on:click="remove(user.id)">删除</a> </td>
                             </tr>
                             </tbody>
                         </table>
@@ -37,15 +39,52 @@
                     </div>
                 </form>
 
-                <!-- Modal Category -->
-                <div th:replace="admin/fragment/categoryMd::catFragment"></div>
+                <!-- Modal User -->
+                <div>
+                    <div class="modal fade" id="modal-user" tabindex="-1" role="dialog" aria-labelledby="notificationsLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="settingsLabel">{{category.editType}}分类</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            用户名:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="user.userName" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            邮箱:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="user.email" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            邮箱:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="user.passWord" >
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer d-flex">
+                                    <button class="btn btn-link btn-sm btn-rounded ml-auto" type="button" data-dismiss="modal">取消</button>
+                                    <button   class="btn btn-primary btn-sm btn-rounded" type="button" v-on:click="save()">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
 
-        <!-- fragment begin-->
-        <div th:replace="admin/fragment/files :: filesFragment"></div>
-        <!-- fragment end-->
     </div>
 
 
@@ -55,24 +94,23 @@
 
 <th:block layout:fragment = "bodyAssets">
     <!--尾部-->
-    <script src="/admin/js/app/fileManagerController.js"></script>
     <script>
         Vue.use(window.vuelidate.default)
 
         const app = new Vue({
             el: '#app',
             data: {
-                categories: {},
+                users: {},
                 category:{editType:"新增"}
             },
             methods: {
                 load: function () {
-                    axios.get(webRoot + 'api/app/categories')
+                    axios.get(webRoot + 'api/authors')
                         .then(response => {
-                        this.categories = response.data;
+                        this.users = response.data;
                      }).catch(function (error) { toastr.error(error); });
                 },
-                saveCategory: function () {
+                save: function () {
                     var posturl =webRoot + 'api/category/save' ;
                     var cat = this.category;
                     console.log(cat.id);
