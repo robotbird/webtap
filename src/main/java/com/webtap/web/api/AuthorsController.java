@@ -9,6 +9,7 @@ import com.webtap.domain.result.Response;
 import com.webtap.domain.view.ChangePwd;
 import com.webtap.service.OrganizationService;
 import com.webtap.service.UserService;
+import com.webtap.utils.DateUtils;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,23 +67,51 @@ public class AuthorsController extends BaseController{
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/authors/{id}", method = RequestMethod.GET)
+    public ResponseEntity<User> getCatById(@PathVariable(value = "id") Long id) {
+        User user = userService.getUser(id);
+        if (user ==null) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return  new ResponseEntity<User>(user,HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/authors/save",method = RequestMethod.POST)
-    @LoggerManage(description = "update user")
+    @LoggerManage(description = "create user")
     public Response saveUser(@RequestBody User user){
         try {
-            User hasuser = userService.getUser(user.getUserName(),user.getEmail());
-            if(user.getId()!=hasuser.getId()){
-                return result("用户名或者邮箱重复");
+            User registUser = userService.getUserByEmail(user.getEmail());
+            if (null != registUser) {
+                return result(ExceptionMsg.EmailUsed);
             }
-            userService.update(user);
-            getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
+            User userNameUser = userService.getUserByUserName(user.getUserName());
+            if (null != userNameUser) {
+                return result(ExceptionMsg.UserNameUsed);
+            }
+            user.setPassWord(getPwd(user.getPassWord()));
+            user.setCreateTime(DateUtils.getCurrentTime());
+            user.setLastModifyTime(DateUtils.getCurrentTime());
+            user.setProfilePicture("img/favicon.png");
+            userService.create(user);
         }catch (Exception ex){
             logger.error(ex.getMessage());
         }
         return result(ExceptionMsg.SUCCESS);
     }
 
+
+    /**
+     * delete user
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/authors/remove/{id}",method = RequestMethod.DELETE)
+    public Response deleteApp(@PathVariable(value = "id") Long id){
+        userService.delete(id);
+        logger.info("删除成功");
+        return result(ExceptionMsg.SUCCESS);
+    }
 
     @RequestMapping(value = "/authors/update",method = RequestMethod.POST)
     @LoggerManage(description = "update user")

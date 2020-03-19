@@ -8,6 +8,28 @@ public interface UserService {
 
 
     /**
+     * 获取用户
+     * @param id
+     * @return
+     */
+    public User getUser(Long id);
+
+    /**
+     * user name
+     * @param userName
+     * @return
+     */
+    public User getUserByUserName(String userName);
+
+
+    /**
+     * email
+     * @param email
+     * @return
+     */
+    public User getUserByEmail(String email);
+
+    /**
      * get user by username and email
      * @param username
      * @param email
@@ -17,10 +39,9 @@ public interface UserService {
 
     /**
      * 新增一个用户
-     * @param name
-     * @param age
+     * @param user
      */
-    void create(String name, Integer age);
+    void create(User user);
 
     /**
      * 更新用户
@@ -35,10 +56,10 @@ public interface UserService {
      */
     void updatePwd(String password,String userName);
     /**
-     * 根据name删除一个用户高
-     * @param name
+     * delete by user id
+     * @param id
      */
-    void deleteByName(String name);
+    void delete(Long id);
 
     /**
      * return all user

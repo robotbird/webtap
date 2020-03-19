@@ -45,7 +45,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="settingsLabel">{{category.editType}}分类</h4>
+                                    <h4 class="modal-title" id="settingsLabel">{{user.editType}}用户</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
                                 </div>
                                 <div class="modal-body">
@@ -66,7 +66,7 @@
 
                                     <div class="form-group">
                                         <label class="form-group-label">
-                                            邮箱:
+                                            密码:
                                         </label>
                                         <input type="text" class="form-control" v-model="user.passWord" >
                                     </div>
@@ -101,7 +101,7 @@
             el: '#app',
             data: {
                 users: {},
-                category:{editType:"新增"}
+                user:{editType:"新增"}
             },
             methods: {
                 load: function () {
@@ -111,44 +111,33 @@
                      }).catch(function (error) { toastr.error(error); });
                 },
                 save: function () {
-                    var posturl =webRoot + 'api/category/save' ;
-                    var cat = this.category;
-                    console.log(cat.id);
-                    axios.post(posturl, cat)
+                    var posturl =webRoot + 'api/authors/save' ;
+                    var user = this.user;
+                    axios.post(posturl, user)
                         .then(function (response) {
                             toastr.success('保存成功');
-
-                            if(cat.id ==undefined){
-                                var _cat = response.data;
-                                app.$data.categories.push(_cat);
-                            }else {// 这个地方调用不了load方法
-                                axios.get(webRoot + 'api/app/categories')
-                                    .then(response => {
-                                    app.$data.categories = response.data;
-                                 }).catch(function (error) { toastr.error(error); });
-                            }
-                            //app.$options.methods.load();
-                            $("#modal-category").modal("hide");
+                            $("#modal-user").modal("hide");
+                            location.reload();
                         }).catch(function (error) {toastr.error(error); });
 
                     return false;
                 },
                 edit:function (id) {
-                    axios.get(webRoot + 'api/category/'+id)
+                    axios.get(webRoot + 'api/authors/'+id)
                         .then(response => {
-                        this.category = response.data;
-                        this.category.editType = "编辑";
+                        this.user = response.data;
+                        this.user.editType = "编辑";
                     }).catch(function (error) { toastr.error(error); });
-                    $("#modal-category").modal();
+                    $("#modal-user").modal();
                 },
                 add:function () {
-                    this.category = {editType:"新增"};
-                    $("#modal-category").modal();
+                    this.user = {editType:"新增"};
+                    $("#modal-user").modal();
                 },
                 remove:function (id) {
-                    var result = confirm("Please confirm removing this Category");
+                    var result = confirm("Please confirm removing this user");
                     if (result) {
-                        axios.delete(webRoot + 'api/category/remove/' + id)
+                        axios.delete(webRoot + 'api/authors/remove/' + id)
                             .then(response => {
                             toastr.success(response.data.rspMsg);
                         this.load();

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 用户权限验证的拦截器
  *
- * @author James
+ * @author robotbird
  */
 @Component
 public class UserAuthenticationInterceptor implements HandlerInterceptor {
@@ -21,7 +21,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     Object obj = request.getSession().getAttribute(Const.LOGIN_SESSION_KEY);
     if (null == obj || !(obj instanceof User)) {
-      response.sendRedirect(request.getContextPath() + "/signin");
+      response.sendRedirect(request.getContextPath() + "/login");
       return false;
     }
     return true;

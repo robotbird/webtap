@@ -18,6 +18,19 @@ public class UserServiceImpl implements UserService {
     @Resource
     private JavaMailSender mailSender;
 
+    public User getUser(Long id){
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     @Override
     public User getUser(String username, String email) {
@@ -25,8 +38,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(String name, Integer age) {
-
+    public void create(User user) {
+        userRepository.save(user);
     }
 
     public void update(User user) {
@@ -37,9 +50,9 @@ public class UserServiceImpl implements UserService {
         userRepository.updatePassword(password,userName);
     }
 
-    @Override
-    public void deleteByName(String name) {
 
+    public void delete(Long id){
+        userRepository.delete(id);
     }
 
     @Override
