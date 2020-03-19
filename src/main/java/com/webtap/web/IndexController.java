@@ -75,21 +75,4 @@ public class IndexController extends BaseController{
 	@LoggerManage(description = "用户列表")
 	public String users(){return  "admin/settings/users";}
 
-
-	@RequestMapping(value="/signout",method=RequestMethod.GET)
-	@LoggerManage(description="sign out")
-	public void logout(HttpServletResponse response, Model model){
-	    try {
-            getSession().removeAttribute(Const.LOGIN_SESSION_KEY);
-            getSession().removeAttribute(Const.LAST_REFERER);
-            Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, "");
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            response.sendRedirect("/");
-        } catch (Exception ex){
-	        logger.error(ex.getStackTrace().toString());
-        }
-
-	}
 }

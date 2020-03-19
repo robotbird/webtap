@@ -14,8 +14,11 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -119,6 +122,23 @@ public class AuthorsController extends BaseController{
 
 
         return result(ExceptionMsg.SUCCESS);
+    }
+
+    @RequestMapping(value="/logout",method=RequestMethod.GET)
+    @LoggerManage(description="sign out")
+    public void logout(HttpServletResponse response, Model model){
+        try {
+            getSession().removeAttribute(Const.LOGIN_SESSION_KEY);
+            getSession().removeAttribute(Const.LAST_REFERER);
+            Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            response.sendRedirect("/");
+        } catch (Exception ex){
+            logger.error(ex.getStackTrace().toString());
+        }
+
     }
 
 }
