@@ -68,7 +68,7 @@
                                         <label class="form-group-label">
                                             密码:
                                         </label>
-                                        <input type="text" class="form-control" v-model="user.passWord" >
+                                        <input type="text" class="form-control" name="password" id="password">
                                     </div>
 
                                 </div>
@@ -113,6 +113,8 @@
                 save: function () {
                     var posturl =webRoot + 'api/authors/save' ;
                     var user = this.user;
+                    user.passWord = $("#password").val();
+
                     axios.post(posturl, user)
                         .then(function (response) {
                             toastr.success('保存成功');
@@ -126,6 +128,7 @@
                     axios.get(webRoot + 'api/authors/'+id)
                         .then(response => {
                         this.user = response.data;
+                        $("#password").attr("placeholder","为空则不修改");
                         this.user.editType = "编辑";
                     }).catch(function (error) { toastr.error(error); });
                     $("#modal-user").modal();

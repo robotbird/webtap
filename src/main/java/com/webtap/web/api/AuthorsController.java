@@ -89,11 +89,21 @@ public class AuthorsController extends BaseController{
             if (null != userNameUser) {
                 return result(ExceptionMsg.UserNameUsed);
             }
-            user.setPassWord(getPwd(user.getPassWord()));
+
+            if(user.getPassWord()!=null){
+                user.setPassWord(getPwd(user.getPassWord()));
+            }
+
             user.setCreateTime(DateUtils.getCurrentTime());
             user.setLastModifyTime(DateUtils.getCurrentTime());
             user.setProfilePicture("img/favicon.png");
-            userService.create(user);
+
+            if(user.getId()==null){
+                userService.create(user);
+            }else {
+                userService.update(user);
+            }
+
         }catch (Exception ex){
             logger.error(ex.getMessage());
         }
