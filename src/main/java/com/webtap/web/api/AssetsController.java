@@ -1,10 +1,13 @@
 package com.webtap.web.api;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.webtap.domain.Asset;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.ResponseData;
 import com.webtap.service.StorageService;
 import com.webtap.utils.Pager;
+import com.webtap.utils.URLUtil;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,5 +77,32 @@ public class AssetsController extends BaseController{
 		storageService.DeleteFile(url);
         return new ResponseData(ExceptionMsg.SUCCESS);
 	}
+
+	/**
+	 * get background-img
+	 * @return
+	 */
+	@RequestMapping(value = "/assets/background",method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String getBackground(){
+
+		String bing = "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-cn";
+		String imgurl="";
+
+		try {
+            String content = URLUtil.getURLContent(bing);
+
+            JSONObject jsonObject = JSONObject.parseObject(content);
+            Object o = jsonObject.get("images");
+            JSONArray array = (JSONArray)o;
+            JSONObject object = (JSONObject)array.get(0);
+            Object url = object.get("url");
+            imgurl = "https://cn.bing.com/"+url;
+        } catch (Exception ex){
+		    logger.error("fail to connect bing");
+        }
+
+		return imgurl;
+	}
+
 
 }

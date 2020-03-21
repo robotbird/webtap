@@ -112,7 +112,7 @@
             background-blend-mode:overlay;
 
         }
-        .full-background-wall{background-image:url(upload/background/9.jpg)}
+
 
         .top-bar{
             height: 40px;
@@ -366,11 +366,24 @@
                     this.user = response.data.user;
                     this.org = response.data.org;
                     }).catch(function (error) { console.log(error) });
+            },
+            loadBackground:function () {
+                axios.get('api/assets/background')
+                    .then(response => {
+                        var imgurl = response.data;
+                        if(imgurl!=""){
+                            $(".full-background-wall").css("background-image","url("+imgurl+")");
+                        }else {
+                            $(".full-background-wall").css("background-image","url(upload/background/9.jpg)");
+                        }
+
+                     }).catch(function (error) { console.log(error) });
             }
         },
         beforeMount() {
             this.loadUser();
             this.load();
+            this.loadBackground();
         }
     });
 

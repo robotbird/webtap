@@ -25,7 +25,7 @@ import java.util.Locale;
 
 @RestController
 @RequestMapping("/api")
-public class AppsController extends BaseController{
+public class 	AppsController extends BaseController{
 
     @Autowired
     private AppService appService;
