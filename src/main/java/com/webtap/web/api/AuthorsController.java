@@ -146,14 +146,24 @@ public class AuthorsController extends BaseController{
         try {
             User user = getUser();
             String password = user.getPassWord();
+            String username = changePwd.getUserName();
+
             String newpwd = getPwd(changePwd.getNewPassword());
-            if(password.equals(getPwd(changePwd.getOldPassword()))){
-                userService.updatePwd(newpwd,user.getUserName());
-                user.setPassWord(newpwd);
-                getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
-            }else{
-                return result(ExceptionMsg.PassWordError);
+            if(username==null){
+                username = user.getUserName();
+                if(password.equals(getPwd(changePwd.getOldPassword()))){
+                    userService.updatePwd(newpwd,username);
+                    user.setPassWord(newpwd);
+                    getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
+                }else{
+                    return result(ExceptionMsg.PassWordError);
+                }
+            } else {
+                userService.updatePwd(newpwd,username);
             }
+
+
+
         } catch (Exception e) {
             logger.error("updatePassword failed, ", e);
             return result(ExceptionMsg.FAILED);

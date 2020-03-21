@@ -31,7 +31,10 @@
                                 <td>{{user.userName}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{dateFormat(user.createTime)}}</td>
-                                <td><a href="#" v-on:click="edit(user.id)">编辑</a>  <a href="#" v-on:click="remove(user.id)">删除</a> </td>
+                                <td><a href="#" v-on:click="edit(user.id)">编辑</a>
+                                    <a href="#" v-on:click="remove(user.id)">删除</a>
+                                    <a href="#" v-on:click="openPwdModal(user.id)">重置密码</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -68,7 +71,7 @@
                                         <label class="form-group-label">
                                             密码:
                                         </label>
-                                        <input type="text" class="form-control" name="password" id="password">
+                                        <input type="text" class="form-control" v-model="user.passWord">
                                     </div>
 
                                 </div>
@@ -81,6 +84,44 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="modal fade" id="dlgChangePwd" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="hdrSettings">更改密码</h4>
+                                <button type="button" class="close ml-2" title="Close" data-placement="bottom" data-tooltip data-dismiss="modal" aria-label="close">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="settings-body">
+                                    <form>
+                                        <div class="bf-content bf-content-boxed bf-settings">
+
+                                            <div class="form-group">
+                                                <label class="form-group-label">新密码</label>
+                                                <input v-model.trim="$v.password.newPassword.$model" :class="['form-control', status($v.password.newPassword)]" type="password" />
+                                                <label v-if="!$v.password.newPassword.required" class="val-error">Required</label>
+                                                <label v-if="!$v.password.newPassword.minLength" class="val-error">At least 4 characters</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-group-label">确认密码</label>
+                                                <input v-model.trim="$v.password.confirmPassword.$model" :class="['form-control', status($v.password.confirmPassword)]" type="password" />
+                                                <label v-if="!$v.password.confirmPassword.required" class="val-error">Required</label>
+                                                <label v-if="!$v.password.confirmPassword.minLength" class="val-error">At least 4 characters</label>
+                                                <label v-if="!$v.password.confirmPassword.sameAsPassword" class="val-error">New and confirm passwords do not match</label>
+                                            </div>
+                                            <button type="button" :disabled="$v.password.$invalid" v-on:click="change($v)" class="btn btn-primary btn-main">保存</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>
@@ -96,12 +137,28 @@
     <!--尾部-->
     <script>
         Vue.use(window.vuelidate.default)
+        const { required, minLength, email, sameAs } = window.validators
 
         const app = new Vue({
             el: '#app',
             data: {
                 users: {},
-                user:{editType:"新增"}
+                user:{editType:"新增"},
+                password: {
+                    userName: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                }
+            },
+            validations: {
+                author: {
+                    displayName: { required },
+                    email: { required, email }
+                },
+                password: {
+                    newPassword: { required, minLength: minLength(4) },
+                    confirmPassword: { required, minLength: minLength(4), sameAsPassword: sameAs('newPassword') }
+                }
             },
             methods: {
                 load: function () {
@@ -113,7 +170,6 @@
                 save: function () {
                     var posturl =webRoot + 'api/authors/save' ;
                     var user = this.user;
-                    user.passWord = $("#password").val();
 
                     axios.post(posturl, user)
                         .then(function (response) {
@@ -128,7 +184,6 @@
                     axios.get(webRoot + 'api/authors/'+id)
                         .then(response => {
                         this.user = response.data;
-                        $("#password").attr("placeholder","为空则不修改");
                         this.user.editType = "编辑";
                     }).catch(function (error) { toastr.error(error); });
                     $("#modal-user").modal();
@@ -148,6 +203,45 @@
                     .catch(function (error) { toastr.error(error); });
                     }
                     return false;
+                },
+                status(v) {
+                    return {
+                        error: v.$error,
+                        dirty: v.$dirty
+                    }
+                },
+                change:function(v){
+                    this.password.userName = this.user.userName;
+                    if (v.password.$invalid) {
+                        toastr.error('Invalid');
+                    }
+                    else {
+                        axios.put(webRoot + 'api/authors/changepwd', this.password)
+                            .then(function (response) {
+                                if(response.data.rspCode!="000000"){
+                                    toastr.error(response.data.rspCode+" "+response.data.rspMsg);
+                                }else {
+                                    toastr.success(response.data.rspMsg);
+                                }
+                                $('#dlgChangePwd').modal('hide');
+                            })
+                            .catch(function (error) {
+                                toastr.error(error);
+                            });
+                    }
+                },
+                openPwdModal:function(id){
+                    $('#dlgChangePwd').modal();
+
+
+                    axios.get(webRoot + 'api/authors/'+id)
+                        .then(response => {
+                        this.user = response.data;
+                     }).catch(function (error) { toastr.error(error); });
+                    setTimeout(
+                        function () {
+                            $('#txtOldPwd').focus();
+                        }, 500);
                 },
                 dateFormat:function(time) {
                     var date=new Date(time);
