@@ -3,6 +3,7 @@ package com.webtap.web.api;
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.App;
 import com.webtap.domain.AppCategory;
+import com.webtap.domain.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.AppCategoryService;
@@ -145,6 +146,39 @@ public class 	AppsController extends BaseController{
 	@LoggerManage(description = "添加应用")
 	public Response saveApp(@RequestBody App app) {
 		try{
+			User user = getUser();
+
+			if(app.getUserId()==null){
+                app.setUserId(user.getId());
+            }
+
+            if(app.getOrgId()==null){
+                app.setOrgId(user.getOrgId());
+            }
+
+			Date date = new Date();
+
+
+			if(app.getId()==null){
+                app.setCreateTime(date.getTime());
+            }
+
+			app.setLastModifyTime(date.getTime());
+
+
+			if(app.getIsDelete()==null){
+                app.setIsDelete(0L);
+            }
+
+            if(app.getSortNum()==null){
+                app.setSortNum(100000L);
+            }
+
+            if(app.getCategoryId()==null){
+                app.setCategoryId(0L);
+            }
+
+
 			 appService.saveApp(app);
 			 logger.info("保存app成功");
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8"></meta>
     <title>WebTap</title>
 
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/zeroModal.css" />
     <style>
         *{
@@ -235,7 +235,10 @@
 
         <li v-for="app in appList" :key="app.id">
             <div class="app-logo">
-                <a :href="app.url">  <img class="icon"  v-bind:src="app.logoUrl" :alt="app.title" /></a>
+                <a :href="app.url">
+                    <img v-if="app.logoUrl!=null" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
+                    <div v-if="app.logoUrl==null" class="add-app">{{app.title.substring(0,1)}}</div>
+                </a>
             </div>
             <div class="app-title">
                 <a v-if="app.secContent && user!=null" href="#" v-on:click="showSec(app.secContent)"><img   src="img/sec.png" /></a>
@@ -255,6 +258,7 @@
 <script src="/js/jquery.autocomplete.min.js"></script>
 <script src="/js/zeroModal.min.js"></script>
 <script src="/admin/js/lib/bootstrap.min.js"></script>
+<script src="/admin/js/lib/toastr.min.js"></script>
 
 
 <script>
@@ -381,19 +385,39 @@
                     '                            <label class="form-group-label">\n' +
                     '                                名称\n' +
                     '                            </label>\n' +
-                    '                            <input type="text" class="form-control"  >\n' +
+                    '                            <input type="text" class="form-control" id="appName"  >\n' +
                     '                        </div>\n' +
                     '\n' +
                     '                        <div class="form-group">\n' +
                     '                            <label class="form-group-label">\n' +
                     '                                地址\n' +
                     '                            </label>\n' +
-                    '                            <input type="text" class="form-control"  >\n' +
+                    '                            <input type="text" class="form-control" id="appUrl" >\n' +
                     '                        </div>';
                 zeroModal.show({
+                    title:"添加应用",
+                    ok:true,
                     content: html,
-                    width: '30%',
-                    height: '20%',
+                    okFn:function(){
+                        debugger;
+                        var app = {};
+                        app.title = $("#appName").val();
+                        app.url = $("#appUrl").val();
+
+                        axios.post("api/apps/save",app).then(function (response) {
+                            if(response.data.rspCode!="000000"){
+                                toastr.error(response.data.rspCode+" "+response.data.rspMsg);
+                            }else {
+                                toastr.success(response.data.rspMsg);
+                            }
+                        }).catch(function (error) {
+                            toastr.error(error);
+                        });
+
+
+                    },
+                    width: '40%',
+                    height: '40%',
                     opacity: 0.8
                 });
             },
