@@ -173,21 +173,5 @@ public class AuthorsController extends BaseController{
         return result(ExceptionMsg.SUCCESS);
     }
 
-    @RequestMapping(value="/logout",method=RequestMethod.GET)
-    @LoggerManage(description="sign out")
-    public void logout(HttpServletResponse response, Model model){
-        try {
-            getSession().removeAttribute(Const.LOGIN_SESSION_KEY);
-            getSession().removeAttribute(Const.LAST_REFERER);
-            Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, "");
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            response.sendRedirect("/");
-        } catch (Exception ex){
-            logger.error(ex.getStackTrace().toString());
-        }
-
-    }
 
 }
