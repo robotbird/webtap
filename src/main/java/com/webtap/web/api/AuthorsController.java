@@ -80,6 +80,9 @@ public class AuthorsController extends BaseController{
     @RequestMapping(value = "/authors/save",method = RequestMethod.POST)
     @LoggerManage(description = "create user")
     public Response saveUser(@RequestBody User user){
+
+        User currentUser = getUser();
+
         try {
             User registUser = userService.getUserByEmail(user.getEmail());
             if (null != registUser) {
@@ -92,6 +95,10 @@ public class AuthorsController extends BaseController{
 
             if(user.getPassWord()!=null){
                 user.setPassWord(getPwd(user.getPassWord()));
+            }
+
+            if(user.getOrgId()==null){
+                user.setOrgId(currentUser.getOrgId());
             }
 
             user.setCreateTime(DateUtils.getCurrentTime());
