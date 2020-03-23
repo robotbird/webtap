@@ -3,11 +3,13 @@ package com.webtap.web.api;
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.App;
 import com.webtap.domain.AppCategory;
+import com.webtap.domain.Organization;
 import com.webtap.domain.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
+import com.webtap.service.OrganizationService;
 import com.webtap.utils.StringUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
@@ -33,6 +35,9 @@ public class 	AppsController extends BaseController{
 
     @Autowired
     private AppCategoryService appCategoryService;
+
+    @Autowired
+    private OrganizationService  organizationService;
 
 
 
@@ -76,13 +81,40 @@ public class 	AppsController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "/apps/{url}", method = RequestMethod.GET)
-	public ResponseEntity<List<App>> getAppsByShortUrl(@PathVariable(value = "url") String url) {
-		List<App> apps = appService.getAppsByShortUrl(url);
+	public String getAppsByShortUrl(@PathVariable(value = "url") String url) {
 
-		if (apps.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<App>>(apps, HttpStatus.OK);
+        Organization organization = organizationService.getOrganizationByShortUrl(url);
+        if(organization ==null){
+            return null;
+        }
+
+		List<App> apps = appService.getAppsByShortUrl(url);
+        List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
+
+        List<App> appsAll = null;
+        try {
+            appsAll = StringUtil.deepCopy(apps);
+        } catch (IOException e) {
+            logger.error(e.getLocalizedMessage());
+        } catch (ClassNotFoundException e) {
+            logger.error(e.getLocalizedMessage());
+        }
+
+
+        Iterator<App> iteratorApp = apps.iterator();
+        while(iteratorApp.hasNext()){
+            App app = iteratorApp.next();
+            for(AppCategory category:categoryList){
+                if (app.getCategoryId()==category.getId()){
+                    iteratorApp.remove();
+                }
+            }
+        }
+        JSONObject result = new JSONObject();
+        result.put("appsAll",appsAll);
+        result.put("apps", apps);
+        result.put("categories", categoryList);
+        return result.toJSONString();
 	}
 
 

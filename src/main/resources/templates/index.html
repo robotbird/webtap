@@ -273,7 +273,12 @@
         },
         methods: {
             load: function () {
-                axios.get('api/apps')
+                var geturl="api/apps";
+                var shortUrl = window.location.href.split('/')[3];
+                if(shortUrl.length>0){
+                    geturl+="/"+shortUrl;
+                }
+                axios.get(geturl)
                     .then(response => {
                     this.categories = response.data.categories;
                     this.appList = response.data.apps;

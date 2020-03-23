@@ -11,6 +11,14 @@ public interface AppCategoryService {
      */
       public List<AppCategory> getAppCategories();
 
+
+    /**
+     * get app's categories by orgid
+     * @param orgid
+     * @return
+     */
+    public List<AppCategory> getAppCategories(Long orgid);
+
     /**
      * add app category
      * @param appCategory
