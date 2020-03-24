@@ -264,8 +264,12 @@ public class 	AppsController extends BaseController{
     @RequestMapping(value = "/category/save", method = RequestMethod.POST)
     @LoggerManage(description = "add category")
     public ResponseEntity saveAppCategory(@RequestBody AppCategory category) {
+
+        User user = getUser();
         AppCategory appCategory =null;
         try{
+            category.setOrgId(user.getOrgId());
+
            appCategory = appCategoryService.save(category);
             logger.info("save app category success!");
         } catch (Exception ex){
