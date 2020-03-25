@@ -13,8 +13,8 @@ public interface AppCategoryRepository extends JpaRepository<AppCategory, Long> 
 
     @Modifying(clearAutomatically=true)
     @Transactional
-    @Query("update AppCategory c set  c.appAmount=(c.appAmount+:num) where c.id=:id")
-    void updateAppAmount(@Param("id") Long id,@Param("num") Long num);
+    @Query("update AppCategory c set  c.appAmount=(select count (*) from App a where a.categoryId=:id) where c.id=:id")
+    void updateAppAmount(@Param("id") Long id);
 
     List<AppCategory> findAllByOrgId(Long orgid);
 }
