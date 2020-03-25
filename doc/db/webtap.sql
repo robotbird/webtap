@@ -11,7 +11,7 @@
  Target Server Version : 50716
  File Encoding         : 65001
 
- Date: 16/03/2020 23:05:02
+ Date: 23/03/2020 11:43:06
 */
 
 SET NAMES utf8mb4;
@@ -58,7 +58,7 @@ CREATE TABLE `wt_apps`  (
   `view_permission` int(255) NULL DEFAULT NULL COMMENT '查看权限0全部,1登录,2自己,3指定角色',
   `view_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查看密码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_apps
@@ -73,6 +73,8 @@ INSERT INTO `wt_apps` VALUES (16, 4, 1, 5, '/upload/logo/chandao.png', 'kk', 'll
 INSERT INTO `wt_apps` VALUES (17, 0, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日程', '日报', 1577200841053, 1577200841053, 1, '密码：123', 1, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (18, 3, 1, 5, '/', 'hhh', 'hhh', 'hhh', 0, 0, 0, '', 4, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (19, 3, 1, 5, '/', 'dsdsd', 'eee', 'sdsds', 0, 0, 0, '', 121, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (20, 0, 1, 1, NULL, 'http://www.utry.cn', '远传', NULL, 1584883843347, 1584883843347, 0, NULL, 100000, NULL, NULL);
+INSERT INTO `wt_apps` VALUES (21, 0, 1, 1, NULL, 'http://www.baidu.com', '百度', NULL, 1584883872073, 1584883872073, 0, NULL, 100000, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wt_organizations
@@ -111,12 +113,15 @@ CREATE TABLE `wt_users`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_ob8kqyqqgmefl0aco34akdtpe`(`email`) USING BTREE,
   UNIQUE INDEX `UK_lqjrcobrh9jc8wpcar64q1bfh`(`user_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_users
 -- ----------------------------
-INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'robotbird', '440417f0-c621-4e55-b5e3-c56610fe655b', NULL);
-INSERT INTO `wt_users` VALUES (2, NULL, 1577540632740, '330296409@qq.com', NULL, 1577540632740, '2019-12-28 22:43:21.059', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'yepeng', 'fc1dc5c9-33d7-4f17-9598-cc0490cfcb08', NULL);
+INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'robotbird', '440417f0-c621-4e55-b5e3-c56610fe655b', 1);
+INSERT INTO `wt_users` VALUES (2, NULL, 1577540632740, '330296409@qq.com', NULL, 1577540632740, '2019-12-28 22:43:21.059', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'yepeng', 'fc1dc5c9-33d7-4f17-9598-cc0490cfcb08', 1);
+INSERT INTO `wt_users` VALUES (3, NULL, 1584592735270, 'test@qq.com', NULL, 1584592735270, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'test', NULL, 1);
+INSERT INTO `wt_users` VALUES (4, NULL, 1584592879118, 'test2', NULL, 1584592879118, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'test2', NULL, 1);
+INSERT INTO `wt_users` VALUES (5, NULL, 1584593011554, 'dfsf@qq.com', NULL, 1584593011554, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'test3', NULL, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

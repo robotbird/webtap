@@ -269,6 +269,7 @@ public class 	AppsController extends BaseController{
         AppCategory appCategory =null;
         try{
             category.setOrgId(user.getOrgId());
+            category.setUserId(user.getId());
 
            appCategory = appCategoryService.save(category);
             logger.info("save app category success!");
