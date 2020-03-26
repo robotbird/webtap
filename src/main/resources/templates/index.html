@@ -189,7 +189,7 @@
 
 </head>
 <body>
-<div id="app" class="box_wrapper full-background-wall">
+<div id="app" style="display: none" class="box_wrapper full-background-wall">
 
     <div class="top-bar">
        <ul class="nav">
@@ -283,6 +283,7 @@
                     this.categories = response.data.categories;
                     this.appList = response.data.apps;
                     this.appsAll = response.data.appsAll;
+                    $("#app").css("display","");
                     $(".icon_list").css("display","");
                     this.search();
                     }).catch(function (error) { console.log(error) });
