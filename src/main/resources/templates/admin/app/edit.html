@@ -59,7 +59,7 @@
                                 查看权限
                             </label>
                             <div style="height: 40px">
-                                <select class="form-control" style="float:left;width: 90%" id="appPermission" v-model="appdata.viewPermission" >
+                                <select class="form-control" style="float:left;width: 85%" id="appPermission" v-model="appdata.viewPermission" >
                                     <option selected="selected"  value="0" >全部可见</option>
                                     <option   value="1" >登录可见</option>
                                     <option   value="2" >自己可见</option>
@@ -68,6 +68,21 @@
                                 <a style="float: left;width: 10%" href="#" class="btn btn-sm btn-link">选择角色 <strong>+</strong></a>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="form-group-label">
+                                查看密码
+                            </label>
+
+                                <div class="input-group">
+                              <span class="input-group-addon">
+                                <input type="checkbox" value="1" v-model="appdata.passwordRequired">
+                              </span>
+                                    <input type="text" v-model="appdata.viewPassword" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" >
+                                </div>
+
+                        </div>
+
 
                         <div class="form-group">
                             <label class="form-group-label">
@@ -149,6 +164,7 @@
 
                    this.appdata.logoUrl = logoUrl;
                    var app = this.appdata;
+                   app.passwordRequired = app.passwordRequired?"1":"0";
                     axios.post(posturl, app)
                         .then(function (response) {
                             if(response.data.rspCode!="000000"){

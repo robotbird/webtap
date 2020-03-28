@@ -51,6 +51,9 @@ public class App implements Serializable {
 	@Column(name = "view_password")
 	private String viewPassword;
 
+	@Column(name = "password_required")
+	private Long passwordRequired;
+
 
   public Long getId() {
     return id;
@@ -182,5 +185,13 @@ public class App implements Serializable {
 
     public void setViewPassword(String viewPassword) {
         this.viewPassword = viewPassword;
+    }
+
+    public Long getPasswordRequired() {
+        return passwordRequired;
+    }
+
+    public void setPasswordRequired(Long passwordRequired) {
+        this.passwordRequired = passwordRequired;
     }
 }
