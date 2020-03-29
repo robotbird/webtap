@@ -11,10 +11,10 @@ import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
 import com.webtap.service.OrganizationService;
 import com.webtap.utils.StringUtil;
+import com.webtap.utils.URLUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 
 @RestController
@@ -88,7 +87,7 @@ public class 	AppsController extends BaseController{
             return null;
         }
 
-		List<App> apps = appService.getAppsByShortUrl(url);
+		List<App> apps = appService.getAppsByOrgShortUrl(url);
         List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
 
         List<App> appsAll = null;
@@ -209,7 +208,28 @@ public class 	AppsController extends BaseController{
             if(app.getCategoryId()==null){
                 app.setCategoryId(0L);
             }
-
+            // 暂时不启用短链服务
+           // if(app.getShortUrl()==null||app.getShortUrl()==""){
+//                Long maxId=null;
+//                Long id =app.getId();
+//                if(id==null){
+//                    maxId = appService.getMaxId()+1;
+//                }else {
+//                    maxId = id;
+//                }
+//
+//                String url = maxId.toString();
+//
+//                String[] arrurl = URLUtil.getShortUrl(url);
+//
+//                for (String shortUrl: arrurl){
+//                    App app1 = appService.getAppByShortUrl(shortUrl);
+//                    if(app1 == null){
+//                        app.setShortUrl(shortUrl);
+//                        break;
+//                    }
+//                }
+            //}
 
 			 appService.saveApp(app);
 			 logger.info("保存app成功");

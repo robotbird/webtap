@@ -30,17 +30,25 @@ public class AppServiceImpl implements AppService {
 	    return appRepository.findAll(sort);
     }
 
-    public List<App> getAppsByShortUrl(String shortUrl) {
-        Organization organization = organizationRepository.findByShortUrl(shortUrl);
+    public List<App> getAppsByOrgShortUrl(String orgShortUrl) {
+        Organization organization = organizationRepository.findByShortUrl(orgShortUrl);
         if(organization ==null){
             return null;
         }
         return  this.getAppsByOrgId(organization.getId());
     }
 
+    public App getAppByShortUrl(String shortUrl){
+	    return this.appRepository.findAppByShortUrl(shortUrl);
+    }
+
     public App getAppById(Long Id) {
         App app = appRepository.findOne(Id);
         return app;
+    }
+
+    public Long getMaxId(){
+	    return appRepository.findMaxId();
     }
 
     public List<App> getAppsByOrgId(Long orgId)

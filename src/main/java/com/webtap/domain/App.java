@@ -26,6 +26,9 @@ public class App implements Serializable {
 
 	private String url;
 
+	@Column(name = "short_url")
+	private String shortUrl;
+
 	private String title;
 
 	private String description;
@@ -109,7 +112,15 @@ public class App implements Serializable {
   }
 
 
-  public String getTitle() {
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
+    public String getTitle() {
     return title;
   }
 

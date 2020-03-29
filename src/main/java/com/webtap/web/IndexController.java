@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class IndexController extends BaseController{
 
-
+    @Autowired
+    private AppService appService;
 
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	@LoggerManage(description="首页")
@@ -34,6 +34,29 @@ public class IndexController extends BaseController{
 	public String index(@PathVariable String url,Model model){
 		return "index";
 	}
+
+    @RequestMapping(value="/app/{id}",method=RequestMethod.GET)
+    @LoggerManage(description="app 展示页面")
+    public String viewAppUrl(@PathVariable Long id,HttpServletResponse response,Model model){
+
+	    App app = appService.getAppById(id);
+	    if(app!=null){
+	        if(app.getUrl()!=null){
+	            if(app.getUrl().indexOf("http")>-1){
+	                if(app.getPasswordRequired()==1){
+	                    return "app";
+                    }else {
+                        try {
+                            response.sendRedirect(app.getUrl());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return "app";
+    }
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	@LoggerManage(description="登陆页面")

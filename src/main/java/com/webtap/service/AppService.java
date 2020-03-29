@@ -16,7 +16,7 @@ public interface AppService {
 	 * @param shortUrl
 	 * @return
 	 */
-	public  List<App> getAppsByShortUrl(String shortUrl);
+	public  List<App> getAppsByOrgShortUrl(String shortUrl);
 
 	/**
 	 * get app by id
@@ -24,6 +24,21 @@ public interface AppService {
 	 * @return
 	 */
 	public App getAppById(Long Id);
+
+
+    /**
+     * get app's max id
+     * @return
+     */
+	public Long getMaxId();
+
+
+	/**
+	 * get app by app's short url
+	 * @param shortUrl
+	 * @return
+	 */
+	public App getAppByShortUrl(String shortUrl);
 
 	/**
 	 * get app info by orgId
