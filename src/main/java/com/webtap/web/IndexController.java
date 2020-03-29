@@ -43,7 +43,7 @@ public class IndexController extends BaseController{
 	    if(app!=null){
 	        if(app.getUrl()!=null){
 	            if(app.getUrl().indexOf("http")>-1){
-	                if(app.getPasswordRequired()==1){
+	                if(app.getPasswordRequired()!=null&&app.getPasswordRequired().equals(1L)){
 	                    return "app";
                     }else {
                         try {
