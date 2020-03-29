@@ -16,7 +16,7 @@ public interface AppService {
 	 * @param shortUrl
 	 * @return
 	 */
-	public  List<App> getAppsByShortUrl(String shortUrl);
+	public  List<App> getAppsByOrgShortUrl(String shortUrl);
 
 	/**
 	 * get app by id
@@ -24,6 +24,29 @@ public interface AppService {
 	 * @return
 	 */
 	public App getAppById(Long Id);
+
+
+    /**
+     * get app by id and view password
+     * @param id
+     * @param password
+     * @return
+     */
+	public String getAppUrl(Long id,String password);
+
+    /**
+     * get app's max id
+     * @return
+     */
+	public Long getMaxId();
+
+
+	/**
+	 * get app by app's short url
+	 * @param shortUrl
+	 * @return
+	 */
+	public App getAppByShortUrl(String shortUrl);
 
 	/**
 	 * get app info by orgId
@@ -61,6 +84,13 @@ public interface AppService {
 	 * @return
 	 */
 	public App saveApp(App app);
+
+    /**
+     * update app's view password
+     * @param id
+     * @param password
+     */
+	public void updatePassword(Long id,String password);
 
 	/**
 	 * delete app by id

@@ -11,10 +11,10 @@ import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
 import com.webtap.service.OrganizationService;
 import com.webtap.utils.StringUtil;
+import com.webtap.utils.URLUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 
 @RestController
@@ -59,15 +58,8 @@ public class 	AppsController extends BaseController{
 		List<AppCategory> categoryList = appCategoryService.getAppCategories();
 
         Iterator<App> iteratorApp = apps.iterator();
-        while(iteratorApp.hasNext()){
-            App app = iteratorApp.next();
-            for(AppCategory category:categoryList){
-                if (app.getCategoryId()==category.getId()){
-                    iteratorApp.remove();
-                }
-            }
-        }
-		JSONObject result = new JSONObject();
+        getCategories(categoryList, iteratorApp);
+        JSONObject result = new JSONObject();
         result.put("appsAll",appsAll);
 		result.put("apps", apps);
 		result.put("categories", categoryList);
@@ -88,7 +80,7 @@ public class 	AppsController extends BaseController{
             return null;
         }
 
-		List<App> apps = appService.getAppsByShortUrl(url);
+		List<App> apps = appService.getAppsByOrgShortUrl(url);
         List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
 
         List<App> appsAll = null;
@@ -102,6 +94,15 @@ public class 	AppsController extends BaseController{
 
 
         Iterator<App> iteratorApp = apps.iterator();
+        getCategories(categoryList, iteratorApp);
+        JSONObject result = new JSONObject();
+        result.put("appsAll",appsAll);
+        result.put("apps", apps);
+        result.put("categories", categoryList);
+        return result.toJSONString();
+	}
+
+    private void getCategories(List<AppCategory> categoryList, Iterator<App> iteratorApp) {
         while(iteratorApp.hasNext()){
             App app = iteratorApp.next();
             for(AppCategory category:categoryList){
@@ -110,15 +111,10 @@ public class 	AppsController extends BaseController{
                 }
             }
         }
-        JSONObject result = new JSONObject();
-        result.put("appsAll",appsAll);
-        result.put("apps", apps);
-        result.put("categories", categoryList);
-        return result.toJSONString();
-	}
+    }
 
 
-	/**
+    /**
 	 * 列出所有app
 	 * @return
 	 */
@@ -168,6 +164,17 @@ public class 	AppsController extends BaseController{
 		return  new ResponseEntity<App>(app,HttpStatus.OK);
 	}
 
+    @RequestMapping(value = "/app/geturl", method = RequestMethod.GET)
+    public String getAppsByIdAndPwd(@RequestParam(value = "id") Long id,@RequestParam(value = "password") String password) {
+
+        App app = appService.getAppById(id);
+        if(app.getViewPassword().equals(password)){
+            return app.getUrl();
+        }else {
+            return "";
+        }
+    }
+
 
 	/**
 	 * 添加应用
@@ -209,7 +216,28 @@ public class 	AppsController extends BaseController{
             if(app.getCategoryId()==null){
                 app.setCategoryId(0L);
             }
-
+            // 暂时不启用短链服务
+           // if(app.getShortUrl()==null||app.getShortUrl()==""){
+//                Long maxId=null;
+//                Long id =app.getId();
+//                if(id==null){
+//                    maxId = appService.getMaxId()+1;
+//                }else {
+//                    maxId = id;
+//                }
+//
+//                String url = maxId.toString();
+//
+//                String[] arrurl = URLUtil.getShortUrl(url);
+//
+//                for (String shortUrl: arrurl){
+//                    App app1 = appService.getAppByShortUrl(shortUrl);
+//                    if(app1 == null){
+//                        app.setShortUrl(shortUrl);
+//                        break;
+//                    }
+//                }
+            //}
 
 			 appService.saveApp(app);
 			 logger.info("保存app成功");
