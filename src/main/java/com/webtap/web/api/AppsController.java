@@ -81,7 +81,6 @@ public class 	AppsController extends BaseController{
         }
 
 		List<App> apps = appService.getAppsByOrgShortUrl(url);
-
         List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
 
         List<App> appsAll = null;
@@ -168,9 +167,9 @@ public class 	AppsController extends BaseController{
     @RequestMapping(value = "/app/geturl", method = RequestMethod.GET)
     public String getAppsByIdAndPwd(@RequestParam(value = "id") Long id,@RequestParam(value = "password") String password) {
 
-        String url = appService.getAppUrl(id,password);
-        if(url!=null){
-            return url;
+        App app = appService.getAppById(id);
+        if(app.getViewPassword().equals(password)){
+            return app.getUrl();
         }else {
             return "";
         }
@@ -184,7 +183,7 @@ public class 	AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "/apps/save", method = RequestMethod.POST)
 	@LoggerManage(description = "添加应用")
-	public ResponseEntity<App> saveApp(@RequestBody App app) {
+	public Response saveApp(@RequestBody App app) {
 		try{
 			User user = getUser();
 
@@ -240,25 +239,15 @@ public class 	AppsController extends BaseController{
 //                }
             //}
 
-			App savedApp = appService.saveApp(app);
+			 appService.saveApp(app);
 			 logger.info("保存app成功");
-            if (savedApp ==null) {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-            return  new ResponseEntity<App>(savedApp,HttpStatus.OK);
 
 		} catch (Exception ex){
-			return null;
+			return result(ex.getMessage());
 		}
+		return result(ExceptionMsg.SUCCESS);
 	}
 
-	@RequestMapping(value = "app/password/update",method = RequestMethod.GET)
-	public Response setAppViewPassword(@RequestParam(value = "id") Long id,
-                                       @RequestParam(value = "password") String password){
-	    appService.updatePassword(id,password);
-        return result(ExceptionMsg.SUCCESS);
-
-    }
 	/**
 	 * delete app
 	 * @param id
