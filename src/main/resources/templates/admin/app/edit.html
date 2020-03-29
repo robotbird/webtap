@@ -164,6 +164,7 @@
 
                    this.appdata.logoUrl = logoUrl;
                    var app = this.appdata;
+                    app.passwordRequired = app.passwordRequired?"1":"0";
                     axios.post(posturl, app)
                         .then(function (response) {
                             if(response.data.rspCode!="000000"){
