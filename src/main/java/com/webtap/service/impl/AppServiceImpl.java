@@ -80,6 +80,10 @@ public class AppServiceImpl implements AppService {
         return return_app;
    }
 
+   public void updatePassword(Long id,String password){
+	    appRepository.updateViewPassword(id,password);
+   }
+
    public void removeApp(Long id){
 	    App app = appRepository.findOne(id);
         appRepository.delete(id);

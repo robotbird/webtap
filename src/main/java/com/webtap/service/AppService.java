@@ -85,6 +85,13 @@ public interface AppService {
 	 */
 	public App saveApp(App app);
 
+    /**
+     * update app's view password
+     * @param id
+     * @param password
+     */
+	public void updatePassword(Long id,String password);
+
 	/**
 	 * delete app by id
 	 * @param id

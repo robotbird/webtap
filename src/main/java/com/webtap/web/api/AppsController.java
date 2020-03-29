@@ -81,6 +81,7 @@ public class 	AppsController extends BaseController{
         }
 
 		List<App> apps = appService.getAppsByOrgShortUrl(url);
+
         List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
 
         List<App> appsAll = null;
@@ -183,7 +184,7 @@ public class 	AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "/apps/save", method = RequestMethod.POST)
 	@LoggerManage(description = "添加应用")
-	public Response saveApp(@RequestBody App app) {
+	public ResponseEntity<App> saveApp(@RequestBody App app) {
 		try{
 			User user = getUser();
 
@@ -239,15 +240,25 @@ public class 	AppsController extends BaseController{
 //                }
             //}
 
-			 appService.saveApp(app);
+			App savedApp = appService.saveApp(app);
 			 logger.info("保存app成功");
+            if (savedApp ==null) {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+            return  new ResponseEntity<App>(savedApp,HttpStatus.OK);
 
 		} catch (Exception ex){
-			return result(ex.getMessage());
+			return null;
 		}
-		return result(ExceptionMsg.SUCCESS);
 	}
 
+	@RequestMapping(value = "app/password/update",method = RequestMethod.GET)
+	public Response setAppViewPassword(@RequestParam(value = "id") Long id,
+                                       @RequestParam(value = "password") String password){
+	    appService.updatePassword(id,password);
+        return result(ExceptionMsg.SUCCESS);
+
+    }
 	/**
 	 * delete app
 	 * @param id

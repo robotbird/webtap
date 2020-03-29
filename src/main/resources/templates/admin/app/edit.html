@@ -78,7 +78,7 @@
                               <span class="input-group-addon">
                                 <input type="checkbox" value="1" v-model="appdata.passwordRequired">
                               </span>
-                                    <input type="text" v-model="appdata.viewPassword" class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" >
+                                    <input type="password" id="password"  class="form-control" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" >
                                 </div>
 
                         </div>
@@ -167,12 +167,19 @@
                    app.passwordRequired = app.passwordRequired?"1":"0";
                     axios.post(posturl, app)
                         .then(function (response) {
-                            if(response.data.rspCode!="000000"){
-                                toastr.error(response.data.rspCode+" "+response.data.rspMsg);
-                            }else {
-                                toastr.success(response.data.rspMsg);
-                                setTimeout(function () { location.href = webRoot +"admin/app/list"; }, 1000);
+                            var app = response.data;
+
+                            if(app.id!=null){
+                                var password = $("#password").val();
+                                if(app.passwordRequired=="1"&&password!=""){
+                                    axios.get(webRoot +"api/app/password/update?id="+app.id+"&password="+password).then(function (value) {  });
+                                }
+
+                                toastr.success("success");
+                                setTimeout(function () { location.href = webRoot +"admin/app/list"; }, 2000);
                             }
+
+
                         })
                         .catch(function (error) {
                             toastr.error(error);
