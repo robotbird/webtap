@@ -58,15 +58,8 @@ public class 	AppsController extends BaseController{
 		List<AppCategory> categoryList = appCategoryService.getAppCategories();
 
         Iterator<App> iteratorApp = apps.iterator();
-        while(iteratorApp.hasNext()){
-            App app = iteratorApp.next();
-            for(AppCategory category:categoryList){
-                if (app.getCategoryId()==category.getId()){
-                    iteratorApp.remove();
-                }
-            }
-        }
-		JSONObject result = new JSONObject();
+        getCategories(categoryList, iteratorApp);
+        JSONObject result = new JSONObject();
         result.put("appsAll",appsAll);
 		result.put("apps", apps);
 		result.put("categories", categoryList);
@@ -101,6 +94,15 @@ public class 	AppsController extends BaseController{
 
 
         Iterator<App> iteratorApp = apps.iterator();
+        getCategories(categoryList, iteratorApp);
+        JSONObject result = new JSONObject();
+        result.put("appsAll",appsAll);
+        result.put("apps", apps);
+        result.put("categories", categoryList);
+        return result.toJSONString();
+	}
+
+    private void getCategories(List<AppCategory> categoryList, Iterator<App> iteratorApp) {
         while(iteratorApp.hasNext()){
             App app = iteratorApp.next();
             for(AppCategory category:categoryList){
@@ -109,15 +111,10 @@ public class 	AppsController extends BaseController{
                 }
             }
         }
-        JSONObject result = new JSONObject();
-        result.put("appsAll",appsAll);
-        result.put("apps", apps);
-        result.put("categories", categoryList);
-        return result.toJSONString();
-	}
+    }
 
 
-	/**
+    /**
 	 * 列出所有app
 	 * @return
 	 */
@@ -166,6 +163,17 @@ public class 	AppsController extends BaseController{
 		}
 		return  new ResponseEntity<App>(app,HttpStatus.OK);
 	}
+
+    @RequestMapping(value = "/app/geturl", method = RequestMethod.GET)
+    public String getAppsByIdAndPwd(@RequestParam(value = "id") Long id,@RequestParam(value = "password") String password) {
+
+        String url = appService.getAppUrl(id,password);
+        if(url!=null){
+            return url;
+        }else {
+            return "";
+        }
+    }
 
 
 	/**

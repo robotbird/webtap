@@ -27,6 +27,14 @@ public interface AppService {
 
 
     /**
+     * get app by id and view password
+     * @param id
+     * @param password
+     * @return
+     */
+	public String getAppUrl(Long id,String password);
+
+    /**
      * get app's max id
      * @return
      */

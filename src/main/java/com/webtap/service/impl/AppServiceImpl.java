@@ -47,6 +47,10 @@ public class AppServiceImpl implements AppService {
         return app;
     }
 
+    public String getAppUrl(Long id,String password){
+	    return appRepository.findAppUrlByIdAndPassword(id,password);
+    }
+
     public Long getMaxId(){
 	    return appRepository.findMaxId();
     }
