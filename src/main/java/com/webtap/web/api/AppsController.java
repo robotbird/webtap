@@ -57,21 +57,10 @@ public class 	AppsController extends BaseController{
         Long all =0L;
         apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
 
-        if(user != null){
-            // 登录权限 1
-			Long signined = 1L;
-           List<App>  apps4Sinin = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
-           apps.addAll(apps4Sinin);// 合并List
+        getUserApps(appList, user, apps);
 
 
-            // 自己可见 2
-			Long my = 2L;
-			List<App>  apps4My = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
-            apps.addAll(apps4My);
-        }
-
-
-		List<App> appsAll = null;
+        List<App> appsAll = null;
 		try {
 			appsAll = StringUtil.deepCopy(apps);
 		} catch (IOException e) {
@@ -104,7 +93,17 @@ public class 	AppsController extends BaseController{
             return null;
         }
 
-		List<App> apps = appService.getAppsByOrgShortUrl(url);
+		List<App> appList = appService.getAppsByOrgShortUrl(url);
+        User user = getUser();
+        //viewPermission 查看权限0全部,1登录,2自己,3指定角色
+        // 默认先加载 权限为0 的数据
+        List<App> apps = null;
+        Long all =0L;
+        apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
+
+        getUserApps(appList, user, apps);
+
+
         List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
 
         List<App> appsAll = null;
@@ -125,6 +124,21 @@ public class 	AppsController extends BaseController{
         result.put("categories", categoryList);
         return result.toJSONString();
 	}
+
+    private void getUserApps(List<App> appList, User user, List<App> apps) {
+        if(user != null){
+            // 登录权限 1
+            Long signined = 1L;
+            List<App>  apps4Sinin = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+            apps.addAll(apps4Sinin);// 合并List
+
+
+            // 自己可见 2
+            Long my = 2L;
+            List<App>  apps4My = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+            apps.addAll(apps4My);
+        }
+    }
 
     private void getCategories(List<AppCategory> categoryList, Iterator<App> iteratorApp) {
         while(iteratorApp.hasNext()){
