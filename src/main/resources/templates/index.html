@@ -357,9 +357,16 @@ http://res.xisukeji.com/webtap/img/2.png
                 var apps = this.appsAll;
                 for(var i=0;i<apps.length;i++){
                     if(apps[i].categoryId ==id){
-                        li+='<li><div class="app-logo"><a href="/app/'+apps[i].id+'">' +
-                            '<img src="'+apps[i].logoUrl+'" class="icon"></a></div>' +
-                            ' <div class="fold-app-title">';
+                        li+='<li><div class="app-logo"><a href="/app/'+apps[i].id+'">' ;
+
+
+                            if(apps[i].logoUrl!=null&&apps.logoUrl.length>4){
+                                li+='<img src="'+apps[i].logoUrl+'" class="icon"></a></div>';
+                            }else {
+                                li+='<div class="add-app">'+app[i].title.substring(0,1)+'</div>';
+                            }
+
+                            li+=' <div class="fold-app-title">';
                                 if(apps[i].secContent !=""&&apps[i].secContent!=null && this.user!=null){
                                     li+='<a href="#"  > <img  alt="'+apps[i].title+' : '+apps[i].secContent+'" src="img/sec.png" /></a>' ;
                                 }
