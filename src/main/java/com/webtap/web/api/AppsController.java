@@ -5,13 +5,13 @@ import com.webtap.domain.App;
 import com.webtap.domain.AppCategory;
 import com.webtap.domain.Organization;
 import com.webtap.domain.User;
+import com.webtap.domain.enums.ViewPermission;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
 import com.webtap.service.OrganizationService;
 import com.webtap.utils.StringUtil;
-import com.webtap.utils.URLUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @RestController
@@ -48,34 +47,13 @@ public class 	AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "/apps",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public String getAppsAndCats() {
+
 		List<App> appList = appService.getAllApps();
 
-		User user = getUser();
-		//viewPermission 查看权限0全部,1登录,2自己,3指定角色
-        // 默认先加载 权限为0 的数据
-        List<App> apps = null;
-        Long all =0L;
-        apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
-
-        getUserApps(appList, user, apps);
-
-
-        List<App> appsAll = null;
-		try {
-			appsAll = StringUtil.deepCopy(apps);
-		} catch (IOException e) {
-			logger.error(e.getLocalizedMessage());
-		} catch (ClassNotFoundException e) {
-			logger.error(e.getLocalizedMessage());
-		}
 		List<AppCategory> categoryList = appCategoryService.getAppCategories();
 
-        Iterator<App> iteratorApp = apps.iterator();
-        getCategories(categoryList, iteratorApp);
-        JSONObject result = new JSONObject();
-        result.put("appsAll",appsAll);
-		result.put("apps", apps);
-		result.put("categories", categoryList);
+        JSONObject result = appListJson(appList,categoryList);
+
 		return result.toJSONString();
 	}
 
@@ -94,17 +72,44 @@ public class 	AppsController extends BaseController{
         }
 
 		List<App> appList = appService.getAppsByOrgShortUrl(url);
-        User user = getUser();
-        //viewPermission 查看权限0全部,1登录,2自己,3指定角色
-        // 默认先加载 权限为0 的数据
-        List<App> apps = null;
-        Long all =0L;
-        apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
-
-        getUserApps(appList, user, apps);
-
 
         List<AppCategory> categoryList = appCategoryService.getAppCategories(organization.getId());
+
+        JSONObject result = appListJson(appList,categoryList);
+
+        return result.toJSONString();
+	}
+
+
+    /**
+     * 组合app和category
+     * @param appList
+     * @param categoryList
+     * @return
+     */
+	private JSONObject appListJson(List<App> appList, List<AppCategory> categoryList){
+        User user = getUser();
+        //viewPermission 查看权限0全部,1登录,2自己,3指定角色
+        // 默认先加载 全部可见的数据
+        List<App> apps = null;
+
+        //全部可见
+        Long all = ViewPermission.PUBLIC.getValue();
+        apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
+
+        if(user != null){
+            // 登录权限 1
+            Long signined = ViewPermission.LOGIN.getValue();
+            List<App>  apps4Sinin = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+            apps.addAll(apps4Sinin);// 合并List
+
+
+            // 自己可见 2
+            Long my = ViewPermission.PRIVATE.getValue();
+            List<App>  apps4My = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+            apps.addAll(apps4My);
+        }
+
 
         List<App> appsAll = null;
         try {
@@ -115,32 +120,7 @@ public class 	AppsController extends BaseController{
             logger.error(e.getLocalizedMessage());
         }
 
-
         Iterator<App> iteratorApp = apps.iterator();
-        getCategories(categoryList, iteratorApp);
-        JSONObject result = new JSONObject();
-        result.put("appsAll",appsAll);
-        result.put("apps", apps);
-        result.put("categories", categoryList);
-        return result.toJSONString();
-	}
-
-    private void getUserApps(List<App> appList, User user, List<App> apps) {
-        if(user != null){
-            // 登录权限 1
-            Long signined = 1L;
-            List<App>  apps4Sinin = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
-            apps.addAll(apps4Sinin);// 合并List
-
-
-            // 自己可见 2
-            Long my = 2L;
-            List<App>  apps4My = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
-            apps.addAll(apps4My);
-        }
-    }
-
-    private void getCategories(List<AppCategory> categoryList, Iterator<App> iteratorApp) {
         while(iteratorApp.hasNext()){
             App app = iteratorApp.next();
             for(AppCategory category:categoryList){
@@ -149,6 +129,13 @@ public class 	AppsController extends BaseController{
                 }
             }
         }
+
+
+        JSONObject result = new JSONObject();
+        result.put("appsAll",appsAll);
+        result.put("apps", apps);
+        result.put("categories", categoryList);
+        return result;
     }
 
 
