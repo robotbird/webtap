@@ -155,11 +155,12 @@
                 save: function () {
                    var posturl =webRoot + 'api/apps/save' ;
 
-                   var logoUrl = "";
-                   if(this.id>0){
-                       logoUrl =  $("#app-logoUrl").val();
-                   }else {
-                       logoUrl =  webRoot + $("#app-logoUrl").val();
+                   var logoUrl =  $("#app-logoUrl").val();
+                   debugger;
+                   if(this.id==0||this.id==undefined){
+                       if(logoUrl!=""){
+                           logoUrl =  webRoot + $("#app-logoUrl").val();
+                       }
                    }
 
                    this.appdata.logoUrl = logoUrl;
