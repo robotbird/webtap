@@ -359,10 +359,12 @@ http://res.xisukeji.com/webtap/img/2.png
                     if(apps[i].categoryId ==id){
                         li+='<li><div class="app-logo"><a href="/app/'+apps[i].id+'">' ;
 
-                            if(apps[i].logoUrl!=null&&apps.logoUrl.length>4){
+                            if(apps[i].logoUrl!=null&&apps[i].logoUrl.length>4){
                                 li+='<img src="'+apps[i].logoUrl+'" class="icon"></a></div>';
                             }else {
-                                li+='<div class="add-app">'+app[i].title.substring(0,1)+'</div>';
+                                if(apps[i].title!=null&&apps[i].title.length>0){
+                                    li+='<div class="add-app">'+apps[i].title.substring(0,1)+'</div>';
+                                }
                             }
 
                             li+=' <div class="fold-app-title">';
