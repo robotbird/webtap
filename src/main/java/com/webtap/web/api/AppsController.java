@@ -94,19 +94,19 @@ public class 	AppsController extends BaseController{
         List<App> apps = null;
 
         //全部可见
-        Long all = ViewPermission.PUBLIC.getValue();
-        apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
+        Long publicValue = ViewPermission.PUBLIC.getValue();
+        apps = appList.stream().filter(a->a.getViewPermission()==null||publicValue.equals(a.getViewPermission())).collect(Collectors.toList());
 
         if(user != null){
             // 登录权限 1
-            Long signined = ViewPermission.LOGIN.getValue();
-            List<App>  apps4Sinin = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
-            apps.addAll(apps4Sinin);// 合并List
+            Long login = ViewPermission.LOGIN.getValue();
+            List<App>  apps4login = appList.stream().filter(a->login.equals(a.getViewPermission())).collect(Collectors.toList());
+            apps.addAll(apps4login);// 合并List
 
 
             // 自己可见 2
             Long my = ViewPermission.PRIVATE.getValue();
-            List<App>  apps4My = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+            List<App>  apps4My = appList.stream().filter(a->my.equals(a.getViewPermission())).collect(Collectors.toList());
             apps.addAll(apps4My);
         }
 
