@@ -50,28 +50,25 @@ public class 	AppsController extends BaseController{
 	public String getAppsAndCats() {
 		List<App> appList = appService.getAllApps();
 
-
-
 		User user = getUser();
 		//viewPermission 查看权限0全部,1登录,2自己,3指定角色
         // 默认先加载 权限为0 的数据
         List<App> apps = null;
-        apps = appList.stream().filter(a->a.getViewPermission()==null||a.getViewPermission().equals(0L)).collect(Collectors.toList());
-
+        Long all =0L;
+        apps = appList.stream().filter(a->a.getViewPermission()==null||all.equals(a.getViewPermission())).collect(Collectors.toList());
 
         if(user != null){
             // 登录权限 1
-            //List<App>  apps4Sinin = appList.stream().filter(a->a.getViewPermission().equals(1L)).collect(Collectors.toList());
-            Stream<App> apps4Sinin = appList.stream().filter(a->a.getViewPermission().equals(1L));
-            //apps.addAll(apps4Sinin);// 合并List
+			Long signined = 1L;
+           List<App>  apps4Sinin = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+           apps.addAll(apps4Sinin);// 合并List
 
 
             // 自己可见 2
-            Stream<App> apps4My =appList.stream().filter(a->a.getViewPermission().equals(2L));
-           Long i = apps4My.count();
-            //apps.addAll(apps4My);
+			Long my = 2L;
+			List<App>  apps4My = appList.stream().filter(a->signined.equals(a.getViewPermission())).collect(Collectors.toList());
+            apps.addAll(apps4My);
         }
-
 
 
 		List<App> appsAll = null;
