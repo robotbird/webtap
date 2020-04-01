@@ -236,8 +236,8 @@
         <li v-for="app in appList" :key="app.id">
             <div class="app-logo">
                 <a :href="'/app/'+app.id">
-                    <img v-if="app.logoUrl!=null" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
-                    <div v-if="app.logoUrl==null" class="add-app">{{app.title.substring(0,1)}}</div>
+                    <img v-if="app.logoUrl!=null&&app.logoUrl.length>0" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
+                    <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app">{{app.title.substring(0,1)}}</div>
                 </a>
             </div>
             <div class="app-title">
