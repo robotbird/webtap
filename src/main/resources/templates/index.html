@@ -238,14 +238,14 @@
 
         <li v-for="app in appList" :key="app.id">
             <div class="app-logo">
-                <a :href="'/app/'+app.id">
+                <a target="_blank" :href="'/app/'+app.id">
                     <img v-if="app.logoUrl!=null&&app.logoUrl.length>0" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
                     <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app">{{app.title.substring(0,1)}}</div>
                 </a>
             </div>
             <div class="app-title">
                 <a v-if="app.secContent &&app.secContent!=null && user!=null" href="#" v-on:click="showSec(app.secContent)"><img   src="img/sec.png" /></a>
-                <a :href="'/app/'+app.id" >{{app.title}}</a>
+                <a target="_blank" :href="'/app/'+app.id" >{{app.title}}</a>
             </div>
         </li>
 
@@ -360,7 +360,7 @@ http://res.xisukeji.com/webtap/img/2.png
                 var apps = this.appsAll;
                 for(var i=0;i<apps.length;i++){
                     if(apps[i].categoryId ==id){
-                        li+='<li><div class="app-logo"><a href="/app/'+apps[i].id+'">' ;
+                        li+='<li><div class="app-logo"><a target="_blank" href="/app/'+apps[i].id+'">' ;
 
                             if(apps[i].logoUrl!=null&&apps[i].logoUrl.length>4){
                                 li+='<img src="'+apps[i].logoUrl+'" class="icon"></a></div>';
@@ -374,7 +374,7 @@ http://res.xisukeji.com/webtap/img/2.png
                                 if(apps[i].secContent !=""&&apps[i].secContent!=null && this.user!=null){
                                     li+='<a href="#"  > <img  alt="'+apps[i].title+' : '+apps[i].secContent+'" src="img/sec.png" /></a>' ;
                                 }
-                            li+='<a href="/app/'+apps[i].id+'">'+apps[i].title+'</a></div>' +
+                            li+='<a target="_blank" href="/app/'+apps[i].id+'">'+apps[i].title+'</a></div>' +
                             '</li>';
                     }
                 }
