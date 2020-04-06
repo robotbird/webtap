@@ -156,9 +156,8 @@
                    var posturl =webRoot + 'api/apps/save' ;
 
                    var logoUrl =  $("#app-logoUrl").val();
-                   debugger;
-                   if(this.id==0||this.id==undefined){
-                       if(logoUrl!=""){
+                   if(logoUrl!=""){
+                       if(logoUrl.indexOf('/'>0)){
                            logoUrl =  webRoot + $("#app-logoUrl").val();
                        }
                    }
