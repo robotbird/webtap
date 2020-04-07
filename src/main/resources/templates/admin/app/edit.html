@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label class="form-group-label">App Logo</label>
                             <div class="input-group">
-                                <input   type="text" id="app-logoUrl" name="app-logoUrl" value="" v-model="appdata.logoUrl" class="form-control"  />
+                                <input   type="text" id="app-logoUrl" name="app-logoUrl" value=""   class="form-control"  />
                                 <span class="input-group-btn">
                                 <button type="button" class="btn btn-secondary btn-upload" v-on:click="openFile()"> 选择</button>
                                </span>
@@ -149,6 +149,7 @@
                         axios.get(webRoot + 'api/app/'+this.id)
                             .then(response => {
                             this.appdata = response.data;
+                           $("#app-logoUrl").val(this.appdata.logoUrl);
                             }).catch(function (error) { toastr.error(error); });
                     }
                 },

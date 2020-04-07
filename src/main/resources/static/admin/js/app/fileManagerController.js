@@ -265,5 +265,4 @@ var updatePostCoverCallback = function (data) {
 var insertAppLogoCallback = function (data) {
     //document.getElementById("#app-logoUrl").value = data;
     $('#app-logoUrl').val(data);
-    toastr.success("选择成功");
 };
