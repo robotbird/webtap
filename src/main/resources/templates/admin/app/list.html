@@ -10,6 +10,28 @@
         height: 150px;
         background-size:auto;
     }
+    .bf-body .bf-posts-grid .post-grid-col {
+        width: 200px;
+    }
+
+    .post-grid-item .item-link::after {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(to bottom, transparent 0%, #ece5e573 100%);
+    }
+    .icon {
+        width:100px;
+        height: 100px;
+        fill: currentColor;
+        overflow: hidden;
+        margin-left:30px;
+        margin-top:20px;
+    }
 </style>
 </head>
 
@@ -48,7 +70,9 @@
             <div class="bf-posts-grid d-flex" aria-label="posts">
                 <div v-for="app in appList" :key="app.id" class="post-grid-col">
                     <div class="post-grid-item">
-                        <a class="item-link" :href="'/admin/app/edit?id=' + app.id" v-bind:style="{ backgroundImage: 'url(' + app.logoUrl + ')' }">
+                        <a class="item-link" :href="'/admin/app/edit?id=' + app.id">
+                            <img v-if="app.logoUrl!=null&&app.logoUrl.length>0" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
+                            <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app">{{app.title.substring(0,1)}}</div>
                         </a>
                         <div class="item-info d-flex align-items-center">
                             <span class="item-date mr-auto">{{app.title}}</span>
