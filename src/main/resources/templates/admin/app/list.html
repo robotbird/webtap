@@ -4,14 +4,18 @@
 <head>
 <style>
 
+    .bf-posts-grid {
+        padding: 20px 10px 0;
+    }
     .bf-body .post-grid-item .item-link {
         height: 150px;
         background-size:auto;
     }
     .bf-body .bf-posts-grid .post-grid-col {
         max-width: 180px;
-        padding-right: 5px;
-        pading-left:5px;
+        padding-right: 10px;
+        padding-left:10px;
+        margin-bottom: 20px;
     }
 
     .post-grid-item .item-link::after {
@@ -87,7 +91,7 @@
                             <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app">{{app.title.substring(0,1)}}</div>
                         </a>
                         <div class="item-info d-flex align-items-center">
-                            <span class="item-date mr-auto">{{app.title}}</span>
+                            <span class="item-date mr-auto">{{app.title.length>5?app.title.substring(0,4):app.title}}</span>
                             <a class="item-show ml-3" :href="app.url" target="_blank" data-tooltip="" title="" data-original-title=""><i class="fas fa-external-link-square-alt"></i></a>
                             <a class="item-show ml-4" href="#" v-on:click="return remove(app.id)" data-tooltip="" title="" data-original-title="delete"><i class="fas fa-trash" style="color: #ff6666"></i></a>
                         </div>
