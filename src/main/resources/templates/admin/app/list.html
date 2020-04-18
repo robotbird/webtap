@@ -86,7 +86,9 @@
                     <div class="post-grid-item">
                         <a class="item-link" :href="'/admin/app/edit?id=' + app.id">
                             <img v-if="app.logoUrl!=null&&app.logoUrl.length>0" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
-                            <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app">{{app.title.substring(0,1)}}</div>
+
+                            <ul v-if="app.logoUrl==null||app.logoUrl.length==0" style="height: 10px"></ul>
+                            <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app"> {{app.title.substring(0,1)}}</div>
                         </a>
                         <div class="item-info d-flex align-items-center">
                             <span class="item-date mr-auto">{{app.title.length>5?app.title.substring(0,4):app.title}}</span>
