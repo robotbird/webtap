@@ -2,8 +2,8 @@ package com.webtap.web;
 
 import com.webtap.comm.Const;
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.*;
 
+import com.webtap.domain.entity.App;
 import com.webtap.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

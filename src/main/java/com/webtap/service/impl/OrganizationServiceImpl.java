@@ -1,6 +1,6 @@
 package com.webtap.service.impl;
 
-import com.webtap.domain.Organization;
+import com.webtap.domain.entity.Organization;
 import com.webtap.repository.OrganizationRepository;
 import com.webtap.service.OrganizationService;
 import org.slf4j.Logger;

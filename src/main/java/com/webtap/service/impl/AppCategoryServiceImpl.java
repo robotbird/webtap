@@ -1,17 +1,13 @@
 package com.webtap.service.impl;
 
-import com.webtap.domain.App;
-import com.webtap.domain.AppCategory;
-import com.webtap.domain.Organization;
+import com.webtap.domain.entity.AppCategory;
 import com.webtap.repository.AppCategoryRepository;
 import com.webtap.repository.AppRepository;
 import com.webtap.repository.OrganizationRepository;
 import com.webtap.service.AppCategoryService;
-import com.webtap.service.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

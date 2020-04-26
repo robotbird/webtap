@@ -1,6 +1,6 @@
 package com.webtap.service.impl;
 
-import com.webtap.domain.User;
+import com.webtap.domain.entity.User;
 import com.webtap.repository.UserRepository;
 import com.webtap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,18 +1,14 @@
 package com.webtap.comm.filter;
 
 import com.webtap.comm.Const;
-import com.webtap.domain.User;
 import com.webtap.repository.UserRepository;
 import com.webtap.utils.Des3EncryptionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.*;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashSet;

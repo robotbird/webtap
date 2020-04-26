@@ -1,6 +1,6 @@
 package com.webtap.repository;
 
-import com.webtap.domain.AppCategory;
+import com.webtap.domain.entity.AppCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

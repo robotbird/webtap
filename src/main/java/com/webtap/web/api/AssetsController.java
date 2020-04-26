@@ -2,7 +2,7 @@ package com.webtap.web.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.webtap.domain.Asset;
+import com.webtap.domain.entity.Asset;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.ResponseData;
 import com.webtap.service.StorageService;

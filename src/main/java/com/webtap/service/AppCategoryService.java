@@ -1,6 +1,6 @@
 package com.webtap.service;
 
-import com.webtap.domain.AppCategory;
+import com.webtap.domain.entity.AppCategory;
 
 import java.util.List;
 

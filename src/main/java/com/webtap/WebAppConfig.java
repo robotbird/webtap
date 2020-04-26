@@ -1,7 +1,6 @@
 package com.webtap;
 
-import com.webtap.interceptor.UserAuthenticationInterceptor;
-import org.slf4j.LoggerFactory;
+import com.webtap.core.interceptor.UserAuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;

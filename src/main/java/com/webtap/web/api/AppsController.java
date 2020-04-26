@@ -1,10 +1,10 @@
 package com.webtap.web.api;
 
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.App;
-import com.webtap.domain.AppCategory;
-import com.webtap.domain.Organization;
-import com.webtap.domain.User;
+import com.webtap.domain.entity.App;
+import com.webtap.domain.entity.AppCategory;
+import com.webtap.domain.entity.Organization;
+import com.webtap.domain.entity.User;
 import com.webtap.domain.enums.ViewPermission;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.github.pagehelper.PageInfo;
 
 
 @RestController

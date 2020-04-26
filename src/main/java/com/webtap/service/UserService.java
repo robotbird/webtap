@@ -1,6 +1,6 @@
 package com.webtap.service;
 
-import com.webtap.domain.User;
+import com.webtap.domain.entity.User;
 
 import java.util.List;
 

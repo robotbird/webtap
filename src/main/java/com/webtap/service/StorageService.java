@@ -1,6 +1,6 @@
 package com.webtap.service;
 
-import com.webtap.domain.Asset;
+import com.webtap.domain.entity.Asset;
 import com.webtap.utils.Pager;
 import org.springframework.web.multipart.MultipartFile;
 

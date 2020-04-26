@@ -2,8 +2,8 @@ package com.webtap.web.api;
 
 import com.webtap.comm.Const;
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.Organization;
-import com.webtap.domain.User;
+import com.webtap.domain.entity.Organization;
+import com.webtap.domain.entity.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.domain.view.ChangePwd;
@@ -15,12 +15,11 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 
 @RestController
@@ -33,6 +32,7 @@ public class AuthorsController extends BaseController{
     @Autowired
     private OrganizationService organizationService;
 
+    @RequiresPermissions("users")
     @RequestMapping(value = "/user",method = RequestMethod.GET)
     public String getUserProfile(){
         User user = getUser();

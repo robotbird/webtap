@@ -1,8 +1,8 @@
 package com.webtap.web.api;
 
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.Organization;
-import com.webtap.domain.User;
+import com.webtap.domain.entity.Organization;
+import com.webtap.domain.entity.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.OrganizationService;

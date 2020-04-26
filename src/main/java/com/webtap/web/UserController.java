@@ -2,13 +2,12 @@ package com.webtap.web;
 
 import com.webtap.comm.Const;
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.User;
+import com.webtap.domain.entity.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.domain.result.ResponseData;
 import com.webtap.repository.UserRepository;
 import com.webtap.utils.DateUtils;
-import com.webtap.utils.FileUtil;
 import com.webtap.utils.MD5Util;
 import com.webtap.utils.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;

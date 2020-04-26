@@ -1,4 +1,4 @@
-package com.webtap.domain;
+package com.webtap.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

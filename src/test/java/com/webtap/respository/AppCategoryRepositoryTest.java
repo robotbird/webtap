@@ -1,9 +1,6 @@
 package com.webtap.respository;
 
-import com.webtap.domain.AppCategory;
 import com.webtap.repository.AppCategoryRepository;
-import com.webtap.repository.AppRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,5 @@
 package com.webtap.service;
-import com.webtap.domain.App;
+import com.webtap.domain.entity.App;
 import java.util.List;
 
 public interface AppService {

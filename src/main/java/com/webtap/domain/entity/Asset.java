@@ -1,4 +1,4 @@
-package com.webtap.domain;
+package com.webtap.domain.entity;
 
 import com.webtap.domain.enums.AssetType;
 

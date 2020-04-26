@@ -1,7 +1,7 @@
 package com.webtap.web;
 
 import com.webtap.comm.Const;
-import com.webtap.domain.User;
+import com.webtap.domain.entity.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.utils.Des3EncryptionUtil;

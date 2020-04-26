@@ -1,7 +1,7 @@
-package com.webtap.interceptor;
+package com.webtap.core.interceptor;
 
 import com.webtap.comm.Const;
-import com.webtap.domain.User;
+import com.webtap.domain.entity.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

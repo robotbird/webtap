@@ -1,6 +1,6 @@
 package com.webtap.service.impl;
 
-import com.webtap.domain.Asset;
+import com.webtap.domain.entity.Asset;
 import com.webtap.service.StorageService;
 import com.webtap.utils.Pager;
 import org.springframework.beans.factory.annotation.Value;
