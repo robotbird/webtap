@@ -3,6 +3,7 @@ package com.webtap.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author robotbird
@@ -43,6 +44,12 @@ public class Resource implements Serializable {
 	@Column(name = "update_time")
 	private java.util.Date updateTime;
 
+  @Transient
+  private String checked;
+  @Transient
+  private Resource parent;
+  @Transient
+  private List<Resource> nodes;
 
 
   public Long getId() {
@@ -152,4 +159,27 @@ public class Resource implements Serializable {
     this.updateTime = updateTime;
   }
 
+  public String getChecked() {
+    return checked;
+  }
+
+  public void setChecked(String checked) {
+    this.checked = checked;
+  }
+
+  public Resource getParent() {
+    return parent;
+  }
+
+  public void setParent(Resource parent) {
+    this.parent = parent;
+  }
+
+  public List<Resource> getNodes() {
+    return nodes;
+  }
+
+  public void setNodes(List<Resource> nodes) {
+    this.nodes = nodes;
+  }
 }

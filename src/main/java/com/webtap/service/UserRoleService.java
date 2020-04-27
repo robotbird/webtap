@@ -1,13 +1,16 @@
 package com.webtap.service;
 
 
+import com.webtap.core.object.AbstractService;
+import com.webtap.domain.entity.UserRole;
+
 /**
  * @author robotbird
  * @version 1.0
  * @website http://webtap.cn
  * @date 2020-04-25 20:23
  **/
-public interface SysUserRoleService   {
+public interface UserRoleService extends AbstractService<UserRole,Long> {
 
     /**
      * 添加用户角色

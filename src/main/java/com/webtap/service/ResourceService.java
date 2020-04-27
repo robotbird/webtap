@@ -1,6 +1,7 @@
 package com.webtap.service;
 
 import com.github.pagehelper.PageInfo;
+import com.webtap.core.object.AbstractService;
 import com.webtap.domain.entity.Resource;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * @website http://webtap.cn
  * @date 2020-04-25 20:23
  **/
-public interface SysResourcesService   {
+public interface ResourceService extends AbstractService<Resource,Long> {
 
     /**
      * 分页查询
@@ -24,10 +25,10 @@ public interface SysResourcesService   {
     /**
      * 获取用户的资源列表
      *
-     * @param map
+     * @param userId
      * @return
      */
-    List<Resource> listUserResources(Map<String, Object> map);
+    List<Resource> findResourceByUserId(Long userId);
 
     /**
      * 获取ztree使用的资源列表

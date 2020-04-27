@@ -94,9 +94,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getById(Long Id) {
-        Assert.notNull(Id, "PrimaryKey不可为空！");
+        Assert.notNull(Id, "Id不可为空！");
         Role sysRole = roleRepository.findOne(Id);
-        return null == sysRole ? null : new Role(sysRole);
+        return sysRole;
     }
 
     @Override
