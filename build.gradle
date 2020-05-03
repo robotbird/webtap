@@ -27,14 +27,14 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE")
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:3.0.0.RELEASE")
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    compile("org.springframework.boot:spring-boot-devtools:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-mail:1.5.8.RELEASE")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.springframework.boot:spring-boot-starter-mail")
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
     compile 'org.springframework.boot:spring-boot-starter-tomcat'
     compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
