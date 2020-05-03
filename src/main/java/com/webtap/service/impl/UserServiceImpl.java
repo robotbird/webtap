@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersByRoleId(Long roleId) {
+        return userRepository.findAllByRoleId(roleId);
+    }
+
+    @Override
     public void deleteAllUsers() {
 
     }

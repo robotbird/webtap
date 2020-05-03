@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.webtap.domain.entity.User;
 
+import java.util.List;
+
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUserName(String userName);
@@ -18,6 +20,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     User findById(long  id);
+
+    @Query("SELECT s.id,s.userName " +
+            " FROM User s, UserRole ur " +
+            " WHERE ur.userId = s.id and ur.roleId = :roleId")
+    List<User> findAllByRoleId(Long roleId);
 
     @Modifying(clearAutomatically=true)
     @Transactional

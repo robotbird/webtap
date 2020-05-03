@@ -44,6 +44,10 @@ public class Resource implements Serializable {
 	@Column(name = "update_time")
 	private java.util.Date updateTime;
 
+    @Column(name = "org_id")
+    private Long orgId;
+
+
   @Transient
   private String checked;
   @Transient
@@ -182,4 +186,13 @@ public class Resource implements Serializable {
   public void setNodes(List<Resource> nodes) {
     this.nodes = nodes;
   }
+
+  public Long getOrgId() {
+    return orgId;
+  }
+
+  public void setOrgId(Long orgId) {
+    this.orgId = orgId;
+  }
+
 }

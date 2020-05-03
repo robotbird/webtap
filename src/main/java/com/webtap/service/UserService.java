@@ -66,6 +66,14 @@ public interface UserService {
      */
     public List<User>  getAllUsers();
 
+
+    /**
+     * return users by roleId
+     * @param roleId
+     * @return
+     */
+    public List<User> getUsersByRoleId(Long roleId);
+
     /**
      * 删除所有用户
      */

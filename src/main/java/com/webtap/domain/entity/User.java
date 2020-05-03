@@ -41,6 +41,9 @@ public class User implements Serializable {
 	@Column(name = "org_id")
 	private Long orgId;
 
+	@Column(name="user_type")
+	private String userType;
+
 	public User() {
 		super();
 	}
@@ -123,4 +126,12 @@ public class User implements Serializable {
 	public void setOrgId(Long orgId) {
 		this.orgId = orgId;
 	}
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 }

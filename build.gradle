@@ -53,6 +53,7 @@ dependencies {
     compile 'org.apache.shiro:shiro-config-ogdl:1.4.0'
     compile 'org.apache.shiro:shiro-event:1.4.0'
     compile 'org.apache.shiro:shiro-web:1.4.0'
+    compile 'commons-codec:commons-codec:1.11'
 
 }
 

@@ -12,7 +12,27 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     @Query("         SELECT" +
             "            re.id," +
             "            re.name," +
-            "            re.parent_id," +
+            "            re.parentId," +
+            "            re.url," +
+            "            re.permission," +
+            "            re.icon"+
+            "        FROM  Resource re,RoleResource rr, UserRole ur" +
+            "        WHERE " +
+            "         re.available = 1 " +
+            "        and re.id = rr.resourcesId " +
+            "        and rr.roleId = ur.roleId" +
+            "        AND ur.userId = :userId" +
+            "        ORDER BY" +
+            "            re.sort ASC")
+    List<Resource> findResourceByUserId (Long userId);
+
+
+    /*
+    *
+    *     @Query("         SELECT" +
+            "            re.id," +
+            "            re.name," +
+            "            re.parentId," +
             "            re.url," +
             "            re.permission," +
             "            re.icon," +
@@ -36,6 +56,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
             "        ORDER BY" +
             "            re.sort ASC," +
             "            node.sort ASC")
-    List<Resource> findResourceByUserId (Long userId);
+    * */
 
 }

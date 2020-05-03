@@ -75,7 +75,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public List<Resource> listUrlAndPermission() {
-        return null;
+        return resourceRepository.findAll();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> listByUserId(Long userId) {
-        return null;
+    public List<Resource> findByUserId(Long userId) {
+        return resourceRepository.findResourceByUserId(userId);
     }
 }

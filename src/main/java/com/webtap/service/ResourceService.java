@@ -58,5 +58,5 @@ public interface ResourceService extends AbstractService<Resource,Long> {
      * @param userId
      * @return
      */
-    List<Resource> listByUserId(Long userId);
+    List<Resource> findByUserId(Long userId);
 }

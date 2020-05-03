@@ -1,13 +1,12 @@
 package com.webtap.core.shiro;
 
-import com.zyd.blog.business.entity.Resources;
-import com.zyd.blog.business.entity.User;
-import com.zyd.blog.business.service.SysResourcesService;
-import com.zyd.blog.business.service.SysUserService;
-import com.zyd.blog.core.shiro.realm.ShiroRealm;
-import com.zyd.blog.framework.exception.ZhydException;
-import com.zyd.blog.framework.holder.SpringContextHolder;
-import lombok.extern.slf4j.Slf4j;
+import com.webtap.comm.exception.TapException;
+import com.webtap.core.holder.SpringContextHolder;
+import com.webtap.core.shiro.realm.ShiroRealm;
+import com.webtap.domain.entity.Resource;
+import com.webtap.domain.entity.User;
+import com.webtap.service.ResourceService;
+import com.webtap.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -16,6 +15,8 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -28,21 +29,16 @@ import java.util.Map;
 /**
  * Shiro-权限相关的业务处理
  *
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @website https://www.zhyd.me
- * @date 2018/4/25 14:37
- * @since 1.0
  */
-@Slf4j
 @Service
 public class ShiroServiceImpl implements ShiroService {
 
     @Autowired
-    private SysResourcesService resourcesService;
+    private ResourceService resourcesService;
     @Autowired
-    private SysUserService userService;
+    private UserService userService;
 
+    protected Logger logger =  LoggerFactory.getLogger(this.getClass());
     /**
      * 初始化权限
      */
@@ -66,11 +62,11 @@ public class ShiroServiceImpl implements ShiroService {
         filterChainDefinitionMap.put("/vendors/**", "anon");
         filterChainDefinitionMap.put("/getKaptcha", "anon");
         // 加载数据库中配置的资源权限列表
-        List<Resources> resourcesList = resourcesService.listUrlAndPermission();
+        List<Resource> resourcesList = resourcesService.listUrlAndPermission();
         if (CollectionUtils.isEmpty(resourcesList)) {
-            throw new ZhydException("未加载到resources内容，请确认是否执行了init_data.sql");
+            throw new TapException("未加载到resources内容，请确认数据是否有初始化");
         }
-        for (Resources resources : resourcesList) {
+        for (Resource resources : resourcesList) {
             if (!StringUtils.isEmpty(resources.getUrl()) && !StringUtils.isEmpty(resources.getPermission())) {
                 String permission = "perms[" + resources.getPermission() + "]";
                 filterChainDefinitionMap.put(resources.getUrl(), permission);
@@ -127,7 +123,7 @@ public class ShiroServiceImpl implements ShiroService {
         shiroRealm.getAuthorizationCache().remove(subject.getPrincipals());
         subject.releaseRunAs();
 
-        log.info("用户[{}]的权限更新成功！！", user.getUsername());
+        logger.info("用户[{}]的权限更新成功！！", user.getUserName());
 
     }
 
@@ -137,7 +133,7 @@ public class ShiroServiceImpl implements ShiroService {
      * @param roleId
      */
     public void reloadAuthorizingByRoleId(Long roleId) {
-        List<User> userList = userService.listByRoleId(roleId);
+       List<User> userList = userService.getUsersByRoleId(roleId);
         if (CollectionUtils.isEmpty(userList)) {
             return;
         }

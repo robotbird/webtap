@@ -26,16 +26,18 @@ public class Role implements Serializable {
 	@Column(name = "update_time")
 	private java.util.Date updateTime;
 
+    @Column(name = "org_id")
+    private Long orgId;
 
     @Transient
     private Integer selected;
 
-
+    @Transient
     private Role sysRole;
 
-    public Role() {
-        this.sysRole = new Role();
-    }
+//    public Role() {
+//        this.sysRole = new Role();
+//    }
 
     public Role(Role sysRole) {
         this.sysRole = sysRole;
@@ -110,5 +112,13 @@ public class Role implements Serializable {
 
     public void setSelected(Integer selected) {
         this.selected = selected;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 }
