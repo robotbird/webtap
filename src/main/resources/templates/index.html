@@ -229,7 +229,7 @@
 
         <li v-for="cat in categories" :key="cat.id" v-if="cat.appAmount>0">
             <div class="app-logo" >
-                <a href="#" v-on:click="openFold(cat.id)">  <img class="icon"  src="img/fold.png" /></a>
+                <a href="#" v-on:click="openFold(cat)">  <img class="icon"  src="img/fold.png" /></a>
             </div>
             <div class="app-title" >
                 <a href="#" >{{cat.name}}</a>
@@ -354,7 +354,9 @@ http://res.xisukeji.com/webtap/img/2.png
                 });
 
             },
-            openFold:function(id){
+            openFold:function(cat){
+                var id = cat.id;
+                var title = cat.name;
                 var html='<div id="secContent"></div> <ul class="icon_list">';
                 var li='';
                 var apps = this.appsAll;
@@ -381,6 +383,7 @@ http://res.xisukeji.com/webtap/img/2.png
                 html+=li+'</ul>';
 
                 zeroModal.show({
+                    title:title,
                     content: html,
                     width: '50%',
                     height: '60%',
