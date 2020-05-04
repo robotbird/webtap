@@ -158,11 +158,10 @@
 
                    var logoUrl =  $("#app-logoUrl").val();
                    if(logoUrl!=""){
-                       if(logoUrl.indexOf('/'>0)){
+                       if(logoUrl.indexOf('/')>0){
                            logoUrl =  webRoot + $("#app-logoUrl").val();
                        }
                    }
-
                    this.appdata.logoUrl = logoUrl;
                    var app = this.appdata;
                     app.passwordRequired = app.passwordRequired?"1":"0";
