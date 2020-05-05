@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +21,21 @@ public class OrganizationController extends BaseController{
 
     @Autowired
     private OrganizationService organizationService;
+
+
+	/**
+	 * return all organizations
+	 * @return
+	 */
+	@RequestMapping(value = "/organizations", method = RequestMethod.GET)
+	public ResponseEntity<List<Organization>> getOrganizations() {
+		List<Organization> organizations = organizationService.getOrganizations();
+
+		if (organizations.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Organization>>(organizations, HttpStatus.OK);
+	}
 
 	/**
 	 * 根据id获取组织信息

@@ -134,6 +134,15 @@
 <script src="http://res.xisukeji.com/webtap/admin/js/app/notificationsController.js"></script>
 <script>
     var webRoot = '/';
+
+    var hostname = location.hostname;
+    var port = location.port;
+    if(port =="80" || port ==""){
+        webRoot ="http://"+ hostname+"/";
+    }else {
+        webRoot ="http://"+  hostname +":"+port+"/";
+    }
+
     function isAdmin(){
         return 'True' === 'True' ? true : false;
     }

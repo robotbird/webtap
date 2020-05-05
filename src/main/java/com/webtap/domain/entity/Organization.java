@@ -21,7 +21,8 @@ public class Organization implements Serializable {
 	@Column(name = "short_url")
 	private String shortUrl;
 
-
+    @Column(name = "create_time")
+    private Long createTime;
 
   public Long getId() {
     return id;
@@ -58,4 +59,11 @@ public class Organization implements Serializable {
     this.shortUrl = shortUrl;
   }
 
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
 }
