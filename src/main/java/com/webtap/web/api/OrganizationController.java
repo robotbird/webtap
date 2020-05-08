@@ -6,6 +6,7 @@ import com.webtap.domain.entity.User;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.OrganizationService;
+import com.webtap.utils.DateUtils;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,5 +70,17 @@ public class OrganizationController extends BaseController{
         }
         return result(ExceptionMsg.SUCCESS);
     }
+
+	@RequestMapping(value = "/organization/add",method = RequestMethod.POST)
+	@LoggerManage(description = "add org")
+	public ResponseEntity<Organization> addOrg(@RequestBody Organization organization){
+		try {
+		    organization.setCreateTime(DateUtils.getCurrentTime());
+			organizationService.saveOrg(organization);
+		}catch (Exception ex){
+			logger.error(ex.getMessage());
+		}
+		return new ResponseEntity<Organization>(organization,HttpStatus.OK);
+	}
 
 }

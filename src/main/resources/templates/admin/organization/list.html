@@ -3,27 +3,6 @@
       layout:decorator="admin/layout">
 
 
-<style>
-    .org-logo{
-        width: 45px;
-        height: 45px;
-    }
-    .org-logo-back{
-        width: 45px;
-        background-color:#8b8b8b;
-        border-radius: 50%;
-        height: 45px;
-        text-align: center;
-        line-height: 45px;
-        color: #fff;
-        font-size:20px;
-        margin:0px auto;
-    }
-    .org-logo-back img{
-        width: 45px;
-        height: 45px;
-    }
-</style>
     <div layout:fragment="content" >
         <!-- content-->
 
@@ -50,7 +29,7 @@
                             <tbody>
                             <tr v-for="org in organizations">
                                 <td>{{org.id}}</td>
-                                <td><div class="org-logo-back"><img v-bind:src="webRoot+org.orgLogo" class="org-logo" :alt="org.orgName"/></div> </td>
+                                <td><div class="org-logo-back"><img v-bind:src="webRoot+org.orgLogo" style="width: 100px; max-height: 100px; background: #ccc" :alt="org.orgName"/></div> </td>
                                 <td>{{org.orgName}}</td>
                                 <td><a :href="webRoot+org.shortUrl" target="_blank">{{webRoot+org.shortUrl}}</a></td>
                                 <td>{{dateFormat(org.createTime)}}</td>
@@ -63,6 +42,66 @@
 
                     </div>
                 </form>
+
+
+
+                <!-- Modal Organization -->
+                <div>
+                    <div class="modal fade" id="modal-org" tabindex="-1" role="dialog" aria-labelledby="notificationsLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="settingsLabel">{{org.editType}}组织</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            组织名称:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="org.orgName" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            访问地址:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="org.shortUrl" >
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            管理员用户名:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="user.userName" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            管理员邮箱:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="user.email" >
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
+                                            管理员密码:
+                                        </label>
+                                        <input type="text" class="form-control" v-model="user.passWord">
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer d-flex">
+                                    <button class="btn btn-link btn-sm btn-rounded ml-auto" type="button" data-dismiss="modal">取消</button>
+                                    <button   class="btn btn-primary btn-sm btn-rounded" type="button" v-on:click="save()">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
@@ -85,7 +124,8 @@
             el: '#app',
             data: {
                 organizations: {},
-                user:{editType:"新增"}
+                org:{editType:"新增"},
+                user:{}
             },
             methods: {
                 load: function () {
@@ -96,17 +136,28 @@
                      }).catch(function (error) { toastr.error(error); });
                 },
                 save: function () {
-                    var posturl =webRoot + 'api/authors/save' ;
+                    var userurl =webRoot + 'api/authors/save' ;
+                    var orgurl =webRoot+'api/organization/add';
                     var user = this.user;
+                    var org = this.org;
 
-                    axios.post(posturl, user)
-                        .then(function (response) {
-                            toastr.success('保存成功');
-                            $("#modal-user").modal("hide");
-                            location.reload();
-                        }).catch(function (error) {toastr.error(error); });
+                    axios.post(orgurl,org).then(function (response) {
+                        debugger;
+                        var organization = response.data;
+                        var orgid= organization.id;
+                        if(orgid>0){
+                            user.orgId = orgid;
+                            axios.post(userurl, user)
+                                .then(function (response) {
+                                    toastr.success('保存成功');
+                                    $("#modal-org").modal("hide");
+                                    location.reload();
+                                }).catch(function (error) {toastr.error(error); });
 
-                    return false;
+                            return false;
+                        }
+                    })
+
                 },
                 edit:function (id) {
                     axios.get(webRoot + 'api/authors/'+id)
@@ -118,7 +169,7 @@
                 },
                 add:function () {
                     this.user = {editType:"新增"};
-                    $("#modal-user").modal();
+                    $("#modal-org").modal();
                 },
                 remove:function (id) {
                     var result = confirm("Please confirm removing this user");
