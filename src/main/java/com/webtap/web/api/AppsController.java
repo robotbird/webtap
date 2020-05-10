@@ -147,7 +147,7 @@ public class 	AppsController extends BaseController{
 	public ResponseEntity<List<App>> getAllApps(
 			@RequestParam(value = "categoryId",required = false,defaultValue = "0") Long categoryId,
 			@RequestParam(value = "title",required = false,defaultValue = "") String title) {
-
+		User user = getUser();
         List<App> apps = null;
 
         // get all app
