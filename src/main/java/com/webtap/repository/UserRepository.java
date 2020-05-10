@@ -63,4 +63,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query("update User set backgroundPicture=:backgroundPicture where id=:id")
     int setBackgroundPicture(@Param("backgroundPicture") String backgroundPicture, @Param("id") Long id);
+
+    void deleteAllByOrOrgId(Long orgId);
 }

@@ -10,4 +10,5 @@ public interface OrganizationService {
 	public Organization getOrganizationById(Long Id);
 	public List<Organization> getOrganizations();
 	public Organization saveOrg(Organization organization);
+	public void deleteOrg(Long Id);
 }

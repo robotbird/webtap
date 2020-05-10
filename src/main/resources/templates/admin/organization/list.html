@@ -142,10 +142,9 @@
                     var org = this.org;
 
                     axios.post(orgurl,org).then(function (response) {
-                        debugger;
                         var organization = response.data;
-                        var orgid= organization.id;
-                        if(orgid>0){
+                        var orgId= organization.id;
+                        if(orgId>0){
                             user.orgId = orgid;
                             axios.post(userurl, user)
                                 .then(function (response) {
@@ -172,9 +171,9 @@
                     $("#modal-org").modal();
                 },
                 remove:function (id) {
-                    var result = confirm("Please confirm removing this user");
+                    var result = confirm("Please confirm removing this organization");
                     if (result) {
-                        axios.delete(webRoot + 'api/authors/remove/' + id)
+                        axios.delete(webRoot + 'api/organization/remove/' + id)
                             .then(response => {
                             toastr.success(response.data.rspMsg);
                         this.load();

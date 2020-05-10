@@ -33,4 +33,6 @@ public interface AppRepository extends JpaRepository<App, Long> {
 	@Query("update App set viewPassword=:password where id=:id")
 	void updateViewPassword(@Param("id") Long id,@Param("password") String password);
 
+    void deleteAllByOrgId(Long orgId);
+
 }

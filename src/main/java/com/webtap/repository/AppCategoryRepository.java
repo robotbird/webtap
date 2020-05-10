@@ -17,4 +17,6 @@ public interface AppCategoryRepository extends JpaRepository<AppCategory, Long> 
     void updateAppAmount(@Param("id") Long id);
 
     List<AppCategory> findAllByOrgId(Long orgid);
+
+    void deleteAllByOrgId(Long orgId);
 }

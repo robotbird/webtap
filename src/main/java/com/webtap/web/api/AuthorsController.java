@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-
 
 @RestController
 @RequestMapping("/api")
@@ -32,7 +30,6 @@ public class AuthorsController extends BaseController{
     @Autowired
     private OrganizationService organizationService;
 
-    @RequiresPermissions("users")
     @RequestMapping(value = "/user",method = RequestMethod.GET)
     public String getUserProfile(){
         User user = getUser();
@@ -124,7 +121,7 @@ public class AuthorsController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/authors/remove/{id}",method = RequestMethod.DELETE)
-    public Response deleteApp(@PathVariable(value = "id") Long id){
+    public Response deleteUser(@PathVariable(value = "id") Long id){
         userService.delete(id);
         logger.info("删除成功");
         return result(ExceptionMsg.SUCCESS);

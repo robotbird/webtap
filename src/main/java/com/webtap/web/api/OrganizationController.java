@@ -83,4 +83,18 @@ public class OrganizationController extends BaseController{
 		return new ResponseEntity<Organization>(organization,HttpStatus.OK);
 	}
 
+
+	/**
+	 * delete organization
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/organization/remove/{id}",method = RequestMethod.DELETE)
+	public Response deleteOrg(@PathVariable(value = "id") Long id){
+
+		organizationService.deleteOrg(id);
+		logger.info("删除成功");
+		return result(ExceptionMsg.SUCCESS);
+	}
+
 }

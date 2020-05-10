@@ -31,4 +31,5 @@ public interface AppCategoryService {
 
 
     public void removeCategory(Long id);
+
 }
