@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface AppRepository extends JpaRepository<App, Long> {
 
+
 	List<App> findAllByOrgId(Long groupId);
 
 	List<App> findAllByCategoryId(Long categoryId);

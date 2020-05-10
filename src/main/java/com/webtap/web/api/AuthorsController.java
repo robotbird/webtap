@@ -65,7 +65,7 @@ public class AuthorsController extends BaseController{
     }
 
     @RequestMapping(value = "/authors/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> getCatById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         User user = userService.getUser(id);
         if (user ==null) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

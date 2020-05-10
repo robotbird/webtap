@@ -50,10 +50,10 @@ public interface AppService {
 
 	/**
 	 * get app info by orgId
-	 * @param groupId
+	 * @param orgId
 	 * @return
 	 */
-	public List<App> getAppsByOrgId(Long groupId);
+	public List<App> getAppsByOrgId(Long orgId);
 
 	/**
 	 * get apps by categoryId

@@ -71,6 +71,7 @@
                                     </div>
 
 
+                                    <div id="userinfo">
                                     <div class="form-group">
                                         <label class="form-group-label">
                                             管理员用户名:
@@ -90,6 +91,8 @@
                                             管理员密码:
                                         </label>
                                         <input type="text" class="form-control" v-model="user.passWord">
+                                    </div>
+
                                     </div>
 
                                 </div>
@@ -144,7 +147,7 @@
                     axios.post(orgurl,org).then(function (response) {
                         var organization = response.data;
                         var orgId= organization.id;
-                        if(orgId>0){
+                        if(orgId>0&&org.editType=="新增"){
                             user.orgId = orgid;
                             axios.post(userurl, user)
                                 .then(function (response) {
@@ -159,15 +162,17 @@
 
                 },
                 edit:function (id) {
-                    axios.get(webRoot + 'api/authors/'+id)
+                    $("#userinfo").hide();
+                    axios.get(webRoot + 'api/organization/'+id)
                         .then(response => {
-                        this.user = response.data;
-                        this.user.editType = "编辑";
+                        this.org = response.data;
+                        this.org.editType = "编辑";
                     }).catch(function (error) { toastr.error(error); });
-                    $("#modal-user").modal();
+                    $("#modal-org").modal();
                 },
                 add:function () {
                     this.user = {editType:"新增"};
+                    $("#userinfo").show();
                     $("#modal-org").modal();
                 },
                 remove:function (id) {

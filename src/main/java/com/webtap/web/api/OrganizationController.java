@@ -39,11 +39,11 @@ public class OrganizationController extends BaseController{
 	}
 
 	/**
-	 * 根据id获取组织信息
+	 * 根据会话信息获取组织信息
 	 * @return
 	 */
 	@RequestMapping(value = "/organization",method = RequestMethod.GET)
-	public ResponseEntity<Organization> getOrganization(){
+	public ResponseEntity<Organization> Organization(){
 
         Organization organization = null;
 	    User user = getUser();
@@ -59,6 +59,22 @@ public class OrganizationController extends BaseController{
 		}
 		return  new ResponseEntity<Organization>(organization,HttpStatus.OK);
 	}
+
+	/**
+	 * 根据id获取组织信息
+	 * @return
+	 */
+	@RequestMapping(value = "/organization/{id}",method = RequestMethod.GET)
+	public ResponseEntity<Organization> getOrganization(@PathVariable(value = "id") Long id){
+
+		Organization organization = organizationService.getOrganizationById(id);
+
+		if(organization ==null){
+			return  new ResponseEntity(HttpStatus.MULTI_STATUS);
+		}
+		return  new ResponseEntity<Organization>(organization,HttpStatus.OK);
+	}
+
 
 	@RequestMapping(value = "/organization/save",method = RequestMethod.POST)
 	@LoggerManage(description = "save org")
