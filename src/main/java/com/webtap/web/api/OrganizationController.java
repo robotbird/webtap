@@ -91,6 +91,7 @@ public class OrganizationController extends BaseController{
 	@LoggerManage(description = "add org")
 	public ResponseEntity<Organization> addOrg(@RequestBody Organization organization){
 		try {
+			organization.setOrgLogo("upload/logo/webtap.png");
 		    organization.setCreateTime(DateUtils.getCurrentTime());
 			organizationService.saveOrg(organization);
 		}catch (Exception ex){
