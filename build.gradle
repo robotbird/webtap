@@ -28,7 +28,6 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
-    compile('com.github.theborakompanioni:thymeleaf-extras-shiro:2.0.0')
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.8.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE")
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
