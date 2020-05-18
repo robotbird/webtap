@@ -24,6 +24,8 @@ public class BaseVO {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endDate;
 
+    private Long orgId;
+
     public int getPageSize() {
         return pageSize > 0 ? pageSize : DEFAULT_PAGE_SIZE;
     }
@@ -86,5 +88,13 @@ public class BaseVO {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 }

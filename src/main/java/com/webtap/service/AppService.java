@@ -1,5 +1,7 @@
 package com.webtap.service;
 import com.webtap.domain.entity.App;
+import com.webtap.domain.view.AppVO;
+
 import java.util.List;
 
 public interface AppService {
@@ -62,6 +64,12 @@ public interface AppService {
 	 */
 	public List<App> getAppsByCategory(Long categoryId);
 
+	/**
+	 * get apps by appVO
+	 * @param appVO
+	 * @return
+	 */
+	public List<App> getAppsByAppVO(AppVO appVO);
 	/**
 	 * get apps by title query
 	 * @param title

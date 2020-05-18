@@ -2,6 +2,7 @@ package com.webtap.service.impl;
 
 import com.webtap.domain.entity.App;
 import com.webtap.domain.entity.Organization;
+import com.webtap.domain.view.AppVO;
 import com.webtap.repository.*;
 import com.webtap.service.AppService;
 import org.slf4j.Logger;
@@ -64,6 +65,10 @@ public class AppServiceImpl implements AppService {
    public List<App> getAppsByCategory(Long categoryId){
 	    return appRepository.findAllByCategoryId(categoryId);
    }
+
+    public List<App> getAppsByAppVO(AppVO appVO) {
+        return appRepository.findAllByCategoryId(appVO.getApp().getCategoryId());
+    }
 
     public List<App> getAppsByTitle(String title){
         return appRepository.findAllByTitleContains(title);
