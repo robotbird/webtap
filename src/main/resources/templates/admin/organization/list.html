@@ -145,10 +145,11 @@
                     var org = this.org;
 
                     axios.post(orgurl,org).then(function (response) {
+                        debugger;
                         var organization = response.data;
                         var orgId= organization.id;
                         if(orgId>0&&org.editType=="新增"){
-                            user.orgId = orgid;
+                            user.orgId = orgId;
                             axios.post(userurl, user)
                                 .then(function (response) {
                                     toastr.success('保存成功');

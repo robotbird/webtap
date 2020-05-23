@@ -56,7 +56,8 @@ public class AuthorsController extends BaseController{
      */
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsers() {
-        List<User> users = userService.getAllUsers();
+
+        List<User> users = userService.getUsers(getUser());
 
         if (users.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

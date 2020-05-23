@@ -9,7 +9,7 @@ public interface AppCategoryService {
      * get all app category item
      * @return
      */
-      public List<AppCategory> getAppCategories();
+      public List<AppCategory> getAppCategories(AppCategory category);
 
 
     /**

@@ -65,11 +65,11 @@ public interface AppService {
 	public List<App> getAppsByCategory(Long categoryId);
 
 	/**
-	 * get apps by appVO
-	 * @param appVO
+	 * get apps by app example
+	 * @param app
 	 * @return
 	 */
-	public List<App> getAppsByAppVO(AppVO appVO);
+	public List<App> getApps(App app);
 	/**
 	 * get apps by title query
 	 * @param title

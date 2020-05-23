@@ -64,7 +64,7 @@ public interface UserService {
      /**
      * return all user
      */
-    public List<User>  getAllUsers();
+    public List<User> getUsers(User user);
 
 
     /**

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 
 
 @Service("appsService")
@@ -66,8 +68,15 @@ public class AppServiceImpl implements AppService {
 	    return appRepository.findAllByCategoryId(categoryId);
    }
 
-    public List<App> getAppsByAppVO(AppVO appVO) {
-        return appRepository.findAllByCategoryId(appVO.getApp().getCategoryId());
+    public List<App> getApps(App app) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("orgId", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("categoryId" , ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<App> example = Example.of(app ,matcher);
+        List<App> list = appRepository.findAll(example);
+
+        return list;
     }
 
     public List<App> getAppsByTitle(String title){

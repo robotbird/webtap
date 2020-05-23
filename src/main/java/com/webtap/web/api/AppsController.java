@@ -49,8 +49,9 @@ public class 	AppsController extends BaseController{
 	public String getAppsAndCats() {
 
 		List<App> appList = appService.getAllApps();
-
-		List<AppCategory> categoryList = appCategoryService.getAppCategories();
+		AppCategory category = new AppCategory();
+		category.setOrgId(getOrgId());
+		List<AppCategory> categoryList = appCategoryService.getAppCategories(category);
 
         JSONObject result = appListJson(appList,categoryList);
 
@@ -149,26 +150,22 @@ public class 	AppsController extends BaseController{
 			@RequestParam(value = "title",required = false,defaultValue = "") String title) {
 		User user = getUser();
         List<App> apps = null;
-
-        // get all app
-        if(categoryId ==0&&title==""){
-			apps =  appService.getAllApps();
-		}
+        App app = new App();
 
 		// filter by categoryId
-        if(categoryId>0&&title==""){
-            apps = appService.getAppsByCategory(categoryId);
+        if(categoryId>0){
+            ;app.setCategoryId(categoryId);
         }
 
         // search by title
-        if(title!=null&&title!=""&&categoryId ==0){
-            apps = appService.getAppsByTitle(title);
+        if(title!=null&&title!=""){
+            app.setTitle(title);
 		}
 
-		// search by title and filter by categoryId
-		if(categoryId>0&&title!=""){
-			apps = appService.getAppsByTitleAndCategoryId(title,categoryId);
-		}
+		if(user!=null){
+		    app.setOrgId(user.getOrgId());
+            apps = appService.getApps(app);
+        }
 
 		if (apps.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -291,7 +288,9 @@ public class 	AppsController extends BaseController{
 	 */
 	@RequestMapping(value = "/app/categories", method = RequestMethod.GET)
 	public ResponseEntity<List<AppCategory>> getAllAppCategories() {
-		List<AppCategory> categoryList = appCategoryService.getAppCategories();
+        AppCategory category = new AppCategory();
+        category.setOrgId(getOrgId());
+		List<AppCategory> categoryList = appCategoryService.getAppCategories(category);
 
 		if (categoryList.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);

@@ -16,7 +16,11 @@ public interface AppCategoryRepository extends JpaRepository<AppCategory, Long> 
     @Query("update AppCategory c set  c.appAmount=(select count (*) from App a where a.categoryId=:id) where c.id=:id")
     void updateAppAmount(@Param("id") Long id);
 
-    List<AppCategory> findAllByOrgId(Long orgid);
+
+    @Query(value = "SELECT a.id,a.name,a.org_id,a.user_id,(SELECT count(*) FROM wt_apps b " +
+            "WHERE b.category_id = a.id) as app_amount " +
+            "FROM wt_app_category a WHERE a.org_id=?1 ",nativeQuery = true)
+    List<AppCategory> findAllByOrgId(Long orgId);
 
     void deleteAllByOrgId(Long orgId);
 }

@@ -26,7 +26,7 @@ public class AppServiceTest {
 
 	@Test
 	public void testCategories() throws Exception {
-		long cnt = appCategoryService.getAppCategories().size();
+		long cnt = appCategoryService.getAppCategories(1L).size();
 
 		System.out.print("cnt===================================================="+cnt);
 		Assert.assertEquals(cnt,4);

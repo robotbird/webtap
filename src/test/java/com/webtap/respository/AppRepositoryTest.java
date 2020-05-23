@@ -1,6 +1,8 @@
 package com.webtap.respository;
 
 import com.webtap.domain.entity.App;
+import com.webtap.domain.entity.AppCategory;
+import com.webtap.repository.AppCategoryRepository;
 import com.webtap.repository.AppRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,6 +23,9 @@ public class AppRepositoryTest {
 
 	@Autowired
   private AppRepository appRepository;
+
+	@Autowired
+	private AppCategoryRepository appCategoryRepository;
 
 	@Test
 	public void testApps() throws Exception {
@@ -57,6 +62,12 @@ public class AppRepositoryTest {
 		List<App> list = appRepository.findAll(example);
 		Assert.assertEquals(list.size(),3);
 
+	}
+
+	@Test
+	public void testNativeQuery() throws Exception {
+		List<AppCategory> list = appCategoryRepository.findAllByOrgId(1L);
+		Assert.assertEquals(list.size(),5);
 	}
 
 }

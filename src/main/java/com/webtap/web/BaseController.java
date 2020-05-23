@@ -51,6 +51,15 @@ public class BaseController {
     	}
         return id;
     }
+
+    protected long getOrgId() {
+        Long id=0l;
+        User user=getUser();
+        if(user!=null){
+            id=user.getOrgId();
+        }
+        return id;
+    }
     
     protected String getUserName() {
     	String userName="";
