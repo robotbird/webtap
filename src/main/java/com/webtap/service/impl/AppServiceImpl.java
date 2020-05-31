@@ -89,9 +89,6 @@ public class AppServiceImpl implements AppService {
 
    public App saveApp(App app){
         App return_app = appRepository.save(app);
-       if(app.getCategoryId()>0){
-           appCategoryRepository.updateAppAmount(app.getCategoryId());
-       }
         return return_app;
    }
 
@@ -102,9 +99,6 @@ public class AppServiceImpl implements AppService {
    public void removeApp(Long id){
 	    App app = appRepository.findOne(id);
         appRepository.delete(id);
-       if(app.getCategoryId()>0){
-           appCategoryRepository.updateAppAmount(app.getCategoryId());
-       }
    }
 
 }

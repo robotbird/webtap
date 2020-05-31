@@ -11,11 +11,6 @@ import java.util.List;
 
 public interface AppCategoryRepository extends JpaRepository<AppCategory, Long> {
 
-    @Modifying(clearAutomatically=true)
-    @Transactional
-    @Query("update AppCategory c set  c.appAmount=(select count (*) from App a where a.categoryId=:id) where c.id=:id")
-    void updateAppAmount(@Param("id") Long id);
-
 
     @Query(value = "SELECT a.id,a.name,a.org_id,a.user_id,(SELECT count(*) FROM wt_apps b " +
             "WHERE b.category_id = a.id) as app_amount " +
