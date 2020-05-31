@@ -99,7 +99,7 @@
                 <i class="taskbar-item-icon fas fa-align-left"></i>
             </a>
         </li>
-        <li class="taskbar-item active">
+        <li class="taskbar-item">
             <a href="/admin/settings/organization" class="taskbar-item-link" title="设置">
                 <i class="taskbar-item-icon fas fa-cog"></i>
             </a>
@@ -149,6 +149,21 @@
     function getUrl(str) {
         return webRoot + str;
     }
+
+    $(function(){
+        var url = location.href;
+        var items = $(".taskbar-item");
+        $.each(items,function (i, item) {
+            var taskurl = $(item).find('a').attr('href');
+            if(url.indexOf(taskurl)>0){
+                $(item).addClass('active')
+            }else {
+                $(item).removeClass('active')
+            }
+
+        })
+    });
+
 </script>
 
 
