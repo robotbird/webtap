@@ -153,6 +153,7 @@
     $(function(){
         var url = location.href;
         var items = $(".taskbar-item");
+        var sidebar = $(".bf-settings-sidebar-nav li a");
         $.each(items,function (i, item) {
             var taskurl = $(item).find('a').attr('href');
             if(url.indexOf(taskurl)>0){
@@ -160,7 +161,11 @@
             }else {
                 $(item).removeClass('active')
             }
-
+        })
+        $.each(sidebar,function (i, a) {
+            var ahref = $(a).attr('href');
+            var css = url.indexOf(ahref)>0?"#5731b3":"#aaa";
+            $(a).css('color',css);
         })
     });
 
