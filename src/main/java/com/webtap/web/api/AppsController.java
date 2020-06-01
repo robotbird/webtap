@@ -50,7 +50,14 @@ public class 	AppsController extends BaseController{
 
 		List<App> appList = appService.getAllApps();
 		AppCategory category = new AppCategory();
-		category.setOrgId(getOrgId());
+
+		Long orgId = getOrgId();
+		if(orgId==0){
+		    Organization organization = organizationService.getOrganizations().get(0);
+		    orgId = organization.getId();
+        }
+		category.setOrgId(orgId);
+
 		List<AppCategory> categoryList = appCategoryService.getAppCategories(category);
 
         JSONObject result = appListJson(appList,categoryList);
