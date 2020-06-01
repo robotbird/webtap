@@ -48,17 +48,15 @@ public class 	AppsController extends BaseController{
 	@RequestMapping(value = "/apps",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public String getAppsAndCats() {
 
-		List<App> appList = appService.getAllApps();
-		AppCategory category = new AppCategory();
-
-		Long orgId = getOrgId();
-		if(orgId==0){
-		    Organization organization = organizationService.getOrganizations().get(0);
-		    orgId = organization.getId();
+	    Organization organization =null;
+        Long orgId = getOrgId();
+	    if(orgId==0L){
+            organization = organizationService.getOrganizations().get(0);
+            orgId = organization.getId();
         }
-		category.setOrgId(orgId);
+		List<App> appList = appService.getAppsByOrgId(orgId);
 
-		List<AppCategory> categoryList = appCategoryService.getAppCategories(category);
+		List<AppCategory> categoryList = appCategoryService.getAppCategories(orgId);
 
         JSONObject result = appListJson(appList,categoryList);
 
