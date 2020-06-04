@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +42,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Value("${webtap.cdn}")
     private String cdn = "";
+
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
