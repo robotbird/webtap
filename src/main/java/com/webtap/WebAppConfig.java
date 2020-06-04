@@ -7,8 +7,12 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
+import javax.annotation.Resource;
 import javax.servlet.MultipartConfigElement;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 文件路径映射类
@@ -28,6 +32,22 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     public WebAppConfig(UserAuthenticationInterceptor securityInterceptor) {
         super();
         this.securityInterceptor = securityInterceptor;
+    }
+
+    @Resource(name="thymeleafViewResolver")
+    private ThymeleafViewResolver thymeleafViewResolver;
+
+    @Value("${webtap.cdn}")
+    private String cdn = "";
+
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        if (thymeleafViewResolver != null) {
+            Map<String, Object> vars = new HashMap<>(1);
+            vars.put("cdn", cdn);
+            thymeleafViewResolver.setStaticVariables(vars);
+        }
+        super.configureViewResolvers(registry);
     }
 
     @Override

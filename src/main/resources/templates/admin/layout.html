@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Webtap </title>
-    <link href="http://res.xisukeji.com/webtap/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{${cdn}+'admin/css/bootstrap.min.css'}" rel="stylesheet">
     <link href="/admin/css/fontawesome.min.css" rel="stylesheet">
-    <link href="http://res.xisukeji.com/webtap/admin/css/styles.min.css" rel="stylesheet">
+    <link th:href="@{${cdn}+'admin/css/styles.min.css'}" rel="stylesheet">
     <style>
         .dirty {
             border-color: #5A5;
@@ -119,19 +119,19 @@
 
 </div>
 
-<script src="http://res.xisukeji.com/webtap/js/vue.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/axios.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/validators.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/vuelidate.min.js"></script>
+<script th:src="@{${cdn}+'js/vue.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/axios.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/validators.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/vuelidate.min.js'}" ></script>
 
 
-<script src="http://res.xisukeji.com/webtap/admin/js/lib/jquery.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/lib/toastr.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/lib/popper.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/lib/bootstrap.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/app/app.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/app/dataService.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/app/notificationsController.js"></script>
+<script th:src="@{${cdn}+'admin/js/lib/jquery.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/toastr.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/popper.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/bootstrap.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/app/app.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/app/dataService.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/app/notificationsController.js'}" ></script>
 <script>
     var webRoot = '/';
 

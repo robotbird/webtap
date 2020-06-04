@@ -10,8 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--begin::Web font -->
-    <link rel="stylesheet" href="http://res.xisukeji.com/webtap/vendor/vendors.bundle.css"></link>
-    <link rel="stylesheet" href="http://res.xisukeji.com/webtap/vendor/style.bundle.css"></link>
+    <link rel="stylesheet" th:href="@{${cdn}+'vendor/vendors.bundle.css'}"></link>
+    <link rel="stylesheet" th:href="@{${cdn}+'vendor/style.bundle.css'}"></link>
 </head>
 <!-- end::Head -->
 <!-- end::Body -->
@@ -141,9 +141,10 @@
     </div>
 </div>
 <!-- end:: Page -->
-<script src="http://res.xisukeji.com/webtap/js/jquery.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/jquery.validate.min.js"></script>
-<<script src="http://res.xisukeji.com/webtap/vendor/login.js"></script>
+<script th:src="@{${cdn}+'js/lib/jquery.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/jquery.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/jquery.validate.min.js'}" ></script>
+<script th:src="@{${cdn}+'vendor/login.js'}" ></script>
 </body>
 <!-- end::Body -->
 </html>

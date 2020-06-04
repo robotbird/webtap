@@ -9,6 +9,7 @@ import com.webtap.utils.MD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class BaseController {
 
-    protected Logger logger =  LoggerFactory.getLogger(this.getClass());
+      protected Logger logger =  LoggerFactory.getLogger(this.getClass());
     
     protected Response result(ExceptionMsg msg){
     	return new Response(msg);

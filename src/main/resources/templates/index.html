@@ -4,8 +4,8 @@
     <meta charset="UTF-8"></meta>
     <title>WebTap</title>
 
-    <link href="http://res.xisukeji.com/webtap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://res.xisukeji.com/webtap/css/zeroModal.css" />
+    <link th:href="@{${cdn}+'css/bootstrap.min.css'}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{${cdn}+'css/zeroModal.css'}" />
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_926032_jplb4eto8s.css">
     <script src="http://at.alicdn.com/t/font_926032_nx02upyp0a.js"></script>
     <style>
@@ -206,7 +206,7 @@
             <li v-else><a href="/login">Sign in</a> </li>
 
 
-            <li><span class="user-pic"></span> <img src="http://res.xisukeji.com/webtap/img/userpic.png" alt="User profile pic" /> </li>
+            <li><span class="user-pic"></span> <img  th:src="@{${cdn}+'img/userpic.png'}" alt="User profile pic" /> </li>
 
             <!--<li><img src="img/msg.png" alt="Message" /> </li>-->
             <!--<li><span class="settings-quick"></span> <img src="img/nav-link.png" alt="Settings and quick links" /> </li>-->
@@ -253,18 +253,16 @@
 
     </ul>
 </div>
-<!--
-http://res.xisukeji.com/webtap/img/2.png
--->
+
 </body>
 
-<script src="http://res.xisukeji.com/webtap/js/vue.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/axios.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/jquery.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/jquery.autocomplete.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/js/zeroModal.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/lib/bootstrap.min.js"></script>
-<script src="http://res.xisukeji.com/webtap/admin/js/lib/toastr.min.js"></script>
+<script th:src="@{${cdn}+'js/vue.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/axios.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/jquery.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/jquery.autocomplete.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/zeroModal.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/bootstrap.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/toastr.min.js'}" ></script>
 
 
 <script>
