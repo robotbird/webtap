@@ -11,7 +11,7 @@
  Target Server Version : 50716
  File Encoding         : 65001
 
- Date: 07/06/2020 19:50:29
+ Date: 07/06/2020 22:56:42
 */
 
 SET NAMES utf8mb4;
@@ -201,6 +201,5 @@ CREATE TABLE `wt_users`  (
 -- Records of wt_users
 -- ----------------------------
 INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'webtap', '440417f0-c621-4e55-b5e3-c56610fe655b', 1, NULL);
-INSERT INTO `wt_users` VALUES (6, NULL, 1590230164474, 'yepeng@utry.cn', NULL, 1590230164474, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'yepeng', NULL, 6, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
