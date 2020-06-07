@@ -150,6 +150,7 @@ public class AuthorsController extends BaseController{
 
         try {
             User user = getUser();
+
             String password = user.getPassWord();
             String username = changePwd.getUserName();
 

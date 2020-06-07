@@ -100,7 +100,6 @@
                 organization: {},
                 user: {},
                 password: {
-                    userName: 'userName',
                     oldPassword: '',
                     newPassword: '',
                     confirmPassword: ''
@@ -112,7 +111,6 @@
                      email: { required, email }
                  },
                  password: {
-                     userName: { required },
                      oldPassword: { required, minLength: minLength(4) },
                      newPassword: { required, minLength: minLength(4) },
                      confirmPassword: { required, minLength: minLength(4), sameAsPassword: sameAs('newPassword') }
