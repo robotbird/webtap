@@ -11,7 +11,7 @@
  Target Server Version : 50716
  File Encoding         : 65001
 
- Date: 09/05/2020 09:16:00
+ Date: 07/06/2020 19:50:29
 */
 
 SET NAMES utf8mb4;
@@ -28,16 +28,15 @@ CREATE TABLE `wt_app_category`  (
   `app_amount` bigint(255) NULL DEFAULT NULL,
   `user_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_app_category
 -- ----------------------------
 INSERT INTO `wt_app_category` VALUES (1, '产品', 1, 4, NULL);
 INSERT INTO `wt_app_category` VALUES (2, '开发', 1, 0, NULL);
-INSERT INTO `wt_app_category` VALUES (3, '售前', 1, 3, NULL);
 INSERT INTO `wt_app_category` VALUES (4, '运营', 1, 3, NULL);
-INSERT INTO `wt_app_category` VALUES (5, '运维', 1, 6, 1);
+INSERT INTO `wt_app_category` VALUES (6, '项目', 1, 0, 1);
 
 -- ----------------------------
 -- Table structure for wt_apps
@@ -62,26 +61,31 @@ CREATE TABLE `wt_apps`  (
   `password_required` bigint(20) NULL DEFAULT NULL,
   `short_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_apps
 -- ----------------------------
 INSERT INTO `wt_apps` VALUES (1, 5, 1, 5, '/upload/logo/kod.png', '来来来', '000', 'jjo', 0, 1585129828285, 0, '用户名：admin\n密码：123456', 8, NULL, NULL, NULL, NULL);
-INSERT INTO `wt_apps` VALUES (3, 5, 1, 1, '/upload/logo/chandao.png', 'http://www.italent.cn', '禅道', '禅道', 1577200841053, 1585482388402, 1, '用户名：admin\n密码：123456', 1, NULL, '123456', 1, NULL);
-INSERT INTO `wt_apps` VALUES (4, 5, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日报', '日报', 1577200841053, 1585129518860, 1, '', 1, NULL, NULL, NULL, NULL);
-INSERT INTO `wt_apps` VALUES (6, 0, 1, 1, '/upload/logo/iconfont.png', 'http://www.italent.cn', '图标', '图标', 1577200841053, 1577200841053, 1, '', 1, NULL, NULL, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (14, 5, 1, 5, '/upload/logo/gitlab.png', 'lll', 'gitlab', 'll', 0, 1585129318949, 0, '', 0, NULL, NULL, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (15, 1, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9, NULL, NULL, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (16, 4, 1, 5, '/upload/logo/chandao.png', 'kk', 'lllll', 'kkk', 0, 0, 0, '', 9, NULL, NULL, NULL, NULL);
-INSERT INTO `wt_apps` VALUES (17, 5, 1, 1, '/upload/logo/daily.png', 'http://www.italent.cn', '日程', '日报', 1577200841053, 1585129817556, 1, '密码：123', 1, NULL, NULL, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (18, 3, 1, 5, '/', 'hhh', 'hhh', 'hhh', 0, 0, 0, '', 4, NULL, NULL, NULL, NULL);
 INSERT INTO `wt_apps` VALUES (19, 3, 1, 5, '/', 'dsdsd', 'eee', 'sdsds', 0, 0, 0, '', 121, NULL, NULL, NULL, NULL);
-INSERT INTO `wt_apps` VALUES (20, 0, 1, 1, '//upload/logo/excel.png', 'http://www.utry.cn', '远传', NULL, 1584883843347, 1588565939853, 0, NULL, 100000, NULL, NULL, 0, NULL);
-INSERT INTO `wt_apps` VALUES (21, 0, 1, 1, '/upload/logo/italent.png', 'http://www.baidu.com', '百度', NULL, 1584883872073, 1586234217675, 0, NULL, 100000, NULL, NULL, 0, NULL);
 INSERT INTO `wt_apps` VALUES (22, 5, 1, 5, '/upload/logo/zabbix.png', 'http://zabbix.utrycc.com/zabbix', 'zabbix-U客', NULL, 1585110929159, 1585129211124, 0, 'Admin/zabbix', 9999, 1, NULL, NULL, NULL);
-INSERT INTO `wt_apps` VALUES (23, 0, 1, 1, '/upload/logo/excel.png', 'http://www.baidu.com', 'test', NULL, 1586183593516, 1586183593516, 0, NULL, 100000, NULL, NULL, 0, NULL);
-INSERT INTO `wt_apps` VALUES (24, 0, 1, 1, '', 'http://www.51ukf.com', 'U客', NULL, 1586439387313, 1586439387313, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (25, 0, 1, 1, 'http://localhost:8080/upload/logo/shimo.png', 'https://shimo.im/', '在线office', NULL, 1591518012445, 1591518012445, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (26, 0, 1, 1, 'http://localhost:8080/upload/logo/on.png', 'https://www.processon.com/', '流程图', NULL, 1591518081208, 1591518081208, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (27, 0, 1, 1, 'http://localhost:8080/upload/logo/photoshop.png', 'https://ps.gaoding.com/#/', '在线PS', NULL, 1591518125857, 1591518125857, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (28, 0, 1, 1, 'http://localhost:8080/upload/logo/italent.png', 'https://www.italent.cn/', 'OA', NULL, 1591518337105, 1591518337105, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (29, 0, 1, 1, 'http://localhost:8080/upload/logo/kod.png', 'http://demo.kodcloud.com/#user/login', '网盘', NULL, 1591518428084, 1591518428084, 0, '账号demo，密码demo', 100000, NULL, NULL, 1, NULL);
+INSERT INTO `wt_apps` VALUES (30, 0, 1, 1, 'http://localhost:8080/upload/logo/gitlab.png', 'https://gitlab.com/', '代码管理', NULL, 1591518543071, 1591518543071, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (31, 0, 1, 1, 'http://localhost:8080/upload/logo/chandao.png', 'https://demo.zentao.net/my/', '禅道', NULL, 1591518765411, 1591518765411, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (32, 1, 1, 1, 'http://localhost:8080/upload/logo/excel.png', 'https://shimo.im/sheets/qJw9YXQkdtxPWC9c/MODOC/', 'webtap技术选型', NULL, 1591519006648, 1591519006648, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (33, 2, 1, 1, 'http://localhost:8080/upload/logo/github.png', 'https://github.com/robotbird/webtap', 'webtap代码', NULL, 1591519290046, 1591519290046, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (34, 0, 1, 1, 'http://localhost:8080/upload/logo/teambition.png', 'https://www.teambition.com/', '项目管理', NULL, 1591519426805, 1591519426805, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (35, 0, 1, 1, 'http://localhost:8080/upload/logo/slack.png', 'https://slack.com/', 'slack', NULL, 1591519486086, 1591519486086, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (37, 4, 1, 1, 'http://localhost:8080/upload/logo/cnblogs.png', 'https://www.cnblogs.com/jqbird/', '博客', NULL, 1591519978655, 1591519978655, 0, NULL, 100000, NULL, NULL, 0, NULL);
+INSERT INTO `wt_apps` VALUES (38, 6, 1, 1, 'http://localhost:8080/upload/logo/excel.png', 'https://shimo.im/sheets/qK3yKg6gtCrktHPY/ruGeP/', 'webtap计划', NULL, 1591520036286, 1591520036286, 0, NULL, 100000, NULL, NULL, 0, NULL);
 
 -- ----------------------------
 -- Table structure for wt_organizations
@@ -94,16 +98,13 @@ CREATE TABLE `wt_organizations`  (
   `short_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '短地址',
   `create_time` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_organizations
 -- ----------------------------
-INSERT INTO `wt_organizations` VALUES (1, 'U客', 'upload/logo/3.png', 'utrycloud', 1577200841053);
-INSERT INTO `wt_organizations` VALUES (2, '机器人', 'upload/logo/3.png', 'utryai', 1577200841053);
-INSERT INTO `wt_organizations` VALUES (3, '众包', NULL, 'zhongbao', NULL);
-INSERT INTO `wt_organizations` VALUES (4, '测试', NULL, 'test', NULL);
-INSERT INTO `wt_organizations` VALUES (5, '测试2', NULL, 'test2', NULL);
+INSERT INTO `wt_organizations` VALUES (1, '机器鸟', 'upload/logo/webtap.png', 'robotbird', 1591517598646);
+INSERT INTO `wt_organizations` VALUES (6, '智能产品', 'upload/logo/webtap.png', 'ai', 1591517576963);
 
 -- ----------------------------
 -- Table structure for wt_resources
@@ -194,15 +195,12 @@ CREATE TABLE `wt_users`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_ob8kqyqqgmefl0aco34akdtpe`(`email`) USING BTREE,
   UNIQUE INDEX `UK_lqjrcobrh9jc8wpcar64q1bfh`(`user_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wt_users
 -- ----------------------------
-INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'robotbird', '440417f0-c621-4e55-b5e3-c56610fe655b', 1, NULL);
-INSERT INTO `wt_users` VALUES (2, NULL, 1577540632740, '330296409@qq.com', NULL, 1577540632740, '2019-12-28 22:43:21.059', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'yepeng', 'fc1dc5c9-33d7-4f17-9598-cc0490cfcb08', 1, NULL);
-INSERT INTO `wt_users` VALUES (3, NULL, 1584592735270, 'test@qq.com', NULL, 1584592735270, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'test', NULL, 1, NULL);
-INSERT INTO `wt_users` VALUES (4, NULL, 1584592879118, 'test2', NULL, 1584592879118, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'test2', NULL, 1, NULL);
-INSERT INTO `wt_users` VALUES (5, NULL, 1584593011554, 'dfsf@qq.com', NULL, 1584593011554, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'test3', NULL, 1, NULL);
+INSERT INTO `wt_users` VALUES (1, NULL, 1577200840955, 'robotbird@qq.com', NULL, 1577200840955, '2020-01-29 19:51:15.993', '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'webtap', '440417f0-c621-4e55-b5e3-c56610fe655b', 1, NULL);
+INSERT INTO `wt_users` VALUES (6, NULL, 1590230164474, 'yepeng@utry.cn', NULL, 1590230164474, NULL, '6db3aabc3ca5f673ac4e2b8221c539d3', 'img/favicon.png', 'yepeng', NULL, 6, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
