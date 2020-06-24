@@ -2,7 +2,10 @@ package com.webtap.service;
 
 
 import com.webtap.core.object.AbstractService;
+import com.webtap.domain.entity.Role;
 import com.webtap.domain.entity.UserRole;
+
+import java.util.List;
 
 /**
  * @author robotbird
@@ -26,4 +29,5 @@ public interface UserRoleService extends AbstractService<UserRole,Long> {
      * @param userId
      */
     void removeByUserId(Long userId);
+
 }

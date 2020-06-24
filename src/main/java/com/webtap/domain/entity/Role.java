@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "wt_roles")
 public class Role implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -29,29 +31,21 @@ public class Role implements Serializable {
     @Column(name = "org_id")
     private Long orgId;
 
+    public Role(){
+
+    }
+    public Role (Long id, String name, String description, Long available, Date createTime,Date updateTime,Long orgId){
+      this.id = id;
+      this.name = name;
+      this.description = description;
+      this.available = available;
+      this.createTime = createTime;
+      this.updateTime = updateTime;
+      this.orgId = orgId;
+    }
+
     @Transient
     private Integer selected;
-
-    @Transient
-    private Role sysRole;
-
-//    public Role() {
-//        this.sysRole = new Role();
-//    }
-
-    public Role(Role sysRole) {
-        this.sysRole = sysRole;
-    }
-
-    @JsonIgnore
-    public Role getSysRole() {
-        return this.sysRole;
-    }
-
-    @JsonIgnore
-    public Role getRole() {
-        return sysRole;
-    }
 
   public Long getId() {
     return id;

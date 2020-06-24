@@ -13,8 +13,8 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query(" SELECT r.id,  r.name, r.description,  0 AS selected " +
             "FROM  Role r  WHERE r.available = 1")
     List<Role> queryRoleListWithSelected(@Param("userId") Long userId);
-//( CASE WHEN (  SELECT ur.roleId  FROM UserRole ur WHERE  ur.user_id = :userId  AND  ur.roleId = r.id ) THEN 1 ELSE 0 END )
 
-    @Query("SELECT r.id, r.name ,r.description FROM Role r ,UserRole ur  WHERE  ur.roleId = r.id and ur.userId = userId AND r.available = 1")
-    List<Role> listRolesByUserId (Long userId);
+    @Query(value = "SELECT r.id,r.name,r.available,r.description,r.create_time,r.update_time,r.org_id " +
+            "FROM wt_roles r ,wt_user_role ur  WHERE  ur.role_id = r.id and ur.user_id = :userId",nativeQuery = true)
+    List<Role> findRolesByUserId(@Param("userId") Long userId);
 }

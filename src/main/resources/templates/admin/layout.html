@@ -169,6 +169,25 @@
         })
     });
 
+
+    const bar = new Vue({
+        el: '#sider-bar',
+        data: {
+            menus:{}
+        },
+        methods: {
+            load: function () {
+                axios.get(webRoot + 'api/menu/list')
+                    .then(response => {
+                    this.menus = response.data;
+                $('#sider-bar').css('display', '');
+            }).catch(function (error) { toastr.error(error); });
+            }
+        },
+        beforeMount() {
+            this.load();
+        }
+    })
 </script>
 
 

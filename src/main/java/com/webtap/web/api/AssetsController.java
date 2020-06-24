@@ -2,14 +2,18 @@ package com.webtap.web.api;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.webtap.domain.entity.Asset;
+import com.webtap.domain.entity.*;
+import com.webtap.domain.enums.RoleTypeEnum;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.ResponseData;
-import com.webtap.service.StorageService;
+import com.webtap.service.*;
 import com.webtap.utils.Pager;
 import com.webtap.utils.URLUtil;
 import com.webtap.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -28,6 +33,17 @@ public class AssetsController extends BaseController{
 	@Autowired
 	private StorageService storageService;
 
+	@Autowired
+	private ResourceService resourceService;
+
+	@Autowired
+	private RoleResourceService roleResourceService;
+
+	@Autowired
+	private UserRoleService userRoleService;
+
+	@Autowired
+	private RoleService roleService;
 	/**
 	 * 返回文件列表
 	 * @param page
@@ -104,5 +120,36 @@ public class AssetsController extends BaseController{
 		return imgurl;
 	}
 
+	/**
+	 * get all menu
+	 * @return
+	 */
+	@RequestMapping(value = "/menu/list", method = RequestMethod.GET)
+	public ResponseEntity<List<Resource>> getMenu() {
+		List<Resource> menus = resourceService.findAll();
+
+		//获取用户角色
+        User user = getUser();
+        List<Role> roles = roleService.findRolesByUserId(user.getId());
+
+        // 判断是否是管理员
+        if(roles!=null){
+          List<Role> admins =  roles.stream().filter(role -> role.getName().equals(RoleTypeEnum.ADMIN.getDesc())).collect(Collectors.toList());
+          if(admins.size()>0){
+              return new ResponseEntity<List<Resource>>(menus, HttpStatus.OK);
+          }else {
+              List<Resource> list = menus.stream().filter(m->m.getUrl().equals("/admin/settings/profile")).collect(Collectors.toList());
+              return new ResponseEntity<List<Resource>>(list, HttpStatus.OK);
+          }
+        }
+
+        //如果是管理员则显示全部
+        //否则只显示普通菜单
+
+		if (menus.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Resource>>(menus, HttpStatus.OK);
+	}
 
 }

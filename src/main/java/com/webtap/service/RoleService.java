@@ -31,7 +31,7 @@ public interface RoleService extends AbstractService<Role,Long> {
      * @param userId
      * @return
      */
-    List<Role> listRolesByUserId(Long userId);
+    List<Role> findRolesByUserId(Long userId);
 
 
     /**

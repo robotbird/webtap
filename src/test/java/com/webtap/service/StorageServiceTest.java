@@ -1,5 +1,6 @@
 package com.webtap.service;
 
+import com.webtap.domain.entity.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,9 @@ public class StorageServiceTest {
 	@Autowired
   private StorageService storageService;
 
+	@Autowired
+	private ResourceService resourceService;
+
 	@Value("${web.upload}")
 	private String webUpload;
 
@@ -30,6 +34,12 @@ public class StorageServiceTest {
 		//"D:\\work\\my\\webtap\\code\\webtap\\src\\main\\resources\\static\\upload\\logo"
 		List<File> fileList = storageService.GetAssets(path);
 		System.out.println("logo 数量==================================="+fileList.size());
+	}
+
+	@Test
+	public void testMenu() throws Exception{
+		List<Resource> list = resourceService.findAll();
+		Assert.assertEquals(list.size(),5);
 	}
 
 }
