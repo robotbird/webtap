@@ -136,15 +136,16 @@ public class AssetsController extends BaseController{
         if(roles!=null){
           List<Role> admins =  roles.stream().filter(role -> role.getName().equals(RoleTypeEnum.ADMIN.getDesc())).collect(Collectors.toList());
           if(admins.size()>0){
+              //如果是管理员则显示全部
               return new ResponseEntity<List<Resource>>(menus, HttpStatus.OK);
           }else {
-              List<Resource> list = menus.stream().filter(m->m.getUrl().equals("/admin/settings/profile")).collect(Collectors.toList());
+              //否则只显示个人信息
+              List<Resource> list = menus.stream().filter(m->m.getPermission().equals("1")).collect(Collectors.toList());
               return new ResponseEntity<List<Resource>>(list, HttpStatus.OK);
           }
         }
+      //TODO:个人只显示自己的添加或者收藏的应用
 
-        //如果是管理员则显示全部
-        //否则只显示普通菜单
 
 		if (menus.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);

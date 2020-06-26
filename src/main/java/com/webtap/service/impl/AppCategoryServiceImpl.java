@@ -28,7 +28,12 @@ public class AppCategoryServiceImpl implements AppCategoryService {
 	private AppCategoryRepository appCategoryRepository;
 
 	public List<AppCategory> getAppCategories(AppCategory category) {
-        return appCategoryRepository.findAllByOrgId(category.getOrgId());
+
+		ExampleMatcher matcher = ExampleMatcher.matching()
+				.withMatcher("orgId", ExampleMatcher.GenericPropertyMatchers.contains())
+				.withMatcher("userId",ExampleMatcher.GenericPropertyMatchers.contains());
+		Example<AppCategory> example = Example.of(category ,matcher);
+        return appCategoryRepository.findAll(example);
 	}
 
 	public List<AppCategory> getAppCategories(Long orgid) {

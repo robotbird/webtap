@@ -1,16 +1,15 @@
 package com.webtap.web.api;
 
 import com.webtap.comm.aop.LoggerManage;
-import com.webtap.domain.entity.App;
-import com.webtap.domain.entity.AppCategory;
-import com.webtap.domain.entity.Organization;
-import com.webtap.domain.entity.User;
+import com.webtap.domain.entity.*;
+import com.webtap.domain.enums.RoleTypeEnum;
 import com.webtap.domain.enums.ViewPermission;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.service.AppCategoryService;
 import com.webtap.service.AppService;
 import com.webtap.service.OrganizationService;
+import com.webtap.service.RoleService;
 import com.webtap.utils.StringUtil;
 import com.webtap.web.BaseController;
 import net.minidev.json.JSONObject;
@@ -39,6 +38,8 @@ public class 	AppsController extends BaseController{
     @Autowired
     private OrganizationService  organizationService;
 
+    @Autowired
+    private RoleService roleService;
 
 
 	/**
@@ -169,6 +170,7 @@ public class 	AppsController extends BaseController{
 
 		if(user!=null){
 		    app.setOrgId(user.getOrgId());
+            app.setUserId(user.getId());
             apps = appService.getApps(app);
         }
 
@@ -295,6 +297,12 @@ public class 	AppsController extends BaseController{
 	public ResponseEntity<List<AppCategory>> getAllAppCategories() {
         AppCategory category = new AppCategory();
         category.setOrgId(getOrgId());
+
+        User user = getUser();
+        if(user!=null){
+            category.setUserId(user.getId());
+        }
+
 		List<AppCategory> categoryList = appCategoryService.getAppCategories(category);
 
 		if (categoryList.isEmpty()) {

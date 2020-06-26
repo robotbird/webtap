@@ -72,6 +72,7 @@ public class AppServiceImpl implements AppService {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("orgId", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("userId",ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("categoryId" , ExampleMatcher.GenericPropertyMatchers.contains());
         Example<App> example = Example.of(app ,matcher);
         List<App> list = appRepository.findAll(example);
