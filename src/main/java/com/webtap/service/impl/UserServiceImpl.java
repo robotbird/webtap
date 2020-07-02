@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service("userService")
@@ -57,7 +59,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers(User user) {
-        return userRepository.findAllByOrgId(user.getOrgId());
+        List<Object> list = userRepository.findAllByOrgId(user.getOrgId());
+        List<User> userList = new ArrayList<>();
+        Collections.addAll(userList, list.toArray(new User[list.size()]));
+        return userList;
     }
 
 

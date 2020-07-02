@@ -15,6 +15,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,10 +53,10 @@ public class UserRepositoryTest {
 
 	@Test
 	public void testfindAllByOrgId(){
-		List<User> list = userRepository.findAllByOrgId(1L);
-		for(Object user:list){
-			User user1 =(User)user;
-		}
+		List<Object> list = userRepository.findAllByOrgId(1L);
+		List<User> userList = new ArrayList<>();
+		Collections.addAll(userList, list.toArray(new User[list.size()]));
+		userList.size();
 	}
 
 //	@Test

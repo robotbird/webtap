@@ -22,13 +22,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findById(long  id);
 
-    @Query(value = "SELECT u.id,u.user_name,u.email,u.introduction,u.background_picture,u.create_time,u.last_modify_time,u.org_id,u.out_date,u.pass_word,u.profile_picture,u.user_type,u.validata_code,group_concat(r.description) as role \n" +
+    @Query(value = "SELECT u.id,u.user_name userName,u.email,u.introduction ,u.background_picture backgroundPicture,u.create_time createTime,u.last_modify_time lastModifyTime,u.org_id orgId,u.out_date outDate,u.pass_word passWord,u.profile_picture profilePicture,u.user_type userType,u.validata_code validataCode,group_concat(r.description) as role \n" +
             "FROM wt_users u \n" +
             "LEFT JOIN wt_user_role ur on u.id = ur.user_id \n" +
             "LEFT JOIN wt_roles r on r.id = ur.role_id \n" +
             "WHERE u.org_id =:orgId " +
             "GROUP BY u.id",nativeQuery = true)
-    List<User> findAllByOrgId(@Param("orgId") Long orgId);
+    List<Object> findAllByOrgId(@Param("orgId") Long orgId);
 
 
 //    @Query(value = "SELECT u.id,u.user_name,u.email,u.introduction,u.background_picture,u.create_time,u.last_modify_time,u.org_id,u.out_date,u.pass_word,u.profile_picture,u.user_type,u.validata_code,group_concat(r.description) as role \n" +
