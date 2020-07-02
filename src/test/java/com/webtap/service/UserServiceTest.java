@@ -1,6 +1,7 @@
 package com.webtap.service;
 
 import com.webtap.domain.entity.Role;
+import com.webtap.domain.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,9 @@ public class UserServiceTest {
 	@Autowired
 	private RoleService roleService;
 
+	@Autowired
+	private UserService userService;
+
 	@Test
 	public void testGetRoles(){
         List<Role> roles = roleService.findRolesByUserId(1L);
@@ -40,6 +44,14 @@ public class UserServiceTest {
 //                Assert.fail();
 //            }
         }
+    }
+
+    @Test
+    public void testgetUsers(){
+        User user = new User();
+        user.setOrgId(1L);
+        List<User> users =  userService.getUsers(user);
+        users.size();
     }
 
 }

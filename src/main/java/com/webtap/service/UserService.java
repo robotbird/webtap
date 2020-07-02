@@ -66,7 +66,6 @@ public interface UserService {
      */
     public List<User> getUsers(User user);
 
-
     /**
      * return users by roleId
      * @param roleId

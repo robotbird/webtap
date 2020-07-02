@@ -4,6 +4,7 @@ import com.webtap.domain.entity.App;
 import com.webtap.domain.entity.AppCategory;
 import com.webtap.domain.entity.Role;
 import com.webtap.domain.entity.User;
+import com.webtap.domain.view.UserVO;
 import com.webtap.repository.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,5 +48,21 @@ public class UserRepositoryTest {
 			User user1 =(User)user;
 		}
 	}
+
+	@Test
+	public void testfindAllByOrgId(){
+		List<User> list = userRepository.findAllByOrgId(1L);
+		for(Object user:list){
+			User user1 =(User)user;
+		}
+	}
+
+//	public void testfindAllByOrgId2(){
+//		List<User> list = userRepository.findAllByOrgId3(1L);
+//
+//		for(User user:list){
+//			User user1 =user;
+//		}
+//	}
 
 }

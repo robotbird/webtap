@@ -2,6 +2,7 @@ package com.webtap.repository;
 
 import javax.transaction.Transactional;
 
+import com.webtap.domain.view.UserVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +22,31 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findById(long  id);
 
-    List<User> findAllByOrgId(Long orgId);
+    @Query(value = "SELECT u.id,u.user_name,u.email,u.introduction,u.background_picture,u.create_time,u.last_modify_time,u.org_id,u.out_date,u.pass_word,u.profile_picture,u.user_type,u.validata_code,group_concat(r.description) as role \n" +
+            "FROM wt_users u \n" +
+            "LEFT JOIN wt_user_role ur on u.id = ur.user_id \n" +
+            "LEFT JOIN wt_roles r on r.id = ur.role_id \n" +
+            "WHERE u.org_id =:orgId " +
+            "GROUP BY u.id",nativeQuery = true)
+    List<User> findAllByOrgId(@Param("orgId") Long orgId);
+
+
+    @Query(value = "SELECT u.*,group_concat(r.description) as role \n" +
+            "FROM wt_users u\n" +
+            "LEFT JOIN wt_user_role ur on u.id = ur.user_id\n" +
+            "LEFT JOIN wt_roles r on r.id = ur.role_id\n" +
+            "WHERE u.org_id =:orgId " +
+            "GROUP BY u.id;",nativeQuery = true)
+    List<UserVO> findAllByOrgId2(@Param("orgId") Long orgId);
+
+
+//    @Query("SELECT u.id,1 as role " +
+//            "FROM User u " +
+//            "LEFT JOIN UserRole ur on u.id = ur.userId " +
+//            "LEFT JOIN Role r on r.id = ur.roleId " +
+//            "WHERE u.orgId =:orgId ")
+//    List<User> findAllByOrgId3(@Param("orgId") Long orgId);
+
 
     @Query("SELECT s.id,s.userName " +
             " FROM User s, UserRole ur " +

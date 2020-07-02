@@ -69,6 +69,16 @@
 
                                     <div class="form-group">
                                         <label class="form-group-label">
+                                            角色:
+                                        </label>
+                                        <select class="form-control"  id="user-role"  >
+                                            <option v-for="role in roles"  :value="role.id" >{{role.description}}</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="form-group-label">
                                             密码:
                                         </label>
                                         <input type="text" class="form-control" v-model="user.passWord">
@@ -143,6 +153,7 @@
             el: '#app',
             data: {
                 users: {},
+                roles:{},
                 user:{editType:"新增"},
                 password: {
                     userName: '',
@@ -162,6 +173,12 @@
             },
             methods: {
                 load: function () {
+
+                    axios.get(webRoot + 'api/roles')
+                        .then(response => {
+                        this.roles = response.data;
+                    }).catch(function (error) { toastr.error(error); });
+
                     axios.get(webRoot + 'api/authors')
                         .then(response => {
                         this.users = response.data;

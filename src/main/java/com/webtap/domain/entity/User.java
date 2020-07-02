@@ -44,6 +44,17 @@ public class User implements Serializable {
 	@Column(name="user_type")
 	private String userType;
 
+	@Transient
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public User() {
 		super();
 	}

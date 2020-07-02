@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByOrgId(user.getOrgId());
     }
 
+
     @Override
     public List<User> getUsersByRoleId(Long roleId) {
         return userRepository.findAllByRoleId(roleId);
