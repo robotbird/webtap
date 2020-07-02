@@ -44,9 +44,10 @@ public class User implements Serializable {
 	@Column(name="user_type")
 	private String userType;
 
-	@Transient
+
 	private String role;
 
+	@Transient
 	public String getRole() {
 		return role;
 	}

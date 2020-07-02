@@ -57,11 +57,12 @@ public class UserRepositoryTest {
 		}
 	}
 
+//	@Test
 //	public void testfindAllByOrgId2(){
-//		List<User> list = userRepository.findAllByOrgId3(1L);
+//		List<UserVO> list = userRepository.findAllByOrgId2(1L);
 //
-//		for(User user:list){
-//			User user1 =user;
+//		for(UserVO user:list){
+//			UserVO user1 =user;
 //		}
 //	}
 
