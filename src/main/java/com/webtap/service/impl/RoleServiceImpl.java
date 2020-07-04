@@ -29,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Map<String, Object>> queryRoleListWithSelected(Long userId) {
-        List<Role> sysRole = roleRepository.queryRoleListWithSelected(userId);
+        List<Role> sysRole = roleRepository.queryRoleListWithSelected();
         if (CollectionUtils.isEmpty(sysRole)) {
             return null;
         }

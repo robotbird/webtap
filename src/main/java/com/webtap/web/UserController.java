@@ -86,8 +86,7 @@ public class UserController extends BaseController {
 			}
 			user.setPassWord(getPwd(user.getPassWord()));
 			user.setCreateTime(DateUtils.getCurrentTime());
-			user.setLastModifyTime(DateUtils.getCurrentTime());
-			user.setProfilePicture("img/favicon.png");
+
 			userRepository.save(user);
 			getSession().setAttribute(Const.LOGIN_SESSION_KEY, user);
 		} catch (Exception e) {
@@ -148,15 +147,6 @@ public class UserController extends BaseController {
 	public Response setNewPassword(String newpwd, String email, String sid) {
 		try {
 			User user = userRepository.findByEmail(email);
-			Timestamp outDate = Timestamp.valueOf(user.getOutDate());
-			if(outDate.getTime() <= System.currentTimeMillis()){ //表示已经过期
-				return result(ExceptionMsg.LinkOutdated);
-            }
-            String key = user.getEmail()+"$"+outDate.getTime()/1000*1000+"$"+user.getValidataCode();//数字签名
-            String digitalSignature = MD5Util.encrypt(key);
-            if(!digitalSignature.equals(sid)) {
-            	 return result(ExceptionMsg.LinkOutdated);
-            }
             userRepository.setNewPassword(getPwd(newpwd), email);
 		} catch (Exception e) {
 			// TODO: handle exception

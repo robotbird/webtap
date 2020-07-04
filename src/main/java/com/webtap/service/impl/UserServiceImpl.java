@@ -1,7 +1,10 @@
 package com.webtap.service.impl;
 
+import com.webtap.domain.entity.Role;
 import com.webtap.domain.entity.User;
+import com.webtap.repository.RoleRepository;
 import com.webtap.repository.UserRepository;
+import com.webtap.repository.UserRoleRepository;
 import com.webtap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,12 +14,20 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
     @Resource
     private JavaMailSender mailSender;
 
@@ -59,9 +70,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers(User user) {
-        List<Object> list = userRepository.findAllByOrgId(user.getOrgId());
-        List<User> userList = new ArrayList<>();
-        Collections.addAll(userList, list.toArray(new User[list.size()]));
+        List<Object []> objects = userRepository.findObjectsByOrgId(user.getOrgId());
+        List<User> userList = objects.stream().map(User::new).collect(Collectors.toList());
         return userList;
     }
 

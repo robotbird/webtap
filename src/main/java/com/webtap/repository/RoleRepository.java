@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Query(" SELECT r.id,  r.name, r.description,  0 AS selected " +
+    @Query(" SELECT r.id,  r.name, r.description,  13 AS selected " +
             "FROM  Role r  WHERE r.available = 1")
-    List<Role> queryRoleListWithSelected(@Param("userId") Long userId);
+    List<Role> queryRoleListWithSelected();
 
     @Query(value = "SELECT r.id,r.name,r.available,r.description,r.create_time,r.update_time,r.org_id " +
             "FROM wt_roles r ,wt_user_role ur  WHERE  ur.role_id = r.id and ur.user_id = :userId",nativeQuery = true)

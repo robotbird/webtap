@@ -100,8 +100,6 @@ public class AuthorsController extends BaseController{
             }
 
             user.setCreateTime(DateUtils.getCurrentTime());
-            user.setLastModifyTime(DateUtils.getCurrentTime());
-            user.setProfilePicture("img/favicon.png");
 
             if(user.getId()==null){
                 userService.create(user);
