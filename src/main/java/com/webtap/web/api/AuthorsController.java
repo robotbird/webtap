@@ -94,9 +94,9 @@ public class AuthorsController extends BaseController{
                 return result(ExceptionMsg.UserNameUsed);
             }
 
-//            if(user.getPassWord()!=null){
-//                user.setPassWord(getPwd(user.getPassWord()));
-//            }
+            if(user.getPassWord()!=null&&user.getId()==null){
+                user.setPassWord(getPwd(user.getPassWord()));
+            }
 
             if(user.getOrgId()==null){
                 user.setOrgId(currentUser.getOrgId());
