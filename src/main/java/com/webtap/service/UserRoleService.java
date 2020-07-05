@@ -3,6 +3,7 @@ package com.webtap.service;
 
 import com.webtap.core.object.AbstractService;
 import com.webtap.domain.entity.Role;
+import com.webtap.domain.entity.User;
 import com.webtap.domain.entity.UserRole;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public interface UserRoleService extends AbstractService<UserRole,Long> {
      * @param roleIds
      */
     void addUserRole(Long userId, String roleIds);
+
+    void addUserRole(User user);
+
+    void updateUserRole(User user);
 
     /**
      * 根据用户ID删除用户角色

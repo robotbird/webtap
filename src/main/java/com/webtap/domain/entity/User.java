@@ -30,6 +30,12 @@ public class User implements Serializable {
     @Transient
     private String strRole;
 
+    @Transient
+    private Long roleId;
+
+    @Transient
+    private List<Role> roleList;
+
     public User() {
         super();
     }
@@ -104,5 +110,30 @@ public class User implements Serializable {
 
     public void setStrRole(String strRole) {
         this.strRole = strRole;
+    }
+
+    public Long getRoleId() {
+
+        if(roleId!=null){
+            return roleId;
+        }
+
+        List<Role> roles = this.getRoleList();
+        if(roles!=null){
+            return roles.get(0).getId();
+        }
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 }

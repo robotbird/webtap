@@ -25,6 +25,15 @@ public class UserRole  implements Serializable {
 	private java.util.Date updateTime;
 
 
+	private Long orgId;
+
+	public UserRole(){
+
+    }
+
+public UserRole(Long roleId){
+    this.roleId = roleId;
+}
 
   public Long getId() {
     return id;
@@ -70,4 +79,11 @@ public class UserRole  implements Serializable {
     this.updateTime = updateTime;
   }
 
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
 }

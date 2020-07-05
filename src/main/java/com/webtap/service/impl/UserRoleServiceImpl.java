@@ -1,8 +1,10 @@
 package com.webtap.service.impl;
 
 
+import com.webtap.domain.entity.User;
 import com.webtap.domain.entity.UserRole;
 import com.webtap.repository.UserRoleRepository;
+import com.webtap.service.RoleService;
 import com.webtap.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Autowired
    private UserRoleRepository userRoleRepository;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 添加用户角色
@@ -47,6 +52,25 @@ public class UserRoleServiceImpl implements UserRoleService {
             save(u);
         }
 
+    }
+
+    @Override
+    public void addUserRole(User user) {
+
+        Long roleId = user.getRoleId();
+        UserRole userRole = new UserRole();
+        userRole.setRoleId(roleId);
+        userRole.setUserId(user.getId());
+        userRole.setOrgId(user.getOrgId());
+
+        save(userRole);
+    }
+
+    @Override
+    public void updateUserRole(User user) {
+        UserRole userRole = userRoleRepository.findAllByUserId(user.getId()).get(0);
+        userRole.setRoleId(user.getRoleId());
+        update(userRole);
     }
 
     @Override

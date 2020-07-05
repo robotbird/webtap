@@ -1,7 +1,6 @@
 package com.webtap.respository;
 
 import com.webtap.domain.entity.*;
-import com.webtap.domain.view.UserVO;
 import com.webtap.repository.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -180,11 +179,6 @@ public class UserRepositoryTest {
         List<T> list = new ArrayList<T>();
         for (Object[] obj : objList) {
             Constructor<T> cr = clz.getConstructor(cz);
-            User2 user2 = (User2) cr.newInstance(obj);
-
-            user2.getId();
-            //System.out.println(user2.getId());
-
             list.add(cr.newInstance(obj));
         }
         return list;

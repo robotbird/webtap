@@ -73,13 +73,13 @@
                                         <label class="form-group-label">
                                             角色:
                                         </label>
-                                        <select class="form-control"  id="user-role"  >
+                                        <select class="form-control"  id="user-role"  v-model="user.roleId" >
                                             <option v-for="role in roles"  :value="role.id" >{{role.description}}</option>
                                         </select>
                                     </div>
 
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="password">
                                         <label class="form-group-label">
                                             密码:
                                         </label>
@@ -204,11 +204,13 @@
                         .then(response => {
                         this.user = response.data;
                         this.user.editType = "编辑";
+                        $("#password").hide();
                     }).catch(function (error) { toastr.error(error); });
                     $("#modal-user").modal();
                 },
                 add:function () {
                     this.user = {editType:"新增"};
+                    this.user.roleId = 2;
                     $("#modal-user").modal();
                 },
                 remove:function (id) {

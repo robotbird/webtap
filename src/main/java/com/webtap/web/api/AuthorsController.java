@@ -3,11 +3,14 @@ package com.webtap.web.api;
 import com.webtap.comm.Const;
 import com.webtap.comm.aop.LoggerManage;
 import com.webtap.domain.entity.Organization;
+import com.webtap.domain.entity.Role;
 import com.webtap.domain.entity.User;
+import com.webtap.domain.entity.UserRole;
 import com.webtap.domain.result.ExceptionMsg;
 import com.webtap.domain.result.Response;
 import com.webtap.domain.view.ChangePwd;
 import com.webtap.service.OrganizationService;
+import com.webtap.service.UserRoleService;
 import com.webtap.service.UserService;
 import com.webtap.utils.DateUtils;
 import com.webtap.web.BaseController;
@@ -83,17 +86,17 @@ public class AuthorsController extends BaseController{
 
         try {
             User registUser = userService.getUserByEmail(user.getEmail());
-            if (null != registUser) {
+            if (null != registUser&&user.getId()==null) {
                 return result(ExceptionMsg.EmailUsed);
             }
             User userNameUser = userService.getUserByUserName(user.getUserName());
-            if (null != userNameUser) {
+            if (null != userNameUser&&user.getId()==null) {
                 return result(ExceptionMsg.UserNameUsed);
             }
 
-            if(user.getPassWord()!=null){
-                user.setPassWord(getPwd(user.getPassWord()));
-            }
+//            if(user.getPassWord()!=null){
+//                user.setPassWord(getPwd(user.getPassWord()));
+//            }
 
             if(user.getOrgId()==null){
                 user.setOrgId(currentUser.getOrgId());

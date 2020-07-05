@@ -2,17 +2,22 @@ package com.webtap.service.impl;
 
 import com.webtap.domain.entity.Role;
 import com.webtap.domain.entity.User;
+import com.webtap.domain.entity.UserRole;
 import com.webtap.repository.RoleRepository;
 import com.webtap.repository.UserRepository;
 import com.webtap.repository.UserRoleRepository;
+import com.webtap.service.UserRoleService;
 import com.webtap.service.UserService;
+import com.webtap.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +31,15 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private UserRoleRepository userRoleRepository;
+    private UserRoleService userRoleService;
 
     @Resource
     private JavaMailSender mailSender;
 
     public User getUser(Long id){
-        return userRepository.findById(id);
+        User user = userRepository.findById(id);
+        user.setRoleList(roleRepository.findRolesByUserId(id));
+        return user;
     }
 
     @Override
@@ -52,11 +59,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user) {
-        userRepository.save(user);
+      User savedUser =  userRepository.save(user);
+      userRoleService.addUserRole(savedUser);
     }
 
     public void update(User user) {
         userRepository.save(user);
+        userRoleService.updateUserRole(user);
     }
 
     public void updatePwd(String password, String userName) {

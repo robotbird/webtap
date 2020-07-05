@@ -2,7 +2,6 @@ package com.webtap.repository;
 
 import javax.transaction.Transactional;
 
-import com.webtap.domain.view.UserVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findById(long  id);
 
-    @Query(value = "SELECT u.id,u.user_name,u.email,u.create_time,u.org_id,group_concat(r.description) as strRole \n" +
+    @Query(value = "SELECT u.id,u.user_name,u.email,u.create_time,u.org_id,r.description as strRole \n" +//group_concat(r.description)
             "FROM wt_users u \n" +
             "LEFT JOIN wt_user_role ur on u.id = ur.user_id \n" +
             "LEFT JOIN wt_roles r on r.id = ur.role_id \n" +
