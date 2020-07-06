@@ -1,11 +1,15 @@
 var SnippetLogin = function() {
+
+
+
     var e = $("#m_login"),
+
         i = function(e, i, a) {
-            var t = $('<div class="m-alert m-alert--outline alert alert-' + i + ' alert-dismissible" role="alert">\t\t\t<button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>\t\t\t<span></span>\t\t</div>');
-            e.find(".alert").remove(),
-                t.prependTo(e),
-                t.animateClass("fadeIn animated"),
-                t.find("span").html(a)
+            var t = $('<div class="m-alert m-alert--outline alert alert-' + i + ' alert-dismissible" role="alert">\t\t\t<button type="button" onclick="$(this).parent().hide()" class="close" data-dismiss="alert" aria-label="Close"></button>\t\t\t<span></span>\t\t</div>');
+            e.find(".alert").remove();
+                t.prependTo(e);
+              //  t.animateClass("fadeIn animated"),
+                t.find("span").html(a);
         },
         a = function() {
             e.removeClass("m-login--forget-password"),
@@ -49,10 +53,6 @@ var SnippetLogin = function() {
                     t = $(this).closest("form");
                 t.validate({
                     rules: {
-                        email: {
-                            required: !0,
-                            email: !0
-                        },
                         password: {
                             required: !0
                         }
@@ -65,14 +65,18 @@ var SnippetLogin = function() {
                     url: "user/login",
                     //success: function(e, r, n, l) {
                     success: function(result) {
+                        debugger;
                         if(result.rspCode=="000000"){
                             setTimeout(function () { location.href =  "/"; }, 1000);
                         }else {
-                            setTimeout(function() {
-                                    a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1),
-                                        i(t, "danger", "Incorrect username or password. Please try again.")
-                                },
-                                2e3)
+                            debugger;
+                            setTimeout(function() { i(t, "danger", "Incorrect username or password. Please try again.")}, 1000);
+                            a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1);
+                            // setTimeout(function() {
+                            //         a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1),
+                            //             i(t, "danger", "Incorrect username or password. Please try again.")
+                            //     },
+                            //     1000);
                         }
 
                     }
@@ -155,6 +159,7 @@ var SnippetLogin = function() {
         };
     return {
         init: function() {
+            aclose(),
             n(),
                 l(),
                 s(),
@@ -163,5 +168,5 @@ var SnippetLogin = function() {
     }
 } ();
 jQuery(document).ready(function() {
-    SnippetLogin.init()
+    SnippetLogin.init();
 });
