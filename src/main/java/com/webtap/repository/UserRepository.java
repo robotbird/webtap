@@ -25,8 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "FROM wt_users u \n" +
             "LEFT JOIN wt_user_role ur on u.id = ur.user_id \n" +
             "LEFT JOIN wt_roles r on r.id = ur.role_id \n" +
-            "WHERE u.org_id =:orgId " +
-            "GROUP BY u.id",nativeQuery = true)
+            "WHERE u.org_id =:orgId " ,nativeQuery = true)
     List<Object []> findObjectsByOrgId(@Param("orgId") Long orgId);
 
 
