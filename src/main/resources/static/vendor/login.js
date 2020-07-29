@@ -159,7 +159,6 @@ var SnippetLogin = function() {
         };
     return {
         init: function() {
-            aclose(),
             n(),
                 l(),
                 s(),
