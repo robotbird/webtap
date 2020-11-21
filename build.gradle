@@ -22,15 +22,16 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-   // mavenCentral()
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+
+    maven { url "https://maven.aliyun.com/repository/central" }
+    //mavenCentral()
 }
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.8.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE")
-    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+//    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
     compile("org.springframework.boot:spring-boot-devtools:1.5.8.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE")
@@ -43,6 +44,10 @@ dependencies {
     compile 'com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.3'
     compile 'com.github.pagehelper:pagehelper:5.1.2'
     compile 'commons-codec:commons-codec:1.11'
+    compile group: 'com.zsoltfabok', name: 'sqlite-dialect', version: '1.0'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3.2'
+
+
 
 }
 
