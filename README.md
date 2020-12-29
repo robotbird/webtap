@@ -48,7 +48,7 @@
 # 技术架构
 ## 技术栈
 - springboot
-- mysql5.7
+- sqlite
 - gradle
 - thymeleaf
 - vue2.0
@@ -62,12 +62,27 @@
 
 [https://gitee.com/robotbird/webtap](https://gitee.com/robotbird/webtap)
 
+## 插件管理接口说明
+
+- 显示所有插件信息 `GET`  http://127.0.0.1:8080/plugin
+- 上传插件jar包 `POST` http://127.0.0.1:8080/plugin/uploadInstallPluginJar `jarFile`
+- 根据插件id停止插件 `POST` http://127.0.0.1:8080/plugin/stop/{id}
+- 根据插件id启动插件 `POST` http://127.0.0.1:8080/plugin/start/{id}
+- 根据插件id卸载插件 `POST`  http://127.0.0.1:8080/plugin/uninstall/{id}
+- 根据插件路径安装插件。该插件jar必须在服务器上存在 `POST`  http://127.0.0.1:8080/plugin/installByPath `path` (注意: 该操作只适用于生产环境 )
+- 上传插件的配置文件 `POST`  http://127.0.0.1:8080/plugin/uploadPluginConfigFile `configFile` (注意: 该操作只适用于生产环境 )
+- 备份插件  `POST`  http://127.0.0.1:8080/plugin/back/{pluginId}   (注意: 该操作只适用于生产环境 )
+
+## 插件里的api调用路径
+
+调用路径为 {url}{port}/api/plugins/{pluginId}/{controller}
+
+例如：有个插件叫thymeleaf-demo-plugin，controller 路访问名称为 thy 则访问路径为
+
+http://127.0.0.1:8080/api/plugins/thymeleaf-demo-plugin/thy
 # 使用方法
-- 1、mysql 新建webtap数据库
-- 2、导入工程目录下doc/db/webtap.sql
-- 3、设置好application-dev.properties 里的数据库密码，默认root/root
-- 4、打个war包放到tomcat下即可运行，这地方没有用jar包的原因是考虑上传目录采用jar包不知道什么样的方式合适。
-- 5、登录管理员默认账号robotbird@qq.com，密码123456（暂时只支持邮箱登录）
+- java -jar webtap.jar 
+- 登录管理员默认账号robotbird@qq.com，密码123456（暂时只支持邮箱登录）
 
 # 在线体验
 体验地址：[http://webtap.cn/](http://webtap.cn/)

@@ -1,0 +1,11 @@
+<div th:fragment="fragSidebar" id="sider-bar" style="display: none">
+    <div class="bf-sidebar d-lg-block">
+        <div class="bf-settings-sidebar">
+            <ul class="bf-settings-sidebar-nav">
+                <li v-for="menu in menus">
+                    <a :href="menu.url">{{menu.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

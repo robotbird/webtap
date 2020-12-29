@@ -1,68 +1,7 @@
-buildscript {
-    repositories {
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        //mavenLocal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
-    }
-}
-apply plugin: 'war'
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'maven'
-apply plugin: 'idea'
-
-jar {
-    baseName = 'webtap'
-    version =  '1.0.0'
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-
-    maven { url "https://maven.aliyun.com/repository/central" }
-    //mavenCentral()
-}
-
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE")
-//    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    compile("org.springframework.boot:spring-boot-devtools:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-mail:1.5.8.RELEASE")
-    compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
-    compile 'org.springframework.boot:spring-boot-starter-tomcat'
-    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
-    compile 'com.alibaba:fastjson:1.2.61'
-    compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3'
-    compile 'com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.3'
-    compile 'com.github.pagehelper:pagehelper:5.1.2'
-    compile 'commons-codec:commons-codec:1.11'
-    compile group: 'com.zsoltfabok', name: 'sqlite-dialect', version: '1.0'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3.2'
-
-
-
-}
-
-bootRun {
-    
-    addResources = true
-}
-
-springBoot {
-  mainClass = "com.webtap.WebtapApplication"
-}
-
-
 
 allprojects {
+    
+    apply plugin: 'java'
 
     gradle.projectsEvaluated {
 
@@ -71,7 +10,12 @@ allprojects {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 
         }
-
     }
-
+    repositories {
+        maven { url "https://maven.aliyun.com/repository/central" }
+        mavenCentral()
+    }
 }
+
+
+

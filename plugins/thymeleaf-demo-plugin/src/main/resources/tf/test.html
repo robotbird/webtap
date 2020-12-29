@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>thymeleaf-demo-plugin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{~/static/thymeleaf-demo-plugin/css/all.css}">
+</head>
+<body class="error-404">
+<div id="doc_main">
+
+    <section class="bd clearfix">
+        <div class="module-error">
+            <div class="error-main clearfix">
+                <div class="label"></div>
+                <div class="info">
+                    <img th:src="@{~/static/thymeleaf-demo-plugin/image/image.png}">
+                    <h1 class="title" >hello. 显示插件静态资源正常</h1>
+
+                    uid:<br>
+                    <h1 class="uid" th:text="${uid}"></h1>
+
+                    name:<br>
+                    <h1 class="uid" th:text="${name}"></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body></html>

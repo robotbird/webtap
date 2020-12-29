@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Webtap </title>
+    <link th:href="@{${cdn}+'admin/css/bootstrap.min.css'}" rel="stylesheet">
+    <link href="/admin/css/fontawesome.min.css" rel="stylesheet">
+    <link th:href="@{${cdn}+'admin/css/styles.min.css'}" rel="stylesheet">
+    <style>
+        .dirty {
+            border-color: #5A5;
+            background: #EFE !important;
+        }
+        .dirty:focus {
+            outline-color: #8E8;
+        }
+        .error {
+            border-color: red;
+            background: #FDD !important;
+        }
+        .error:focus {
+            outline-color: #F99;
+        }
+        .val-error {
+            color: red;
+            padding-top: 5px;
+        }
+        [v-cloak] {
+            display: none;
+        }
+
+        #fileManager .item-img img {
+            width: auto;
+            min-height: 60px;
+            min-width: 60px;
+            max-width: 60px;
+            max-height: 60px;
+            position: absolute;
+            display: block;
+            transform: translate(-50%, -50%);
+        }
+
+        #fileManager .item-img {
+            position: relative;
+            height: 90px;
+            /* width: 90px; */
+            overflow: hidden;
+            display: block;
+            border: 1px solid #eee;
+            border-bottom: 0;
+            border-top-right-radius: .25rem;
+            border-top-left-radius: .25rem;
+            cursor: pointer;
+        }
+
+        .page-title{
+            font-size: 26px;
+            letter-spacing: -1px;
+            display: block;
+            color: rgb(102, 102, 102);
+            font-weight: 300;
+            font-family: 微软雅黑, sans-serif;
+            padding: 0px;
+            margin-left: 30px;
+            margin-top: 15px;
+            border-bottom: #CCCCCC;
+        }
+
+        .input-group-addon {
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #555;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: 0;
+        }
+
+
+        .bf-body .post-grid-item .item-link {
+            height: 150px;
+            background-size:auto;
+        }
+        .bf-body .bf-posts-grid .post-grid-col {
+            max-width: 180px;
+            padding-right: 10px;
+            padding-left:10px;
+            margin-bottom: 20px;
+        }
+
+        .post-grid-item .item-link::after {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to bottom, transparent 0%, #ece5e573 100%);
+        }
+        .icon {
+            width:100px;
+            height: 100px;
+            fill: currentColor;
+            overflow: hidden;
+            margin-left:30px;
+            margin-top:20px;
+        }
+
+        .add-app{
+            width: 90px;
+            background-color:#8b8b8b;
+            border-radius: 50%;
+            height: 90px;
+            text-align: center;
+            line-height: 90px;
+            color: #fff;
+            font-size:40px;
+            margin:0px auto;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="bf">
+    <ul class="bf-taskbar d-flex flex-lg-column">
+        <li class="taskbar-item">
+            <a class="taskbar-item-link" href="/admin/app/edit" title="添加应用">
+                <i class="taskbar-item-icon fas fa-plus"></i>
+            </a>
+        </li>
+        <li class="taskbar-item">
+            <a href="/admin/app/list" class="taskbar-item-link" title="应用列表">
+                <i class="taskbar-item-icon fas fa-align-left"></i>
+            </a>
+        </li>
+        <li class="taskbar-item">
+            <a href="/admin/settings/profile" class="taskbar-item-link" title="设置">
+                <i class="taskbar-item-icon fas fa-cog"></i>
+            </a>
+        </li>
+
+
+        <li class="taskbar-item ml-auto ml-lg-0 mt-lg-auto">
+            <a class="taskbar-item-link" href="/"  title="访问首页" target="_blank"><i class="taskbar-item-icon fas fa-globe"></i></a>
+        </li>
+        <li class="taskbar-item">
+            <a class="taskbar-item-link" href="/logout"  title="退出"><i class="taskbar-item-icon fas fa-sign-out-alt"></i></a>
+        </li>
+    </ul>
+
+
+    <div id="app" class="bf-main"  >
+        <div class="bf-sidebar d-lg-block">
+            <div class="bf-posts-form-search">
+                <input id="txtSearch" name="txtSearch"  v-on:keyup.13="filter(0)" class="form-control form-control-sm form-control-rounded" placeholder="search...">
+            </div>
+            <form id="frmPostFilter" class="bf-posts-filters">
+                <div class="filter-group">
+                    <div class="filter-group-title"><span>分类</span> <i class="fa fa-chevron-down d-block d-lg-none"></i></div>
+                    <ul class="filter-group-list">
+                        <li>
+                            <label class="custom-control custom-radio filters-label">
+                                <input class="custom-control-input" type="radio" name="category" checked v-on:click="filter(0)" >
+                                <span class="custom-control-label">所有</span>
+                            </label>
+
+                            <label class="custom-control custom-radio filters-label" v-for="cat in categories">
+                                <input class="custom-control-input" type="radio" name="category"   v-on:click="filter(cat.id)" >
+                                <span class="custom-control-label">{{cat.name}} ({{cat.appAmount>0?cat.appAmount:0}})</span>
+                            </label>
+
+
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div   class="bf-body">
+
+            <!-- Grid -->
+            <div class="bf-posts-grid d-flex" aria-label="posts">
+                <div v-for="app in appList" :key="app.id" class="post-grid-col">
+                    <div class="post-grid-item">
+                        <a class="item-link" :href="'/admin/app/edit?id=' + app.id">
+                            <img v-if="app.logoUrl!=null&&app.logoUrl.length>0" class="icon"  v-bind:src="app.logoUrl" :alt="app.title" />
+
+                            <ul v-if="app.logoUrl==null||app.logoUrl.length==0" style="height: 10px"></ul>
+                            <div v-if="app.logoUrl==null||app.logoUrl.length==0" class="add-app"> {{app.title.substring(0,1)}}</div>
+                        </a>
+                        <div class="item-info d-flex align-items-center">
+                            <span class="item-date mr-auto">{{app.title.length>5?app.title.substring(0,4):app.title}}</span>
+                            <a class="item-show ml-3" :href="app.url" target="_blank" data-tooltip="" title="" data-original-title=""><i class="fas fa-external-link-square-alt"></i></a>
+                            <a class="item-show ml-4" href="#" v-on:click="return remove(app.id)" data-tooltip="" title="" data-original-title="delete"><i class="fas fa-trash" style="color: #ff6666"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/Grid -->
+
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{${cdn}+'js/vue.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/axios.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/validators.min.js'}" ></script>
+<script th:src="@{${cdn}+'js/vuelidate.min.js'}" ></script>
+
+
+<script th:src="@{${cdn}+'admin/js/lib/jquery.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/toastr.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/popper.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/lib/bootstrap.min.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/app/app.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/app/dataService.js'}" ></script>
+<script th:src="@{${cdn}+'admin/js/app/notificationsController.js'}" ></script>
+<script>
+    var webRoot = '/';
+
+    var hostname = location.hostname;
+    var port = location.port;
+    if(port =="80" || port ==""){
+        webRoot ="http://"+ hostname+"/";
+    }else {
+        webRoot ="http://"+  hostname +":"+port+"/";
+    }
+
+    function isAdmin(){
+        return 'True' === 'True' ? true : false;
+    }
+    function getUrl(str) {
+        return webRoot + str;
+    }
+
+    $(function(){
+        var url = location.href;
+        var items = $(".taskbar-item");
+        var sidebar = $(".bf-settings-sidebar-nav li a");
+        $.each(items,function (i, item) {
+            var taskurl = $(item).find('a').attr('href');
+            if(url.indexOf(taskurl)>0){
+                $(item).addClass('active')
+            }else {
+                $(item).removeClass('active')
+            }
+        });
+        $.each(sidebar,function (i, a) {
+            var ahref = $(a).attr('href');
+            var css = url.indexOf(ahref)>0?"#5731b3":"#aaa";
+            $(a).css('color',css);
+        })
+    });
+
+
+    const bar = new Vue({
+        el: '#sider-bar',
+        data: {
+            menus:{}
+        },
+        methods: {
+            load: function () {
+                axios.get(webRoot + 'api/menu/list')
+                    .then(response => {
+                    this.menus = response.data;
+                $('#sider-bar').css('display', '');
+            }).catch(function (error) { toastr.error(error); });
+            }
+        },
+        beforeMount() {
+            this.load();
+        }
+    })
+</script>
+
+<script>
+    Vue.use(window.vuelidate.default);
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            appList: {},
+            categories:{}
+        },
+        methods: {
+            load: function () {
+                axios.get(webRoot + 'api/app/list')
+                    .then(response => {
+                    this.appList = response.data;
+                $('#app').css('display', '');
+            }).catch(function (error) { toastr.error(error); });
+            },
+            filter: function (id) {
+                id = (id == null)?0:id;
+                str = $("#txtSearch").val();
+                axios.get(webRoot + 'api/app/list?categoryId='+id+"&title="+str)
+                    .then(response => {
+                    this.appList = response.data;
+            }).catch(function (error) { toastr.error(error); });
+            },
+            load_cat: function () {
+                axios.get(webRoot + 'api/app/categories')
+                    .then(response => {
+                    this.categories = response.data;
+            }).catch(function (error) { toastr.error(error); });
+            },
+            remove: function(id){
+                var result = confirm("Please confirm removing this app");
+                if (result) {
+                    axios.delete(webRoot + 'api/apps/remove/' + id)
+                        .then(response => {
+                        toastr.success(response.data.rspMsg);
+                    this.load();
+                })
+                .catch(function (error) { toastr.error(error); });
+                }
+                return false;
+            }
+        },
+        beforeMount() {
+            this.load();
+            this.load_cat();
+        }
+    })
+</script>
+
+</body>
+</html>

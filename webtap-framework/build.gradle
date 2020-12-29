@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.0")
+    }
+}
+//apply plugin: 'java'
+//apply plugin: 'maven'
+//apply plugin: 'idea'
+
+jar {
+    baseName = 'webtap-framework'
+    version =  '1.0.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+
+    maven { url "https://maven.aliyun.com/repository/central" }
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.4.0'
+    compile  group: 'com.gitee.starblues', name: 'springboot-plugin-framework', version: '2.3-RELEASE'
+    compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-resources', version: '2.3-RELEASE'
+    compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-mybatis', version: '2.3-RELEASE'
+
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.10.5'
+    compile group: 'com.github.xiaoymin', name: 'swagger-bootstrap-ui', version: '1.9.6'
+    
+}

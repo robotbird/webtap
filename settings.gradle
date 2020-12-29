@@ -1,0 +1,7 @@
+rootProject.name = 'webtap'
+include 'webtap-framework'
+include 'webtap-web'
+include 'plugins'
+include 'plugins:thymeleaf-demo-plugin'
+findProject(':plugins:thymeleaf-demo-plugin')?.name = 'thymeleaf-demo-plugin'
+
