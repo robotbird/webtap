@@ -4,14 +4,17 @@ plugins {
 
 version '2.3.0'
 
+Properties properties = new Properties()
+properties.load(new FileInputStream("plugin.properties"))
 jar {
     manifest {
-        attributes("Plugin-Id": "thymeleaf-demo-plugin",
-                "Plugin-Class": "com.mybatis.plugin1.ExamplePlugin1",
-                "Plugin-Version":"2.3-RELEASE",
-                 "Plugin-Provider":"yepeng")
+        attributes("Plugin-Id": properties.getProperty("plugin.id"),
+                "Plugin-Class": properties.getProperty("plugin.class"),
+                "Plugin-Version":properties.getProperty("plugin.version"),
+                "Plugin-Provider":properties.getProperty("plugin.provider"))
     }
 }
+
 
 sourceCompatibility = 1.8
 
