@@ -4,8 +4,11 @@ plugins {
 
 version '2.3.0'
 
+
+def file = new File("plugin.properties")
+
 Properties properties = new Properties()
-properties.load(new FileInputStream("plugin.properties"))
+ properties.load(new FileInputStream(file))
 jar {
     manifest {
         attributes("Plugin-Id": properties.getProperty("plugin.id"),
