@@ -25,3 +25,7 @@ hs_err_pid*
 /.idea
 /build
 /out
+/webtap-web/out
+/plugins/thymeleaf-demo-plugin/build
+/webtap-framework/build
+/webtap-framework/out
