@@ -29,3 +29,4 @@ hs_err_pid*
 /plugins/thymeleaf-demo-plugin/build
 /webtap-framework/build
 /webtap-framework/out
+/webtap-web/out
