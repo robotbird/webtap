@@ -88,7 +88,7 @@ public class IndexController extends BaseController{
 
 	@RequestMapping(value = "/admin/app/list",method = RequestMethod.GET)
 	@LoggerManage(description = "应用管理")
-	public String apps(){return  "admin/app/list";}
+	public String apps(){return "admin/app/list";}
 
 	@RequestMapping(value = "/admin/app/edit",method = RequestMethod.GET)
 	@LoggerManage(description = "新增应用")

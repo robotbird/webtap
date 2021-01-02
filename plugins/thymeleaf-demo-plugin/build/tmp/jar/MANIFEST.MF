@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Plugin-Id: thymeleaf-demo-plugin
-Plugin-Provider: yepeng
+Plugin-Provider: StarBlues
 Plugin-Version: 2.3-RELEASE
 Plugin-Class: com.mybatis.plugin1.ExamplePlugin1
 
