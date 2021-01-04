@@ -7,14 +7,15 @@
         .plugin-nav {
             height: 26px;
             width: 95%;
-            border-bottom: 1px solid gray;
+            border-bottom: 1px solid #cccccc;
             margin:20px;
+            margin-top:50px;
         }
 
         .move{
             height: 4px;
-            width: 110px;
-            border-top: 4px solid red;/*只需要将上边显示出来*/
+            width: 80px;
+            border-top: 4px solid #573173;/*只需要将上边显示出来*/
             position: absolute;
             left: 0;
             top: 22px;
@@ -31,7 +32,7 @@
         }
 
         .plugin-nav  ul li {
-            width: 110px;
+            width: 80px;
             height: 26px;
             text-align: center;
             float: left;
@@ -42,29 +43,8 @@
             line-height: 26px;
         }
         .plugin-nav   ul a:hover{
-            color: red;
+            color: #573173;
         }
-
-
-        .plugin-nav   ul li:nth-child(1):hover~ .move{    /*li元素的父元素的第一个子元素，当鼠标停留其上时，move元素的left属性改变*/
-            left: 0px;
-        }
-        .plugin-nav   ul li:nth-child(2):hover~ .move{
-            left: 110px;
-        }
-        .plugin-nav   ul li:nth-child(3):hover~ .move{
-            left: 220px;
-        }
-        .plugin-nav   ul li:nth-child(4):hover~ .move{
-            left: 330px;
-        }
-        .plugin-nav   ul li:nth-child(5):hover~ .move{
-            left: 440px;
-        }
-        .plugin-nav   ul li:nth-child(6):hover~ .move{
-            left: 550px;
-        }
-
 
 
 
@@ -78,7 +58,7 @@
         <div id="app-body"   class="bf-body">
 
             <h3 class="page-title">插件管理</h3>
-            <button type="button"   class="btn btn-outline-primary btn-sm"  style="float: left; margin-left:150px;margin-top:-40px" >上传插件</button>
+            <button type="button"   class="btn btn-outline-primary btn-sm"  style="float: left; margin-left:150px;margin-top:-38px;height: 30px;line-height: 30px" >上传插件</button>
 
 
 
