@@ -53,7 +53,12 @@
             float: left;
             display: inline;
         }
-
+        .plugin-pic {float: left}
+        .plugin-text{width: 65%; float:left}
+        .plugin-name{display: block}
+        .plugin-description{display: block}
+        .plugin-from{ display: block}
+        .plugin-btn{float: right}
 
     </style>
 </head>
@@ -67,8 +72,6 @@
             <h3 class="page-title">插件管理</h3>
             <button type="button"   class="btn btn-outline-primary btn-sm"  style="float: left; margin-left:150px;margin-top:-38px;height: 30px;line-height: 30px" >上传插件</button>
 
-
-
             <div class="plugin-nav">
                 <ul>
                     <li>我的插件</li>
@@ -76,19 +79,53 @@
                     <li class="move"></li>
                 </ul>
             </div>
-
-
             <!-- Grid -->
             <div class="bf-posts-grid d-flex" aria-label="posts">
-                <div  class="plugin-list" >
-                    图片1
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="..." alt="...">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                                <p>...</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="..." alt="...">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                                <p>...</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
             <div class="bf-posts-grid d-flex" aria-label="posts">
                 <div  class="plugin-list" >
+                    <div class="plugin-pic"><img src="http://webtap.cn/upload/logo/photoshop.png"></div>
+                    <div class="plugin-text">
+                        <a class="plugin-name">插件名称</a>
+                        <span class="plugin-description">插件描述</span>
+                        <span class="plugin-from">来自 <a href="#">作者</a></span>
+                    </div>
+                   <div class="plugin-btn"><button class="btn btn-outline-primary btn-sm ">启用</button></div>
+                    <div style="clear: both"></div>
+                </div>
+
+
+                <div  class="plugin-list" >
                     图片2
                 </div>
+
+
             </div>
 
             <!--/Grid -->
