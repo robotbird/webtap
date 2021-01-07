@@ -9,16 +9,17 @@ def file = new File("plugin.properties")
 
 if (file.exists()){
     properties.load(new FileInputStream(file))
-}
-
-jar {
-    manifest {
-        attributes("Plugin-Id": properties.getProperty("plugin.id"),
-                "Plugin-Class": properties.getProperty("plugin.class"),
-                "Plugin-Version":properties.getProperty("plugin.version"),
-                "Plugin-Provider":properties.getProperty("plugin.provider"))
+    jar {
+        manifest {
+            attributes("Plugin-Id": properties.getProperty("plugin.id"),
+                    "Plugin-Class": properties.getProperty("plugin.class"),
+                    "Plugin-Version":properties.getProperty("plugin.version"),
+                    "Plugin-Provider":properties.getProperty("plugin.provider"))
+        }
     }
 }
+
+
 
 
 sourceCompatibility = 1.8
