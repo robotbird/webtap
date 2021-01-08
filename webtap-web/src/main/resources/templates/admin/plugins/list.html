@@ -102,7 +102,35 @@
             <!-- Grid -->
 
 
-            <div  aria-label="posts">
+            <div id="tb-installed" style="display: none">
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Firstname</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Anna</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Debbie</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>John</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div  id="tb-plugins" style="display: none">
+
+
                 <div  class="plugin-list" >
                     <div class="plugin-pic"><img src="http://webtap.cn/upload/logo/photoshop.png"></div>
                     <div class="plugin-text">
@@ -123,15 +151,12 @@
 
             <!--/Grid -->
 
-            <!-- Modal Category -->
-            <div th:replace="admin/fragment/categoryMd::catFragment"></div>
+
 
         </div>
     </div>
 
-    <!-- fragment begin-->
-    <div th:replace="admin/fragment/files :: filesFragment"></div>
-    <!-- fragment end-->
+
 
 </div>
 
@@ -145,6 +170,7 @@
         const app = new Vue({
             el: '#app-body',
             id:0,
+            t: 'installed',
             data: {
                 category:{editType:"新增"},
                 categories:{},
@@ -220,10 +246,25 @@
                 if (fromQueryString('id')) {
                     this.id = fromQueryString('id');
                 }
-                this.load();
+
+                //this.load();
             }
         })
 
+        var t;
+        if(fromQueryString('t')){
+            t = fromQueryString('t')
+            if(t =='installed'){
+                $('#tb-installed').show();
+                $('#tb-plugins').hide()
+            }else {
+                $('#tb-installed').hide();
+                $('#tb-plugins').show()
+            }
+        }else {
+            $('#tb-installed').show();
+            $('#tb-plugins').hide()
+        }
 
     </script>
 
