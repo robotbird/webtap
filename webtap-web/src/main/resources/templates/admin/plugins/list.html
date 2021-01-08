@@ -49,15 +49,35 @@
         .plugin-list{
             border: 1px solid #cccccc;
             width: 40%;
-            height: 100px;
+            /* height: 100px; */
             float: left;
             display: inline;
+            padding: 10px;
+            margin: 10px;
+            margin-left:20px;
+            height: 120px;
+            border-radius: 4px;
         }
-        .plugin-pic {float: left}
-        .plugin-text{width: 65%; float:left}
-        .plugin-name{display: block}
-        .plugin-description{display: block}
-        .plugin-from{ display: block}
+        .plugin-pic {
+            float: left;
+        }
+        .plugin-text{
+            width: 65%;
+            float: left;
+            padding-left: 10px;
+        }
+        .plugin-name{
+            display: block;
+            font-size: 16px;
+            color: #007bff;
+        }
+        .plugin-description{
+            display: block;
+            padding-top: 10px;
+        }
+        .plugin-from{
+            display: block;
+            padding-top: 10px;}
         .plugin-btn{float: right}
 
     </style>
@@ -80,35 +100,9 @@
                 </ul>
             </div>
             <!-- Grid -->
-            <div class="bf-posts-grid d-flex" aria-label="posts">
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="..." alt="...">
-                            <div class="caption">
-                                <h3>Thumbnail label</h3>
-                                <p>...</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="..." alt="...">
-                            <div class="caption">
-                                <h3>Thumbnail label</h3>
-                                <p>...</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                            </div>
-                        </div>
-                    </div>
 
 
-                </div>
-            </div>
-
-            <div class="bf-posts-grid d-flex" aria-label="posts">
+            <div  aria-label="posts">
                 <div  class="plugin-list" >
                     <div class="plugin-pic"><img src="http://webtap.cn/upload/logo/photoshop.png"></div>
                     <div class="plugin-text">
@@ -116,10 +110,9 @@
                         <span class="plugin-description">插件描述</span>
                         <span class="plugin-from">来自 <a href="#">作者</a></span>
                     </div>
-                   <div class="plugin-btn"><button class="btn btn-outline-primary btn-sm ">启用</button></div>
+                   <div class="plugin-btn"><button class="btn btn-outline-primary btn-sm " style="height: 30px;line-height: 30px">启用</button></div>
                     <div style="clear: both"></div>
                 </div>
-
 
                 <div  class="plugin-list" >
                     图片2
