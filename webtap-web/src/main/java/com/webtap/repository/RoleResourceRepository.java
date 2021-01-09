@@ -12,5 +12,5 @@ public interface RoleResourceRepository extends JpaRepository<RoleResource, Long
 
 
     @Query("delete from RoleResource where id=:id")
-    void delete(Long id);
+    void delete(@Param("id") Long id);
 }

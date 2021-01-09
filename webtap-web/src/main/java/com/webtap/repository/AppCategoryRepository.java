@@ -20,5 +20,5 @@ public interface AppCategoryRepository extends JpaRepository<AppCategory, Long> 
     void deleteAllByOrgId(Long orgId);
 
     @Query("delete from AppCategory  where id=:id")
-    void delete(Long id);
+    void delete(@Param("id") Long id);
 }

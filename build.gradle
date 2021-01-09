@@ -1,4 +1,31 @@
 
+
+plugins{
+    id  'java'
+    id  'application'
+}
+
+dependencies {
+    compile project(":webtap-web")
+    compile project(":webtap-framework")
+
+}
+
+// 说明各模块的代码目录
+sourceSets {
+    main {
+        java {
+            srcDirs = ['webtap-framework/src/main/java','webtap-web/src/main/java']
+        }
+    }
+}
+jar {
+    manifest {
+        // 打包时指定入口
+        attributes 'Main-Class': 'com.webtap.WebtapApplication'
+    }
+}
+
 allprojects {
     
     apply plugin: 'java'

@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
     @Query("delete from User  where id=:id")
-    void delete(Long id);
+    void delete(@Param("id") Long id);
 
     @Query(value = "SELECT u.id,u.user_name,u.email,u.create_time,u.org_id,r.description as strRole \n" +//group_concat(r.description)
             "FROM wt_users u \n" +

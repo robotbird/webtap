@@ -96,6 +96,8 @@
         .red {background-color: red;}
         .green{background-color: green}
 
+        .plugin-upload{float: left; margin-left:150px;margin-top:-38px;height: 30px;line-height: 30px}
+
     </style>
 </head>
 
@@ -106,7 +108,7 @@
         <div id="app-body"   class="bf-body">
 
             <h3 class="page-title">插件管理</h3>
-            <button type="button"   class="btn btn-outline-primary btn-sm"  style="float: left; margin-left:150px;margin-top:-38px;height: 30px;line-height: 30px" >上传插件</button>
+            <button type="button"   class="btn btn-outline-primary btn-sm plugin-upload"  v-on:click="open_upload()" >上传插件</button>
 
             <div class="plugin-nav">
                 <ul>
@@ -127,32 +129,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>webtap-redis-plugin<div class="circle red"></div> </td>
+                    <tr v-for="plg in plugins">
+                        <td>{{plg.pluginDescriptor.pluginId}}
+                            <span v-if="plg.pluginState=='STOPPED'" class="label label-danger">停用</span>
+                            <span v-if="plg.pluginState=='STARTED'" class="label label-success">启用</span>
+                        </td>
                         <td>
-                            <span style="color: #7F7F7F">轻量级 redis管理工具，直接通过web管理redis数据</span>
-                            <br> V3.0.1版本 来自 <a href="">robotbird</a>
+                            <span style="color: #7F7F7F">{{plg.pluginDescriptor.pluginDescription.length==0?'暂无描述':plg.pluginDescriptor.pluginDescription}}</span>
+                            <br> {{plg.pluginDescriptor.version}}版本 来自 <a href="">{{plg.pluginDescriptor.provider}}</a>
                         </td>
                         <td style="text-align: center">
-                            <a href="">启用</a>
-                            <a href="">卸载</a>
+                            <a  v-if="plg.pluginState=='STOPPED'" href="#" v-on:click="start(plg.pluginDescriptor.pluginId)">启用</a>
+                            <a  v-if="plg.pluginState=='STARTED'" href="#" v-on:click="stop(plg.pluginDescriptor.pluginId)">停用</a>
+                            <a   href="#" v-on:click="uninstall(plg.pluginDescriptor.pluginId)">卸载</a>
                             <a href="">设置</a>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>sqlite-plugin<div class="circle green"></div> </td>
-                        <td>
-                            <span style="color: #7F7F7F">sqlite在线管理工具，通过web可以直接管理sqlite数据库</span>
-                            <br> v1.0.1版本 来自 <a href="">robotbird</a>
-                        </td>
-                        <td style="text-align: center">
-                            <a href="">停用</a>
-                            <a href="">卸载</a>
-                            <a href="">设置</a>
-                        </td>
-                    </tr>
-
 
                     </tbody>
                 </table>
@@ -182,6 +174,33 @@
 
             <!--/Grid -->
 
+
+            <div class="modal fade" id="modal-upload" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="hdrSettings">上传插件</h4>
+                            <button type="button" class="close ml-2" title="Close" data-placement="bottom" data-tooltip data-dismiss="modal" aria-label="close">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="settings-body">
+                                <form method="post" name="frmUpload" id="frmUpload" enctype="multipart/form-data">
+                                    <div class="bf-content bf-content-boxed bf-settings">
+
+                                        <div class="form-group">
+                                            <input type="file" name="jarFile" id="jarFile" multiple   />
+                                        </div>
+
+                                        <button type="button"  class="btn btn-primary" v-on:click="upload()">现在安装</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -215,59 +234,57 @@
                         this.plugins = response.data;
                 }).catch(function (error) { toastr.error(error); });
                 },
-                save: function () {
-                    var posturl =webRoot + 'api/apps/save' ;
-
-                    var logoUrl =  $("#app-logoUrl").val();
-                    if(logoUrl!=""){
-                        if(logoUrl.indexOf('/')>0&&logoUrl.indexOf("http")<0){
-                            logoUrl =  webRoot + $("#app-logoUrl").val();
+                open_upload:function(){
+                    $("#modal-upload").modal();
+                },
+                upload:function(){
+                    var formData = new FormData($('#frmUpload')[0]);
+                    axios({
+                        method: 'post',
+                        url: webRoot +'plugin/uploadInstallPluginJar',
+                        data:formData,
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
                         }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                        })
+                },
+                stop: function(id){
+                        axios.post(webRoot + 'plugin/stop/' + id)
+                            .then(response => {
+                            toastr.success("插件已停用");
+                        this.load();
+                    })
+                    .catch(function (error) { toastr.error(error); });
+                    return false;
+                },
+                start: function(id){
+                        axios.post(webRoot + 'plugin/start/' + id)
+                            .then(response => {
+                            toastr.success("插件已启用");
+                        this.load();
+                    })
+                    .catch(function (error) { toastr.error(error); });
+
+                    return false;
+                },
+                uninstall: function(id){
+                    var result = confirm("请确认是否卸载插件");
+                    if (result) {
+                        axios.post(webRoot + 'plugin/uninstall/' + id)
+                            .then(response => {
+                            toastr.success('插件已卸载');
+                        this.load();
+                    })
+                    .catch(function (error) { toastr.error(error); });
                     }
-                    this.appdata.logoUrl = logoUrl;
-                    var app = this.appdata;
-                    app.passwordRequired = app.passwordRequired?"1":"0";
-                    axios.post(posturl, app)
-                        .then(function (response) {
-                            if(response.data.rspCode!="000000"){
-                                toastr.error(response.data.rspCode+" "+response.data.rspMsg);
-                            }else {
-                                toastr.success(response.data.rspMsg);
-                                setTimeout(function () { location.href = webRoot +"admin/app/list"; }, 1000);
-                            }
-                        })
-                        .catch(function (error) {
-                            toastr.error(error);
-                        });
-                },
-                saveCategory:function(){
-                    var posturl =webRoot + 'api/category/save' ;
-                    var cat = this.category;
-                    axios.post(posturl, cat)
-                        .then(function (response) {
-                            var _cat = response.data;
-                            app.$data.categories.push(_cat);
-                            app.$data.appdata.categoryId = _cat.id;
-                            $("#modal-category").modal("hide");
-                        })
-                        .catch(function (error) {
-                            toastr.error(error);
-                        });
-                },
-                addCat:function(){
-                    this.category = {editType:"新增"};
-                    $("#modal-category").modal();
-                },
-                openFile:function () {
-                    fileManagerController.open(insertAppLogoCallback);
+                    return false;
                 }
             },
             beforeMount() {
-                if (fromQueryString('id')) {
-                    this.id = fromQueryString('id');
-                }
-
-                //this.load();
+                this.load();
             }
         })
 

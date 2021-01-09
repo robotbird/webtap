@@ -16,5 +16,5 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
 
     @Query("delete from UserRole where id=:id")
-    void delete(Long Id);
+    void delete(@Param("id") Long id);
 }

@@ -37,5 +37,5 @@ public interface AppRepository extends JpaRepository<App, Long> {
     void deleteAllByOrgId(Long orgId);
 
 	@Query("delete from App where id=:id")
-    void delete(Long id);
+    void delete(@Param("id") Long id);
 }

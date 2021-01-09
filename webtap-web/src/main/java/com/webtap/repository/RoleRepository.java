@@ -12,7 +12,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
 
     @Query("delete from Role  where id=:id")
-    void delete(Long id);
+    void delete(@Param("id") Long id);
     @Query(" SELECT r.id,  r.name, r.description,  13 AS selected " +
             "FROM  Role r  WHERE r.available = 1")
     List<Role> queryRoleListWithSelected();

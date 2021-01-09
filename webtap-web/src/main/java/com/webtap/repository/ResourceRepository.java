@@ -10,7 +10,7 @@ import java.util.List;
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
 
     @Query("delete from Resource where id=:id")
-    void  delete(Long Id);
+    void  delete(@Param("id") Long id);
 
     @Query("         SELECT" +
             "            re.id," +
