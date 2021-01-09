@@ -12,18 +12,6 @@
             margin-top:50px;
         }
 
-        .move{
-            height: 4px;
-            width: 80px;
-            border-top: 4px solid #573173;/*只需要将上边显示出来*/
-            position: absolute;
-            left: 0;
-            top: 22px;
-            transition: left .2s ease-in-out 0s;/*包含四个过度属性：执行变换属性、执行时间、速率、延迟*/
-            -webkit-transition: left .2s ease-in-out 0s;/*chrome和safari*/
-            -moz-transition: left .2s ease-in-out 0s;/*firefox*/
-            -o-transition: left .2s ease-in-out 0s;/*opera*/
-        }
         .plugin-nav ul {
             list-style-type: none;
             padding: 0px;
@@ -36,6 +24,10 @@
             height: 26px;
             text-align: center;
             float: left;
+        }
+
+        .current{
+            border-bottom: 4px solid #573173;
         }
         .plugin-nav  ul li a {
             color: #848789;
@@ -80,6 +72,30 @@
             padding-top: 10px;}
         .plugin-btn{float: right}
 
+        #tb-installed{
+            margin-left: 20px;
+            width: 95%;
+        }
+
+        #tb-installed .table thead{
+            background-color: #F2F2F2;
+            border: none;
+        }
+
+        #tb-installed .table tr,#tb-installed .table td,#tb-installed .table th,#tb-installed .table thead th{
+            border: none;
+        }
+        .circle{
+            border-radius: 5px;
+            height: 10px;
+            width: 10px;
+            float: left;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        .red {background-color: red;}
+        .green{background-color: green}
+
     </style>
 </head>
 
@@ -94,9 +110,8 @@
 
             <div class="plugin-nav">
                 <ul>
-                    <li>我的插件</li>
+                    <li class="current">我的插件</li>
                     <li>推荐插件</li>
-                    <li class="move"></li>
                 </ul>
             </div>
             <!-- Grid -->
@@ -106,23 +121,39 @@
                 <table class="table" >
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Firstname</th>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th style="text-align: center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Anna</td>
+                        <td>webtap-redis-plugin<div class="circle red"></div> </td>
+                        <td>
+                            <span style="color: #7F7F7F">轻量级 redis管理工具，直接通过web管理redis数据</span>
+                            <br> V3.0.1版本 来自 <a href="">robotbird</a>
+                        </td>
+                        <td style="text-align: center">
+                            <a href="">启用</a>
+                            <a href="">卸载</a>
+                            <a href="">设置</a>
+                        </td>
                     </tr>
+
                     <tr>
-                        <td>2</td>
-                        <td>Debbie</td>
+                        <td>sqlite-plugin<div class="circle green"></div> </td>
+                        <td>
+                            <span style="color: #7F7F7F">sqlite在线管理工具，通过web可以直接管理sqlite数据库</span>
+                            <br> v1.0.1版本 来自 <a href="">robotbird</a>
+                        </td>
+                        <td style="text-align: center">
+                            <a href="">停用</a>
+                            <a href="">卸载</a>
+                            <a href="">设置</a>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>John</td>
-                    </tr>
+
+
                     </tbody>
                 </table>
 
@@ -139,7 +170,7 @@
                         <span class="plugin-from">来自 <a href="#">作者</a></span>
                     </div>
                    <div class="plugin-btn"><button class="btn btn-outline-primary btn-sm " style="height: 30px;line-height: 30px">启用</button></div>
-                    <div style="clear: both"></div>
+
                 </div>
 
                 <div  class="plugin-list" >
@@ -170,30 +201,19 @@
         const app = new Vue({
             el: '#app-body',
             id:0,
-            t: 'installed',
             data: {
                 category:{editType:"新增"},
-                categories:{},
+                plugins:{},
                 appdata:{}
             },
 
             methods: {
                 load: function () {
 
-                    axios.get(webRoot + 'api/app/categories')
+                    axios.get(webRoot + 'plugin')
                         .then(response => {
-                        this.categories = response.data;
+                        this.plugins = response.data;
                 }).catch(function (error) { toastr.error(error); });
-
-                    if(this.id>0){
-                        axios.get(webRoot + 'api/app/'+this.id)
-                            .then(response => {
-                            this.appdata = response.data;
-                        $("#app-logoUrl").val(this.appdata.logoUrl);
-                    }).catch(function (error) { toastr.error(error); });
-                    }else {
-                        this.appdata.viewPermission =2;
-                    }
                 },
                 save: function () {
                     var posturl =webRoot + 'api/apps/save' ;
