@@ -36,8 +36,30 @@ public class QuartzJobManager implements PluginListener {
     }
 
 
+//    @Override
+//    public void registry(String pluginId) {
+//        List<QuartzJob> quartzJobs = pluginApplication.getPluginUser().getPluginBeans(pluginId, QuartzJob.class);
+//        if(quartzJobs == null || quartzJobs.isEmpty()){
+//            return;
+//        }
+//        for (QuartzJob quartzJob : quartzJobs) {
+//            try {
+//                if(startJob(quartzJob)){
+//                    List<QuartzJob> quartzJobsList = startJobMap.get(pluginId);
+//                    if(quartzJobsList == null){
+//                        quartzJobsList = new ArrayList<>();
+//                        startJobMap.put(pluginId, quartzJobsList);
+//                    }
+//                    quartzJobsList.add(quartzJob);
+//                }
+//            } catch (SchedulerException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
     @Override
-    public void registry(String pluginId) {
+    public void registry(String pluginId, boolean b) {
         List<QuartzJob> quartzJobs = pluginApplication.getPluginUser().getPluginBeans(pluginId, QuartzJob.class);
         if(quartzJobs == null || quartzJobs.isEmpty()){
             return;

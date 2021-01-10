@@ -5,13 +5,12 @@ import com.gitee.starblues.integration.listener.PluginListener;
 import com.gitee.starblues.integration.user.PluginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 
 /**
  * 插件监听者
  *
- * @author zhangzhuo
+ * @author starBlues
  * @version 1.0
  */
 public class ExamplePluginListener implements PluginListener {
@@ -25,9 +24,14 @@ public class ExamplePluginListener implements PluginListener {
     }
 
 
+//    @Override
+//    public void registry(String pluginId) {
+//        logger.info("Listener: registry pluginId {}", pluginId);
+//    }
+
     @Override
-    public void registry(String pluginId) {
-        logger.info("Listener: registry pluginId {}", pluginId);
+    public void registry(String s, boolean b) {
+
     }
 
     @Override

@@ -27,8 +27,10 @@ repositories {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.4.0'
-    compile  group: 'com.gitee.starblues', name: 'springboot-plugin-framework', version: '2.3-RELEASE'
-    compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-resources', version: '2.3-RELEASE'
+//    compile  group: 'com.gitee.starblues', name: 'springboot-plugin-framework', version: '2.3-RELEASE'
+      compile files('lib/springboot-plugin-framework-2.3.1-RELEASE.jar')
+//    compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-resources', version: '2.3-RELEASE'
+    compile files('lib/springboot-plugin-framework-extension-resources-2.3.1-RELEASE.jar')
     compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-mybatis', version: '2.3-RELEASE'
 
     compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.2'

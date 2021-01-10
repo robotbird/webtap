@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * 插件集成配置
  *
- * @author zhangzhuo
+ * @author starBlues
  * @version 1.0
  */
 @Component
@@ -76,7 +76,7 @@ public class PluginConfiguration extends DefaultIntegrationConfiguration {
      * @return String
      */
     @Override
-    public String pluginRestControllerPathPrefix() {
+    public String pluginRestPathPrefix() {
         return "/api/plugins";
     }
 
@@ -86,13 +86,14 @@ public class PluginConfiguration extends DefaultIntegrationConfiguration {
      * @return String
      */
     @Override
-    public boolean enablePluginIdRestControllerPathPrefix() {
+    public boolean enablePluginIdRestPathPrefix() {
         return true;
     }
 
-
-
-
+    @Override
+    public boolean enable() {
+        return true;
+    }
 
     public String getRunMode() {
         return runMode;
@@ -118,6 +119,8 @@ public class PluginConfiguration extends DefaultIntegrationConfiguration {
     public void setPluginConfigFilePath(String pluginConfigFilePath) {
         this.pluginConfigFilePath = pluginConfigFilePath;
     }
+
+
 
     @Override
     public String toString() {

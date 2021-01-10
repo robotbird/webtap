@@ -131,8 +131,8 @@
                     <tbody>
                     <tr v-for="plg in plugins">
                         <td>{{plg.pluginDescriptor.pluginId}}
-                            <span v-if="plg.pluginState=='STOPPED'" class="label label-danger">停用</span>
-                            <span v-if="plg.pluginState=='STARTED'" class="label label-success">启用</span>
+                            <div  v-if="plg.pluginState=='STOPPED'" class="circle red"></div>
+                            <div  v-if="plg.pluginState=='STARTED'" class="circle green"></div>
                         </td>
                         <td>
                             <span style="color: #7F7F7F">{{plg.pluginDescriptor.pluginDescription.length==0?'暂无描述':plg.pluginDescriptor.pluginDescription}}</span>
@@ -246,10 +246,11 @@
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
-                    })
-                        .then(function (res) {
-                            console.log(res)
-                        })
+                    }).then(response => {
+                            $("#modal-upload").modal('hide');
+                            toastr.success("插件上传并启用成功");
+                            this.load();
+                        }).catch(function (error) { toastr.error(error); });
                 },
                 stop: function(id){
                         axios.post(webRoot + 'plugin/stop/' + id)
