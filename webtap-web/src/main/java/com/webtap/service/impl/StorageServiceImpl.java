@@ -49,8 +49,14 @@ public class StorageServiceImpl implements StorageService {
        String path = webUpload;
        String classpath = StorageServiceImpl.class.getClassLoader().getResource("").getPath();
 
-       logger.info("classpath================="+classpath);
        if(classpath.indexOf(".jar")>0){
+           logger.info("53 classpath================="+classpath);
+           int firstIndex = classpath.lastIndexOf(":") + 1;
+           classpath = classpath.substring(0,classpath.lastIndexOf(".jar"));
+           int lastIndex = classpath.lastIndexOf(File.separator) + 1;
+           path = classpath.substring(firstIndex,lastIndex);
+           logger.info("58 path====="+path);
+
            return path;
        }else {
            try {

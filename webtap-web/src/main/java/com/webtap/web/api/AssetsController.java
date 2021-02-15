@@ -73,6 +73,10 @@ public class AssetsController extends BaseController{
 	public ResponseData fileUpload(HttpServletRequest request) {
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
 		MultipartFile file = null;
+
+		if(files.size()==0){
+			return new ResponseData("文件不存在");
+		}
 		for (int i = 0; i < files.size(); ++i) {
 			file = files.get(i);
 			if (!file.isEmpty()) {

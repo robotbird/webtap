@@ -121,8 +121,8 @@ CREATE TABLE `wt_resources`  (
   `external` tinyint(1) UNSIGNED NULL DEFAULT NULL COMMENT '是否外部链接',
   `available` tinyint(1) UNSIGNED NULL DEFAULT 0,
   `icon` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` bigint(255) NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` bigint(255) NULL DEFAULT NULL COMMENT '更新时间',
   `org_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -140,8 +140,8 @@ CREATE TABLE `wt_role_resource`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) UNSIGNED NOT NULL,
   `resources_id` bigint(20) UNSIGNED NOT NULL,
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` bigint(255) NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` bigint(255) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -154,8 +154,8 @@ CREATE TABLE `wt_roles`  (
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名',
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `available` tinyint(1) NULL DEFAULT 0,
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` bigint(255) NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` bigint(255) NULL DEFAULT NULL COMMENT '更新时间',
   `org_id` bigint(20) NULL DEFAULT NULL,
   `sys_role` tinyblob NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -169,8 +169,8 @@ CREATE TABLE `wt_user_role`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` bigint(255) NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` bigint(255) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

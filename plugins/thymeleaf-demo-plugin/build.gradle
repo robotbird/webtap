@@ -52,4 +52,9 @@ dependencies {
     compile group: 'com.zsoltfabok', name: 'sqlite-dialect', version: '1.0'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3.2'
     compile group: 'com.github.xiaoymin', name: 'swagger-bootstrap-ui', version: '1.9.6'
+
+    compile  group: 'com.gitee.starblues', name: 'springboot-plugin-framework', version: '2.4.1-RELEASE'
+    compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-resources', version: '2.4.1-RELEASE'
+    compile group: 'com.gitee.starblues', name: 'springboot-plugin-framework-extension-mybatis', version: '2.4.1-RELEASE'
+
 }
