@@ -2,6 +2,7 @@ package com.webtap.repository;
 
 import com.webtap.domain.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -10,7 +11,8 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-
+    @Modifying
+    @Transactional
     @Query("delete from Role  where id=:id")
     void delete(@Param("id") Long id);
     @Query(" SELECT r.id,  r.name, r.description,  13 AS selected " +
