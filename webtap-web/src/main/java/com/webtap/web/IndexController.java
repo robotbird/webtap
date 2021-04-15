@@ -26,6 +26,8 @@ public class IndexController extends BaseController{
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	@LoggerManage(description="首页")
 	public String index(Model model){
+
+		//return  "theme/test";
 		return "index";
 	}
 
